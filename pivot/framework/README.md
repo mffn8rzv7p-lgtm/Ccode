@@ -45,3 +45,7 @@ Si tienes dudas de quién hace qué, mira [01-forma-de-trabajo.md](01-forma-de-t
 ```
 python3 -I pivot/framework/validar.py
 ```
+
+## Versión en PDF
+
+`Framework_Pivot.pdf` reúne todo el framework con el estilo gráfico de Pivot (los mismos colores, tipografías y logo de la web). Si cambias algún documento, pide a Claude que vuelva a generar el PDF; la plantilla y el programa que lo arma están en la carpeta `pdf/`.

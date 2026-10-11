@@ -1,0 +1,221 @@
+/* ===== Pivot · plantilla de documentos PDF =====
+   Mismo estilo de la web de Pivot: crema, tinta, rojo P!VOT,
+   Bricolage Grotesque (títulos), DM Sans (texto) y Space Mono (etiquetas). */
+:root {
+  --red: #E63915;
+  --red-deep: #B82A0C;
+  --ink: #121010;
+  --ink-2: #1D1A19;
+  --cream: #F5F0E8;
+  --cream-2: #EBE4D8;
+  --stone: #8A847C;
+  --f-display: 'Bricolage Grotesque', 'Arial Black', sans-serif;
+  --f-body: 'DM Sans', Arial, sans-serif;
+  --f-mono: 'Space Mono', 'DejaVu Sans Mono', monospace;
+}
+
+@page {
+  size: A4;
+  margin: 20mm 18mm 22mm;
+  background: #F5F0E8;
+  @bottom-left {
+    content: "P!VOT  ·  Framework de trabajo";
+    font-family: 'Space Mono', monospace; font-size: 7.5pt; letter-spacing: .08em;
+    color: #8A847C; text-transform: uppercase;
+  }
+  @bottom-right {
+    content: counter(page, decimal-leading-zero);
+    font-family: 'Space Mono', monospace; font-size: 8pt; font-weight: 700; color: #E63915;
+  }
+}
+@page completa { margin: 0; background: transparent; @bottom-left { content: none; } @bottom-right { content: none; } }
+
+html { background: var(--cream); }
+body {
+  margin: 0; color: var(--ink); font-family: var(--f-body);
+  font-size: 10pt; line-height: 1.5;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+
+/* ---------- Páginas completas (portada, separadores, contraportada) ---------- */
+.completa {
+  page: completa; break-after: page; position: relative; overflow: hidden;
+  width: 210mm; height: 297mm; box-sizing: border-box; padding: 22mm 20mm;
+}
+.etiqueta {
+  font-family: var(--f-mono); font-size: 8pt; letter-spacing: .12em; text-transform: uppercase;
+}
+.etiqueta::before {
+  content: ''; display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--red); margin-right: 8px; vertical-align: 1px;
+}
+
+.portada { background: var(--cream); }
+.portada .logo { width: 46mm; }
+.portada .etiqueta { margin-top: 30mm; color: var(--ink); }
+.portada h1 {
+  font-family: var(--f-display); font-weight: 800; font-size: 60pt; line-height: .93;
+  letter-spacing: -.035em; margin: 6mm 0 0;
+}
+.portada h1 .rojo, .rojo { color: var(--red); }
+.portada .bajada { font-size: 13pt; max-width: 125mm; margin-top: 8mm; line-height: 1.45; }
+.portada .bajada s { color: var(--stone); text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+.portada .giro {
+  position: absolute; right: -14mm; top: 70mm; width: 92mm; height: 92mm;
+}
+.formula {
+  position: absolute; left: 0; right: 0; bottom: 0; background: var(--ink); color: var(--cream);
+  padding: 13mm 20mm 15mm;
+}
+.formula p.etiqueta { color: var(--stone); font-family: var(--f-mono); font-size: 8pt; font-weight: 400; margin: 0; }
+.formula .etiqueta::before { display: none; }
+.formula p {
+  font-family: var(--f-display); font-weight: 800; font-size: 25pt; line-height: 1.12;
+  letter-spacing: -.02em; margin: 3mm 0 0;
+}
+.formula b { color: var(--red); font-weight: 800; }
+.portada .meta {
+  position: absolute; left: 20mm; right: 20mm; bottom: 58mm; display: flex; justify-content: space-between;
+  font-family: var(--f-mono); font-size: 8pt; color: var(--stone); letter-spacing: .06em; text-transform: uppercase;
+}
+
+.separador { background: var(--ink); color: var(--cream); }
+.separador .num {
+  font-family: var(--f-display); font-weight: 800; font-size: 150pt; line-height: .8;
+  color: var(--red); letter-spacing: -.05em; margin-top: 36mm;
+}
+.separador .etiqueta { color: var(--stone); margin-top: 12mm; }
+.separador h2 {
+  font-family: var(--f-display); font-weight: 800; font-size: 46pt; line-height: .95;
+  letter-spacing: -.035em; margin: 4mm 0 0; max-width: 160mm;
+}
+.separador .contenido { margin-top: 14mm; border-top: 1px solid #3a3533; }
+.separador .contenido a {
+  display: flex; gap: 6mm; padding: 3.2mm 0; border-bottom: 1px solid #3a3533;
+  color: var(--cream); text-decoration: none; font-size: 11.5pt;
+}
+.separador .contenido a span { font-family: var(--f-mono); color: var(--red); font-size: 9pt; padding-top: 1mm; }
+.separador .logo { position: absolute; left: 20mm; bottom: 18mm; width: 26mm; }
+
+.contra { background: var(--red); color: var(--cream); }
+.contra h2 {
+  font-family: var(--f-display); font-weight: 800; font-size: 64pt; line-height: .92;
+  letter-spacing: -.04em; margin: 70mm 0 0; color: #fff;
+}
+.contra h2 .tinta { color: var(--ink); }
+.contra p { font-size: 13pt; max-width: 130mm; color: #fff; margin-top: 8mm; }
+.contra .etiqueta { color: #fff; }
+.contra .etiqueta::before { background: #fff; }
+.contra .pie {
+  position: absolute; left: 0; right: 0; bottom: 0; background: var(--ink); padding: 10mm 20mm;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--f-mono); font-size: 8pt; color: var(--stone); letter-spacing: .06em; text-transform: uppercase;
+}
+.contra .pie img { width: 28mm; }
+
+/* ---------- Índice ---------- */
+.indice { break-after: page; }
+.indice h2 {
+  font-family: var(--f-display); font-weight: 800; font-size: 34pt; letter-spacing: -.03em;
+  line-height: 1; margin: 3mm 0 7mm;
+}
+.indice .parte { margin-bottom: 5mm; break-inside: avoid; }
+.indice .parte h3 {
+  font-family: var(--f-mono); font-size: 8.5pt; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--red); margin: 0 0 2mm; font-weight: 700;
+}
+.indice .parte a {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 6mm; padding: 1.6mm 0;
+  border-bottom: 1px solid var(--cream-2); color: var(--ink); text-decoration: none;
+}
+.indice .parte a b { font-family: var(--f-display); font-weight: 700; font-size: 12.5pt; letter-spacing: -.01em; }
+.indice .parte a span { font-family: var(--f-mono); color: var(--red); font-size: 8.5pt; }
+
+/* ---------- Documentos ---------- */
+.doc { break-before: page; }
+.doc-cabeza .etiqueta { color: var(--red); }
+.doc-cabeza h1 {
+  font-family: var(--f-display); font-weight: 800; font-size: 34pt; line-height: .98;
+  letter-spacing: -.035em; margin: 3mm 0 6mm;
+}
+.para-que {
+  background: #fff; border: 1.5px solid var(--ink); border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--ink); padding: 4mm 5mm; margin: 0 0 8mm;
+  font-size: 10.5pt; break-inside: avoid;
+}
+.para-que .etiqueta { display: block; font-size: 7pt; color: var(--stone); margin-bottom: 1.2mm; }
+.para-que .etiqueta::before { display: none; }
+.para-que p { margin: 0; }
+
+.doc h2 {
+  font-family: var(--f-display); font-weight: 800; font-size: 17pt; line-height: 1.1;
+  letter-spacing: -.02em; margin: 8mm 0 3mm; break-after: avoid;
+}
+.doc h2 { padding-bottom: 2.4mm; background: linear-gradient(var(--red), var(--red)) left bottom / 14mm 3px no-repeat; }
+.doc h3 {
+  font-family: var(--f-display); font-weight: 700; font-size: 12.5pt; letter-spacing: -.01em;
+  margin: 6mm 0 2mm; break-after: avoid;
+}
+.doc h4 { font-family: var(--f-mono); font-size: 8.5pt; text-transform: uppercase; letter-spacing: .08em; margin: 5mm 0 1.5mm; }
+.doc p { margin: 0 0 2.6mm; orphans: 3; widows: 3; }
+.doc strong { font-weight: 700; }
+.doc a { color: var(--red-deep); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+/* Viñetas: el "!" de P!VOT, como en la web */
+.doc ul { list-style: none; padding-left: 5.5mm; margin: 0 0 3mm; }
+.doc ul > li { position: relative; margin-bottom: 1.3mm; }
+.doc ul > li::before {
+  content: '!'; position: absolute; left: -5mm; top: -.5pt;
+  font-family: var(--f-display); font-weight: 800; color: var(--red); font-size: 11.5pt;
+}
+.doc ul ul > li::before { content: '–'; color: var(--stone); font-family: var(--f-body); font-weight: 400; font-size: 10pt; }
+.doc ol { padding-left: 6mm; margin: 0 0 3mm; }
+.doc ol > li { margin-bottom: 1.6mm; }
+.doc ol > li::marker { font-family: var(--f-mono); font-weight: 700; color: var(--red); font-size: 9pt; }
+.doc li > ul, .doc li > ol { margin-top: 1.3mm; }
+
+/* Listas de chequeo */
+.doc li.tarea::before { content: none; }
+.doc li.tarea { list-style: none; }
+.doc input[type=checkbox] {
+  appearance: none; -webkit-appearance: none; position: absolute; left: -5.5mm; top: 1.2mm; margin: 0;
+  width: 3.4mm; height: 3.4mm; border: 1.4px solid var(--ink); border-radius: 3px; background: #fff;
+}
+
+/* Campos para completar y texto técnico */
+.doc code {
+  font-family: var(--f-mono); font-size: 8.3pt; background: var(--cream-2); padding: .3mm 1.2mm;
+  border-radius: 4px;
+}
+.doc code.campo {
+  background: #fff; border: 1px dashed var(--red); color: var(--red-deep); padding: .2mm 1.6mm;
+}
+
+/* Diagramas y bloques de texto fijo */
+.doc pre {
+  background: var(--ink); color: var(--cream); border-radius: 12px; padding: 5mm 6mm;
+  font-family: var(--f-mono); font-size: 8pt; line-height: 1.55; white-space: pre-wrap;
+  margin: 2mm 0 5mm; break-inside: avoid;
+}
+.doc pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
+
+/* Tablas */
+.doc table {
+  width: 100%; border-collapse: separate; border-spacing: 0; margin: 2mm 0 5mm; font-size: 8.8pt;
+  border: 1.5px solid var(--ink); border-radius: 10px; overflow: hidden; background: #fff;
+}
+.doc thead { display: table-header-group; }
+.doc th {
+  background: var(--ink); color: var(--cream); text-align: left; font-family: var(--f-mono);
+  font-weight: 700; font-size: 7.4pt; letter-spacing: .06em; text-transform: uppercase; padding: 2.2mm 2.6mm;
+}
+.doc td { padding: 2mm 2.6mm; border-top: 1px solid var(--cream-2); vertical-align: top; }
+.doc tr { break-inside: avoid; }
+.doc tbody tr:nth-child(even) td { background: #FBF8F3; }
+
+.doc blockquote {
+  margin: 2mm 0 4mm; padding: 3mm 5mm; border-left: 4px solid var(--red); background: var(--cream-2);
+  border-radius: 0 10px 10px 0;
+}
+.doc blockquote p:last-child { margin-bottom: 0; }
+.doc hr { border: 0; border-top: 1px solid var(--cream-2); margin: 6mm 0; }

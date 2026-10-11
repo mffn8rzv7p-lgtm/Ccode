@@ -80,6 +80,8 @@ def revisar(archivo):
 def main():
     errores, avisos = [], []
     for archivo in sorted(RAIZ.rglob("*.md")):
+        if "node_modules" in archivo.parts:
+            continue
         e, a = revisar(archivo)
         errores += e
         avisos += a

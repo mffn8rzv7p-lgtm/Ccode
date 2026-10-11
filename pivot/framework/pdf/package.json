@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "description": "Genera el PDF del framework de Pivot",
+  "scripts": { "pdf": "node construir.cjs" },
+  "dependencies": { "marked": "18.1.0" }
+}
