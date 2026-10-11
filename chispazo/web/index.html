@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -29,7 +29,13 @@
       <a href="#recomienda">Ofertas</a>
       <a href="#preguntas">Preguntas</a>
     </nav>
-    <a class="btn btn-small btn-yellow" href="https://www.instagram.com/chispazovergara/" target="_blank" rel="noopener">Instagram</a>
+    <div class="currency-menu" id="currency-menu">
+      <button class="currency-toggle" id="currency-toggle" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="currency-list" aria-label="Moneda de los precios">
+        <span class="currency-current" id="currency-current">USD</span>
+        <svg class="chevron" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <ul class="currency-list" id="currency-list" role="listbox" aria-label="Moneda de los precios" tabindex="-1" hidden></ul>
+    </div>
   </header>
 
   <main>
@@ -79,12 +85,6 @@
         <span class="tape tape-orange">Los libros</span>
         <h2>Elige tu terapia</h2>
         <p>Páginas grandes de 8.5 × 11 pulgadas. Los compras en Amazon y Amazon te los lleva a la casa.</p>
-      </div>
-
-      <div class="currency reveal">
-        <p class="currency-label" id="currency-label">Ver precios en:</p>
-        <div class="currency-options" role="radiogroup" aria-labelledby="currency-label" id="currency-options"></div>
-        <p class="currency-note" id="currency-note">Precio en dólares, tal como lo cobra Amazon.</p>
       </div>
 
       <div class="book-grid">
@@ -151,6 +151,7 @@
           </div>
         </article>
       </div>
+      <p class="price-note reveal" id="currency-note">Precios en dólares, tal como los cobra Amazon.</p>
     </section>
 
     <!-- PARA QUIÉN -->
@@ -259,17 +260,45 @@
         <h2>Ahora deja de leer y ve a colorear, <span class="hl-dark">carajo.</span></h2>
         <div class="cta-row center">
           <a class="btn btn-navy" href="#libros">Ver los libros</a>
-          <a class="btn btn-ghost-dark" href="https://www.instagram.com/chispazovergara/" target="_blank" rel="noopener">Seguir en Instagram</a>
         </div>
+      </div>
+    </section>
+
+    <!-- INSTAGRAM -->
+    <section class="social" id="instagram">
+      <div class="section-head reveal">
+        <span class="tape tape-yellow">Instagram</span>
+        <h2>Síguenos en Instagram</h2>
+        <p>Dos cuentas, cero aburrimiento: los libros del Profesor y las ofertas absurdas del día.</p>
+      </div>
+      <div class="social-grid">
+        <a class="social-card reveal" href="https://www.instagram.com/chispazovergara/" target="_blank" rel="noopener">
+          <img src="img/logo.webp" alt="" width="520" height="520" loading="lazy">
+          <span class="social-name">Chispazo Vergara</span>
+          <span class="social-handle">@chispazovergara</span>
+          <span class="social-desc">Libros de colorear, frases sin filtro y terapia barata.</span>
+          <span class="btn btn-instagram"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7.2a4.8 4.8 0 1 0 0 9.6 4.8 4.8 0 0 0 0-9.6Zm0 7.9a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2Zm6.1-8.1a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0ZM12 3.6c2.7 0 3 0 4.1.1 1 0 1.5.2 1.9.3.5.2.8.4 1.2.8.4.4.6.7.8 1.2.1.4.3.9.3 1.9.1 1.1.1 1.4.1 4.1s0 3-.1 4.1c0 1-.2 1.5-.3 1.9-.2.5-.4.8-.8 1.2-.4.4-.7.6-1.2.8-.4.1-.9.3-1.9.3-1.1.1-1.4.1-4.1.1s-3 0-4.1-.1c-1 0-1.5-.2-1.9-.3a3.2 3.2 0 0 1-1.2-.8 3.2 3.2 0 0 1-.8-1.2c-.1-.4-.3-.9-.3-1.9-.1-1.1-.1-1.4-.1-4.1s0-3 .1-4.1c0-1 .2-1.5.3-1.9.2-.5.4-.8.8-1.2.4-.4.7-.6 1.2-.8.4-.1.9-.3 1.9-.3 1.1-.1 1.4-.1 4.1-.1ZM12 2c-2.7 0-3.1 0-4.2.1-1 0-1.8.2-2.4.5-.7.3-1.2.6-1.8 1.2-.6.6-.9 1.1-1.2 1.8-.3.6-.5 1.4-.5 2.4C2 9 2 9.3 2 12s0 3.1.1 4.2c0 1 .2 1.8.5 2.4.3.7.6 1.2 1.2 1.8.6.6 1.1.9 1.8 1.2.6.3 1.4.5 2.4.5 1.1.1 1.5.1 4.2.1s3.1 0 4.2-.1c1 0 1.8-.2 2.4-.5.7-.3 1.2-.6 1.8-1.2.6-.6.9-1.1 1.2-1.8.3-.6.5-1.4.5-2.4.1-1.1.1-1.5.1-4.2s0-3.1-.1-4.2c0-1-.2-1.8-.5-2.4a4.9 4.9 0 0 0-1.2-1.8 4.9 4.9 0 0 0-1.8-1.2c-.6-.3-1.4-.5-2.4-.5C15.1 2 14.7 2 12 2Z"/></svg>Seguir</span>
+        </a>
+        <a class="social-card reveal" href="https://www.instagram.com/chispazorecomienda/" target="_blank" rel="noopener">
+          <img src="img/chispazo-recomienda.webp" alt="" width="640" height="625" loading="lazy">
+          <span class="social-name">Chispazo Recomienda</span>
+          <span class="social-handle">@chispazorecomienda</span>
+          <span class="social-desc">Descuentos, ofertas y productos a precios absurdos.</span>
+          <span class="btn btn-instagram"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7.2a4.8 4.8 0 1 0 0 9.6 4.8 4.8 0 0 0 0-9.6Zm0 7.9a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2Zm6.1-8.1a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0ZM12 3.6c2.7 0 3 0 4.1.1 1 0 1.5.2 1.9.3.5.2.8.4 1.2.8.4.4.6.7.8 1.2.1.4.3.9.3 1.9.1 1.1.1 1.4.1 4.1s0 3-.1 4.1c0 1-.2 1.5-.3 1.9-.2.5-.4.8-.8 1.2-.4.4-.7.6-1.2.8-.4.1-.9.3-1.9.3-1.1.1-1.4.1-4.1.1s-3 0-4.1-.1c-1 0-1.5-.2-1.9-.3a3.2 3.2 0 0 1-1.2-.8 3.2 3.2 0 0 1-.8-1.2c-.1-.4-.3-.9-.3-1.9-.1-1.1-.1-1.4-.1-4.1s0-3 .1-4.1c0-1 .2-1.5.3-1.9.2-.5.4-.8.8-1.2.4-.4.7-.6 1.2-.8.4-.1.9-.3 1.9-.3 1.1-.1 1.4-.1 4.1-.1ZM12 2c-2.7 0-3.1 0-4.2.1-1 0-1.8.2-2.4.5-.7.3-1.2.6-1.8 1.2-.6.6-.9 1.1-1.2 1.8-.3.6-.5 1.4-.5 2.4C2 9 2 9.3 2 12s0 3.1.1 4.2c0 1 .2 1.8.5 2.4.3.7.6 1.2 1.2 1.8.6.6 1.1.9 1.8 1.2.6.3 1.4.5 2.4.5 1.1.1 1.5.1 4.2.1s3.1 0 4.2-.1c1 0 1.8-.2 2.4-.5.7-.3 1.2-.6 1.8-1.2.6-.6.9-1.1 1.2-1.8.3-.6.5-1.4.5-2.4.1-1.1.1-1.5.1-4.2s0-3.1-.1-4.2c0-1-.2-1.8-.5-2.4a4.9 4.9 0 0 0-1.2-1.8 4.9 4.9 0 0 0-1.8-1.2c-.6-.3-1.4-.5-2.4-.5C15.1 2 14.7 2 12 2Z"/></svg>Seguir</span>
+        </a>
       </div>
     </section>
   </main>
 
   <footer class="footer">
     <p>© <span id="year">2026</span> Chispazo Vergara · Libros de colorear para adultos con humor sin filtro.</p>
-    <p><a href="https://www.instagram.com/chispazovergara/" target="_blank" rel="noopener">Instagram @chispazovergara</a></p>
+    <p>
+      <a href="https://www.instagram.com/chispazovergara/" target="_blank" rel="noopener">@chispazovergara</a>
+      ·
+      <a href="https://www.instagram.com/chispazorecomienda/" target="_blank" rel="noopener">@chispazorecomienda</a>
+    </p>
   </footer>
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>

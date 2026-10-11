@@ -92,9 +92,10 @@ Archivos en `<cliente>/web/`: `index.html`, `styles.css`, `script.js` e `img/`.
 - Todo lo que guardes en `localStorage` va dentro de `try/catch`.
 
 **Módulos ya probados en `chispazo/web/`**, para reutilizar si aplican:
-- Selector de moneda con banderas SVG (COP, MXN, ARS, CLP, USD): tasa del día desde `https://open.er-api.com/v6/latest/USD` con caché de 12 h y tasas de respaldo, moneda inicial según `navigator.language`, nota de "precio aproximado". Las banderas en SVG, porque los emojis de banderas no se ven en Windows.
+- Selector de moneda como menú desplegable en la barra superior, con banderas SVG (COP, MXN, ARS, CLP, USD), accesible con teclado y nota de precios debajo de las tarjetas: tasa del día desde `https://open.er-api.com/v6/latest/USD` con caché de 12 h y tasas de respaldo, moneda inicial según `navigator.language`, nota de "precio aproximado". Las banderas en SVG, porque los emojis de banderas no se ven en Windows.
 - Sección de grupo de WhatsApp con botón verde e ícono. Un enlace `chat.whatsapp.com/…` es un **grupo**; `whatsapp.com/channel/…` es un **canal**. Usa la palabra correcta.
 - Frase que se colorea letra por letra al bajar (`#frase` en `script.js`).
+- Tarjetas para seguir varias cuentas de Instagram (`.social`), con logo de cada submarca.
 - Cinta animada con frases (`.marquee`), preguntas frecuentes con `<details>` y tarjetas de producto con botón de compra.
 
 ## Paso 5: Revisar antes de mostrar
