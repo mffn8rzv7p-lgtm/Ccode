@@ -31,7 +31,7 @@ Con un cliente nuevo, empieza en este orden:
 
 1. Lee [02-ciclo-del-cliente.md](02-ciclo-del-cliente.md) para saber en qué etapa estás y qué sigue.
 2. Llena con el cliente [plantillas/brief-cliente.md](plantillas/brief-cliente.md).
-3. Abre el archivo del servicio que contrató, en [servicios/](servicios/marketing-digital.md), y sigue su metodología paso a paso.
+3. Abre el archivo del servicio que contrató (lista de **Servicios** arriba) y sigue su metodología paso a paso.
 
 Si tienes dudas de quién hace qué, mira [01-forma-de-trabajo.md](01-forma-de-trabajo.md). Si vas a pedir o quitar accesos, mira [04-seguridad-y-datos.md](04-seguridad-y-datos.md) antes.
 
