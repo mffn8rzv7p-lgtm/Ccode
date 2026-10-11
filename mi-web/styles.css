@@ -179,10 +179,38 @@ h2 { font-size: clamp(2rem, 5vw, 3.2rem); }
 /* ---------- Therapy / mandala ---------- */
 .therapy { background: var(--white); border-block: 4px solid var(--black); padding: clamp(4rem, 9vw, 7rem) clamp(16px, 4vw, 40px); }
 .therapy-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
-.mandala-wrap { text-align: center; }
-#mandala { width: min(100%, 460px); margin: 0 auto; overflow: visible; }
-#mandala path, #mandala circle { stroke: var(--black); stroke-width: 2.2; fill: var(--white); transition: fill .6s ease; }
-.mandala-hint { font-family: var(--font-label); text-transform: uppercase; letter-spacing: .05em; color: #555; margin-top: 1rem; }
+.phrase-wrap { text-align: center; }
+.phrase-page {
+  position: relative; max-width: 480px; margin: 0 auto;
+  padding: clamp(1.6rem, 4vw, 2.6rem) clamp(1rem, 3vw, 2rem);
+  background: var(--white); border: 4px solid var(--black); border-radius: 12px;
+  box-shadow: var(--shadow-hard); transform: rotate(-1.5deg);
+  /* Rayado suave de hoja de libro */
+  background-image: repeating-linear-gradient(45deg, transparent 0 14px, rgba(0,0,0,.035) 14px 15px);
+}
+.phrase {
+  margin: 0; font-family: var(--font-display); text-transform: uppercase;
+  line-height: .95; letter-spacing: .01em;
+}
+.phrase .line { display: block; font-size: clamp(2.6rem, 9vw, 4.4rem); }
+.phrase .line.big { font-size: clamp(3.4rem, 13vw, 6.2rem); }
+.phrase .letter, .doodle {
+  display: inline-block;
+  color: var(--white);
+  -webkit-text-stroke: 3px var(--black);
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 var(--black);
+  transition: color .45s ease, transform .35s cubic-bezier(.2, 1.8, .4, 1);
+}
+.phrase .letter { margin: 0 .025em; }
+.phrase .letter.painted, .doodle.painted { color: var(--paint, var(--yellow)); transform: rotate(-3deg) scale(1.06); }
+.phrase .letter:nth-child(even).painted { transform: rotate(3deg) scale(1.06); }
+.doodle { position: absolute; font-size: 2.4rem; -webkit-text-stroke-width: 2px; text-shadow: 2px 2px 0 var(--black); }
+.d1 { top: -1.2rem; left: -1rem; --paint: var(--yellow); }
+.d2 { top: 40%; right: -1.3rem; --paint: var(--orange); }
+.d3 { bottom: -1.1rem; left: 12%; --paint: var(--green); }
+.d4 { bottom: 18%; left: -1.2rem; font-size: 1.8rem; --paint: var(--pink); }
+.phrase-hint { font-family: var(--font-label); text-transform: uppercase; letter-spacing: .05em; color: #555; margin-top: 1.6rem; }
 .therapy h2 { color: var(--navy); margin-bottom: 1.4rem; }
 .checks { list-style: none; padding: 0; margin: 0 0 1.8rem; display: grid; gap: .8rem; }
 .checks li { position: relative; padding-left: 2.6rem; font-size: 1.15rem; font-weight: 600; }
@@ -199,6 +227,17 @@ h2 { font-size: clamp(2rem, 5vw, 3.2rem); }
 .about .bubble h2 { color: var(--navy); margin-bottom: .8rem; font-size: clamp(1.8rem, 4vw, 2.6rem); }
 .about .bubble p { margin: 0 0 .9rem; }
 .about .bubble p:last-child { margin-bottom: 0; }
+
+/* ---------- Chispazo Recomienda ---------- */
+.deals { background: var(--yellow); border-top: 4px solid var(--black); padding: clamp(4rem, 9vw, 7rem) clamp(16px, 4vw, 40px); overflow: hidden; }
+.deals-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.deals h2 { margin-bottom: 1.2rem; }
+.deals-copy > p { font-size: 1.15rem; margin: 0 0 1.2rem; max-width: 32em; }
+.deals-list { list-style: none; padding: 0; margin: 0 0 2rem; display: grid; gap: .5rem; font-weight: 800; font-size: 1.1rem; }
+.deals-img { width: min(100%, 440px); margin: 0 auto; filter: drop-shadow(10px 12px 0 rgba(0,0,0,.25)); }
+.deals-img.in { animation: wiggle 4s ease-in-out 1s infinite; }
+@keyframes wiggle { 0%, 100% { rotate: 0deg; } 5% { rotate: -4deg; } 10% { rotate: 3deg; } 15% { rotate: 0deg; } }
+.btn-whatsapp { background: #25D366; color: var(--black); font-size: 1.15rem; padding: 1em 1.8em; }
 
 /* ---------- FAQ ---------- */
 .faq { padding: clamp(4rem, 9vw, 7rem) clamp(16px, 4vw, 40px); }
@@ -237,7 +276,8 @@ h2 { font-size: clamp(2rem, 5vw, 3.2rem); }
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
   .book-grid { grid-template-columns: 1fr; max-width: 520px; }
-  .hero-inner, .therapy-inner, .about-inner { grid-template-columns: 1fr; }
+  .hero-inner, .therapy-inner, .about-inner, .deals-inner { grid-template-columns: 1fr; }
+  .deals-img { order: -1; width: min(70vw, 320px); }
   .hero-art { order: -1; }
   .hero-logo { width: min(70vw, 320px); }
   .nav { display: none; }
