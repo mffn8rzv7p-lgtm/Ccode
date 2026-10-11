@@ -22,8 +22,8 @@ SECRETOS = [
     re.compile(r"\bAKIA[0-9A-Z]{16}\b"),         # claves de AWS
 ]
 TIEMPO = re.compile(r"\b\d+\s*(horas?|días?|semanas?)\b", re.I)
-# Hechos fijos de Pivot que no son sugerencias.
-HECHOS = ("15 días",)
+# Hechos fijos (de Pivot o de las plataformas) que no son sugerencias.
+HECHOS = ("15 días", "dura 24 horas")
 
 
 def revisar(archivo):
