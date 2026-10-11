@@ -119,8 +119,6 @@ function intro(g,t,S){
   const r=eo3(cl((t-.1)/.7));
   g.save();g.beginPath();g.rect(0,S.ly+lh*(1-r)-2,W,lh*r+4);g.clip();
   g.drawImage(tint(S,'#E63915'),S.lx,S.ly+(1-r)*lh*.35);g.restore();
-  const a=cl((t-.6)/.4);g.globalAlpha=a;g.fillStyle='#1A1A1A';g.font=`500 ${30*u}px "DM Sans"`;g.textAlign='center';g.textBaseline='top';
-  g.fillText('Un logo, 11 estilos',S.cx,S.cy+lh/2+56*u+(1-eo3(a))*14*u);g.globalAlpha=1;
 }
 
 /* ---------- 01 · swiss ---------- */
@@ -414,7 +412,7 @@ function outro(g,t,S){
   const {W,H,u}=S;g.fillStyle='#E63915';g.fillRect(0,0,W,H);
   const e=eob(cl(t/.55)),s=lerp(.86,1,e);g.globalAlpha=cl(t/.2);atLogo(g,S,s,s,0,0,.5,()=>g.drawImage(tint(S,'#FFFFFF'),0,0));
   const a=cl((t-.45)/.4);g.globalAlpha=a;g.fillStyle='#FFFFFF';g.font=`500 ${30*u}px "DM Sans"`;g.textAlign='center';g.textBaseline='top';
-  g.fillText('Pivot Agencia · Medellín',S.cx,S.cy+S.lh/2+56*u+(1-eo3(a))*14*u);g.globalAlpha=1;
+  g.fillText('Pivot Agencia · Marketing Digital',S.cx,S.cy+S.lh/2+56*u+(1-eo3(a))*14*u);g.globalAlpha=1;
 }
 
 const STYLES=[
@@ -430,13 +428,7 @@ function drawSeg(g,seg,t,S){g.save();seg.fn(g,t,S);g.restore();g.save();label(g,
 function renderAt(time,g,S){
   time=((time%TOTAL)+TOTAL)%TOTAL;let i=SEGS.findIndex(s=>time<s.start+s.dur);if(i<0)i=SEGS.length-1;
   const seg=SEGS[i],t=time-seg.start;
-  if(i>0&&t<TR){
-    const prev=SEGS[i-1],A=scr(S,'A',S.W,S.H),B=scr(S,'B',S.W,S.H);
-    drawSeg(cx2(A),prev,prev.dur+t,S);drawSeg(cx2(B),seg,t,S);
-    const k=S.W*.22,p=lerp(-k,S.W+k,eio(t/TR)),xt=p+k,xb=p-k;
-    g.drawImage(A,0,0);g.save();g.beginPath();g.moveTo(0,0);g.lineTo(xt,0);g.lineTo(xb,S.H);g.lineTo(0,S.H);g.closePath();g.clip();g.drawImage(B,0,0);g.restore();
-    g.save();g.strokeStyle='#E63915';g.lineWidth=18*S.u;g.beginPath();g.moveTo(xt,-10);g.lineTo(xb,S.H+10);g.stroke();g.restore();
-  } else drawSeg(g,seg,t,S);
+  drawSeg(g,seg,t,S);
 }
 
 /* ---------- arranque ---------- */
@@ -462,7 +454,7 @@ async function boot(){
   bp.onclick=()=>{if(playing){tp=now();playing=false;bp.textContent='Reproducir'}else{t0=performance.now()-tp*1000;playing=true;bp.textContent='Pausar'}};
   const chips=document.getElementById('chips');
   SEGS.forEach((s,i)=>{const b=document.createElement('button');b.textContent=i===0?'Original':i===SEGS.length-1?'Cierre':STYLES[i-1][0];
-    b.onclick=()=>{const tt=s.start+(i?TR:0)+.01;if(playing)t0=performance.now()-tt*1000;else tp=tt};chips.appendChild(b)});
+    b.onclick=()=>{const tt=s.start+.01;if(playing)t0=performance.now()-tt*1000;else tp=tt};chips.appendChild(b)});
   const loop=()=>{renderAt(now(),g,S);requestAnimationFrame(loop)};loop();
 }
 boot();
