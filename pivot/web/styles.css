@@ -155,19 +155,16 @@ p { margin: 0; }
 .hero-title .line > span { display: inline-block; }
 .hero-title em { font-style: normal; color: var(--red); display: inline-block; margin-left: .02em; }
 
-.rotator {
-  display: flex; flex-wrap: wrap; align-items: baseline; column-gap: .35em;
-  margin-top: 22px; font-size: clamp(20px, 3.4vw, 28px); font-weight: 500;
-}
-.rotator-words {
-  position: relative; display: inline-grid; height: 1.3em; overflow: hidden;
-  perspective: 600px; font-family: var(--f-display); font-weight: 800; color: var(--red);
-}
+.rotator { margin-top: 22px; font-size: clamp(20px, 3.4vw, 28px); font-weight: 500; line-height: 1.25; }
+.rotator-words { display: grid; perspective: 600px; }
 .rotator-words > span {
-  grid-area: 1 / 1; line-height: 1.3; white-space: nowrap;
+  grid-area: 1 / 1; align-self: start;
   transform-origin: 50% 50% -.6em; transform: rotateX(-90deg); opacity: 0;
   transition: transform .6s var(--spring), opacity .4s;
 }
+.rotator-words s { color: var(--stone); text-decoration-color: var(--red); text-decoration-thickness: 3px; }
+.rotator-words b { font-family: var(--f-display); font-weight: 800; color: var(--red); letter-spacing: -.01em; }
+@media (max-width: 599px) { .rotator-words .to { display: block; } }
 .rotator-words > span.is-on { transform: rotateX(0); opacity: 1; }
 .rotator-words > span.is-out { transform: rotateX(90deg); opacity: 0; }
 
@@ -216,19 +213,38 @@ p { margin: 0; }
 .js .hero-art { opacity: 0; transform: scale(.85) rotate(-20deg); transition: opacity .9s .3s, transform 1.2s .3s var(--spring); }
 .loaded .hero-art { opacity: 1; transform: none; }
 
-/* ===== Cinta ===== */
-.marquee {
-  position: relative; z-index: 2; overflow: hidden;
-  background: var(--red); color: var(--white);
-  transform: rotate(-2deg); margin: -10px -20px 0; padding: 18px 0;
-  box-shadow: 0 10px 0 var(--ink);
+/* ===== Fórmula ===== */
+.formula {
+  position: relative; z-index: 2; background: var(--ink); color: var(--white);
+  padding: clamp(64px, 9vw, 110px) 0; text-align: center;
 }
-.marquee-track {
-  display: flex; align-items: center; gap: 28px; width: max-content;
-  font-family: var(--f-display); font-weight: 800; font-size: clamp(26px, 4.5vw, 46px);
-  letter-spacing: -.02em; white-space: nowrap; will-change: transform;
+.formula .label { margin-bottom: 26px; }
+.equation {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+  gap: .12em .32em;
+  font-family: var(--f-display); font-weight: 800; letter-spacing: -.035em; line-height: 1.05;
+  font-size: clamp(40px, 5.6vw, 76px);
 }
-.marquee-track b { color: var(--ink); font-size: 1.1em; }
+.term, .op { display: inline-block; }
+.op { color: var(--red); width: .8em; text-align: center; }
+.term-result em { font-style: normal; color: var(--red); display: inline-block; transform-origin: 50% 85%; }
+
+/* Animación: entra cada palabra, los + giran, el = pivota y aparece el ! */
+.js .formula .term { opacity: 0; transform: translateY(40%); transition: opacity .6s var(--ease), transform .7s var(--spring); }
+.js .formula .op { opacity: 0; transform: rotate(-180deg) scale(.4); transition: opacity .4s, transform .8s var(--spring); }
+.js .formula .term-result em { transform: scale(0) rotate(-90deg); transition: transform .7s var(--spring); }
+.js .formula.play .term, .js .formula.play .op { opacity: 1; transform: none; }
+.js .formula.play .op-eq { transform: rotate(180deg); }
+.js .formula.play .term-result em { transform: none; }
+.formula.play .term-result em { animation: wobble 2.4s var(--ease) 3.2s infinite; }
+.formula .equation > :nth-child(1) { transition-delay: 0s; }
+.formula .equation > :nth-child(2) { transition-delay: .35s; }
+.formula .equation > :nth-child(3) { transition-delay: .55s; }
+.formula .equation > :nth-child(4) { transition-delay: .9s; }
+.formula .equation > :nth-child(5) { transition-delay: 1.1s; }
+.formula .equation > :nth-child(6) { transition-delay: 1.5s; }
+.formula .equation > :nth-child(7) { transition-delay: 1.8s; }
+.js .formula .term-result em { transition-delay: 2.4s; }
 
 /* ===== Secciones ===== */
 .section { padding: clamp(80px, 12vw, 150px) 0; }
@@ -389,7 +405,8 @@ p { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .js .reveal, .js .hero-art, .js .hero-title .line > span { opacity: 1 !important; transform: none !important; }
+  .js .reveal, .js .hero-art, .js .hero-title .line > span,
+  .js .formula .term, .js .formula .op, .js .formula .term-result em { opacity: 1 !important; transform: none !important; }
   .card-inner, .card-inner.flipped { transform: none !important; display: flex; flex-direction: column; gap: 12px; }
   .face { -webkit-backface-visibility: visible; backface-visibility: visible; }
   .back { transform: none; }

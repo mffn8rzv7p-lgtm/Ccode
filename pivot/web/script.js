@@ -40,7 +40,7 @@ if (rotator && !reduceMotion) {
     words[i].classList.remove('is-out');
     words[i].classList.add('is-on');
     setTimeout(() => prev.classList.remove('is-out'), 650);
-  }, 2200);
+  }, 2600);
 }
 
 // Tarjetas de servicios: se voltean al tocarlas
@@ -125,32 +125,20 @@ window.addEventListener('scroll', () => {
 window.addEventListener('resize', onScroll);
 onScroll();
 
-// Cinta: se mueve sola y cambia de dirección según hacia dónde bajes
-const marquee = document.getElementById('marquee');
-if (marquee && !reduceMotion) {
-  // Duplicar el contenido para que la cinta no tenga cortes
-  const count = marquee.children.length;
-  marquee.innerHTML += marquee.innerHTML;
-  let x = 0;
-  let dir = -1;
-  let boost = 0;
-  let lastY = window.scrollY;
-  window.addEventListener('scroll', () => {
-    const dy = window.scrollY - lastY;
-    if (dy !== 0) dir = dy > 0 ? -1 : 1;
-    boost = Math.min(boost + Math.abs(dy) * 0.04, 6);
-    lastY = window.scrollY;
-  }, { passive: true });
-  const tick = () => {
-    const half = marquee.children[count].offsetLeft - marquee.children[0].offsetLeft;
-    x += dir * (0.6 + boost);
-    boost *= 0.92;
-    if (x <= -half) x += half;
-    if (x > 0) x -= half;
-    marquee.style.transform = `translate3d(${x}px,0,0)`;
-    requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick);
+// Fórmula: se arma cuando aparece en pantalla
+const formula = document.getElementById('formula');
+if (formula) {
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const fo = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        formula.classList.add('play');
+        fo.disconnect();
+      }
+    }, { threshold: 0.5 });
+    fo.observe(formula);
+  } else {
+    formula.classList.add('play');
+  }
 }
 
 // Cursor rojo en computadora
