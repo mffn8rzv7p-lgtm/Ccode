@@ -51,6 +51,11 @@ document.querySelectorAll('.card-inner').forEach((card) => {
   });
 });
 
+// Equipo: en celular, la tarjeta pivota al tocarla
+document.querySelectorAll('.person-card').forEach((card) => {
+  card.addEventListener('click', () => card.classList.toggle('on'));
+});
+
 // Frase del manifiesto: se pinta letra por letra
 const frase = document.getElementById('frase');
 const pieces = [];
