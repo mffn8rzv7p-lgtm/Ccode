@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pivot · Agencia de marketing digital, pauta y diseño web</title>
+  <meta name="description" content="Pivot es una agencia de marketing digital: creación de contenido, estrategia digital, pauta, branding y diseño web para que tu marca deje de pasar desapercibida.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pivotagencia.com/">
+  <meta property="og:title" content="Pivot · Tu marca necesita un giro">
+  <meta property="og:description" content="Agencia de marketing digital: contenido, estrategia, pauta, branding y diseño web.">
+  <meta property="og:image" content="https://pivotagencia.com/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#E63915">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=1">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#inicio" aria-label="Pivot, ir al inicio">
+      <img src="img/logo.webp" alt="Pivot" width="112" height="27">
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#metodo">Cómo trabajamos</a>
+      <a href="#manifiesto">Manifiesto</a>
+      <a href="#preguntas">Preguntas</a>
+    </nav>
+    <a class="btn btn-red btn-sm" href="#contacto">Hablemos<span class="bang" aria-hidden="true">!</span></a>
+  </header>
+
+  <main id="contenido">
+    <!-- PORTADA -->
+    <section class="hero" id="inicio">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="tag reveal">Agencia de marketing digital</p>
+          <h1 class="hero-title">
+            <span class="line"><span>Tu marca</span></span>
+            <span class="line"><span>necesita</span></span>
+            <span class="line"><span>un giro<em>!</em></span></span>
+          </h1>
+          <p class="rotator reveal">
+            <span class="rotator-label">Le damos el giro a tu</span>
+            <span class="sr-only">contenido, pauta, branding, diseño web y estrategia.</span>
+            <span class="rotator-words" id="rotator" aria-hidden="true">
+              <span class="is-on">contenido</span>
+              <span>pauta</span>
+              <span>branding</span>
+              <span>diseño web</span>
+              <span>estrategia</span>
+            </span>
+          </p>
+          <p class="lead reveal">Somos Pivot: unimos estrategia, creatividad y pauta digital para que tu marca deje de pasar desapercibida y empiece a moverse.</p>
+          <div class="cta-row reveal">
+            <a class="btn btn-red" href="#contacto">Hablemos de tu marca<span class="bang" aria-hidden="true">!</span></a>
+            <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <svg class="badge" viewBox="0 0 200 200">
+            <defs><path id="circulo" d="M100 100 m-78 0 a78 78 0 1 1 156 0 a78 78 0 1 1 -156 0"/></defs>
+            <text><textPath href="#circulo" textLength="488" lengthAdjust="spacing">ESTRATEGIA · CONTENIDO · PAUTA · DISEÑO WEB · BRANDING ·</textPath></text>
+          </svg>
+          <div class="pivot-mark" id="pivot-mark">
+            <svg viewBox="0 0 140 350">
+              <path d="M22 0H118Q132 0 131 14L113 226Q112 238 100 238H40Q28 238 27 226L9 14Q8 0 22 0Z"/>
+              <ellipse cx="70" cy="300" rx="58" ry="46"/>
+            </svg>
+          </div>
+          <span class="dot d1"></span>
+          <span class="dot d2"></span>
+        </div>
+      </div>
+      <a class="scroll-hint" href="#servicios" aria-label="Bajar a servicios"><span></span></a>
+    </section>
+
+    <!-- CINTA -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marquee">
+        <span>Creación de contenido</span><b>!</b>
+        <span>Estrategia digital</span><b>!</b>
+        <span>Pauta digital</span><b>!</b>
+        <span>Branding</span><b>!</b>
+        <span>Diseño web</span><b>!</b>
+        <span>Redes sociales</span><b>!</b>
+      </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <section class="section services" id="servicios">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="label reveal">01 — Servicios</p>
+          <h2 class="reveal">Todo lo que tu marca necesita para <span class="red">moverse.</span></h2>
+          <p class="section-sub reveal">Toca cada tarjeta para ver qué incluye.</p>
+        </header>
+
+        <div class="cards">
+          <article class="card reveal">
+            <button class="card-inner" type="button" aria-pressed="false">
+              <span class="face front">
+                <span class="card-num">01</span>
+                <span class="card-icon"><svg viewBox="0 0 48 48"><rect x="6" y="12" width="28" height="24" rx="5"/><path d="M34 21l9-5v16l-9-5z"/></svg></span>
+                <span class="card-title">Creación de contenido</span>
+                <span class="card-text">Piezas que detienen el scroll y cuentan quién eres.</span>
+                <span class="card-more">Ver más <i>↻</i></span>
+              </span>
+              <span class="face back">
+                <span class="card-title">Creación de contenido</span>
+                <span class="card-list">
+                  <span>Ideas y guiones para redes</span>
+                  <span>Fotografía y video</span>
+                  <span>Diseño de piezas y carruseles</span>
+                  <span>Reels y formatos cortos</span>
+                </span>
+              </span>
+            </button>
+          </article>
+
+          <article class="card reveal">
+            <button class="card-inner" type="button" aria-pressed="false">
+              <span class="face front">
+                <span class="card-num">02</span>
+                <span class="card-icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="9"/><circle cx="24" cy="24" r="2" class="fill"/></svg></span>
+                <span class="card-title">Estrategia digital</span>
+                <span class="card-text">Un plan claro: a quién le hablas, dónde y para qué.</span>
+                <span class="card-more">Ver más <i>↻</i></span>
+              </span>
+              <span class="face back">
+                <span class="card-title">Estrategia digital</span>
+                <span class="card-list">
+                  <span>Diagnóstico de tu marca</span>
+                  <span>Definición de público y objetivos</span>
+                  <span>Plan de canales y contenidos</span>
+                  <span>Medición de resultados</span>
+                </span>
+              </span>
+            </button>
+          </article>
+
+          <article class="card reveal">
+            <button class="card-inner" type="button" aria-pressed="false">
+              <span class="face front">
+                <span class="card-num">03</span>
+                <span class="card-icon"><svg viewBox="0 0 48 48"><rect x="5" y="9" width="38" height="30" rx="5"/><path d="M5 17h38"/><path d="M19 25l-5 4 5 4M29 25l5 4-5 4"/></svg></span>
+                <span class="card-title">Diseño web</span>
+                <span class="card-text">Páginas rápidas, bonitas y pensadas para vender.</span>
+                <span class="card-more">Ver más <i>↻</i></span>
+              </span>
+              <span class="face back">
+                <span class="card-title">Diseño web</span>
+                <span class="card-list">
+                  <span>Páginas de presentación</span>
+                  <span>Páginas para campañas</span>
+                  <span>Diseño adaptado a celular</span>
+                  <span>Publicación en tu dominio</span>
+                </span>
+              </span>
+            </button>
+          </article>
+
+          <article class="card reveal">
+            <button class="card-inner" type="button" aria-pressed="false">
+              <span class="face front">
+                <span class="card-num">04</span>
+                <span class="card-icon"><svg viewBox="0 0 48 48"><path d="M6 38l11-12 8 7 17-19"/><path d="M32 14h10v10"/></svg></span>
+                <span class="card-title">Pauta digital</span>
+                <span class="card-text">Publicidad pagada que llega a quien sí te va a comprar.</span>
+                <span class="card-more">Ver más <i>↻</i></span>
+              </span>
+              <span class="face back">
+                <span class="card-title">Pauta digital</span>
+                <span class="card-list">
+                  <span>Campañas en Instagram y Facebook</span>
+                  <span>Campañas en Google</span>
+                  <span>Segmentación de público</span>
+                  <span>Optimización continua</span>
+                </span>
+              </span>
+            </button>
+          </article>
+
+          <article class="card reveal">
+            <button class="card-inner" type="button" aria-pressed="false">
+              <span class="face front">
+                <span class="card-num">05</span>
+                <span class="card-icon"><svg viewBox="0 0 48 48"><path d="M24 5l5.5 12.5L43 19l-10 9 3 14-12-7-12 7 3-14-10-9 13.5-1.5z"/></svg></span>
+                <span class="card-title">Branding</span>
+                <span class="card-text">Una identidad que se recuerda a la primera.</span>
+                <span class="card-more">Ver más <i>↻</i></span>
+              </span>
+              <span class="face back">
+                <span class="card-title">Branding</span>
+                <span class="card-list">
+                  <span>Nombre y concepto de marca</span>
+                  <span>Logo e identidad visual</span>
+                  <span>Paleta de colores y tipografías</span>
+                  <span>Manual de marca</span>
+                </span>
+              </span>
+            </button>
+          </article>
+
+          <article class="card reveal">
+            <button class="card-inner" type="button" aria-pressed="false">
+              <span class="face front">
+                <span class="card-num">06</span>
+                <span class="card-icon"><svg viewBox="0 0 48 48"><path d="M8 10h32a4 4 0 0 1 4 4v16a4 4 0 0 1-4 4H22l-9 8v-8H8a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z"/><path d="M14 22h.01M24 22h.01M34 22h.01" class="dots"/></svg></span>
+                <span class="card-title">Redes sociales</span>
+                <span class="card-text">Tu marca activa, constante y conversando con su gente.</span>
+                <span class="card-more">Ver más <i>↻</i></span>
+              </span>
+              <span class="face back">
+                <span class="card-title">Redes sociales</span>
+                <span class="card-list">
+                  <span>Calendario de publicaciones</span>
+                  <span>Publicación y programación</span>
+                  <span>Gestión de comunidad</span>
+                  <span>Informes mensuales</span>
+                </span>
+              </span>
+            </button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO TRABAJAMOS -->
+    <section class="section method" id="metodo">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="label reveal">02 — Cómo trabajamos</p>
+          <h2 class="reveal">Cuatro pasos. <span class="red">Cero improvisación.</span></h2>
+        </header>
+
+        <ol class="steps" id="steps">
+          <li class="step">
+            <span class="step-num">1</span>
+            <h3>Diagnóstico</h3>
+            <p>Entendemos tu marca, tu público y dónde estás hoy.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">2</span>
+            <h3>Estrategia</h3>
+            <p>Definimos el giro: objetivos, mensajes y canales.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">3</span>
+            <h3>Creación</h3>
+            <p>Diseñamos, producimos y lanzamos.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">4</span>
+            <h3>Optimización</h3>
+            <p>Medimos, aprendemos y ajustamos para crecer.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- MANIFIESTO -->
+    <section class="section manifesto" id="manifiesto">
+      <div class="wrap">
+        <p class="label reveal">03 — Manifiesto</p>
+        <p class="sr-only">Las marcas que se quedan quietas, desaparecen. Hagamos que la tuya gire.</p>
+        <p class="phrase" id="frase">
+          <span class="line">Las marcas que se</span>
+          <span class="line">quedan quietas,</span>
+          <span class="line">desaparecen.</span>
+          <span class="line">Hagamos que la</span>
+          <span class="line">tuya gire!</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS -->
+    <section class="section faq" id="preguntas">
+      <div class="wrap faq-grid">
+        <header class="section-head">
+          <p class="label reveal">04 — Preguntas</p>
+          <h2 class="reveal">Lo que nos <span class="red">preguntan</span> antes de empezar.</h2>
+        </header>
+        <div class="faq-list">
+          <details class="reveal">
+            <summary>¿Tengo que contratar todos los servicios?</summary>
+            <p>No. Armamos un plan con lo que tu marca necesita hoy. Puedes empezar por un solo servicio y sumar otros cuando quieras.</p>
+          </details>
+          <details class="reveal">
+            <summary>¿Cuánto cuesta trabajar con Pivot?</summary>
+            <p>Depende de lo que necesites. Después de una primera conversación te enviamos una propuesta a la medida, sin compromiso.</p>
+          </details>
+          <details class="reveal">
+            <summary>¿Qué es la pauta digital?</summary>
+            <p>Es la publicidad pagada en internet: anuncios en Instagram, Facebook, Google y otras plataformas. Con ella tu marca llega a personas que todavía no te conocen pero que podrían ser tus clientes.</p>
+          </details>
+          <details class="reveal">
+            <summary>¿Pueden hacer solo mi página web?</summary>
+            <p>Sí. Diseñamos tu página y te acompañamos para publicarla en tu dominio.</p>
+          </details>
+          <details class="reveal">
+            <summary>¿Por dónde empezamos?</summary>
+            <p>Por una conversación. Cuéntanos de tu marca y de lo que quieres lograr, y te proponemos el primer giro.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="contact" id="contacto">
+      <div class="wrap">
+        <p class="label label-light reveal">05 — Contacto</p>
+        <h2 class="contact-title reveal">¿Listo para<br>el giro<span class="bang-big">!</span></h2>
+        <p class="contact-lead reveal">Cuéntanos de tu marca y diseñemos juntos su próximo movimiento.</p>
+        <div class="contact-links reveal">
+          <!-- Pendiente: completar con los datos reales de contacto y quitar "hidden" -->
+          <a class="btn btn-white" href="#" hidden target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+          <a class="btn btn-outline-white" href="#" hidden>Correo</a>
+          <a class="btn btn-outline-white" href="#" hidden target="_blank" rel="noopener">Instagram</a>
+          <p class="contact-soon">Muy pronto, nuestros canales de contacto aquí.</p>
+        </div>
+      </div>
+      <div class="contact-mark" aria-hidden="true">
+        <svg viewBox="0 0 140 350">
+          <path d="M22 0H118Q132 0 131 14L113 226Q112 238 100 238H40Q28 238 27 226L9 14Q8 0 22 0Z"/>
+          <ellipse cx="70" cy="300" rx="58" ry="46"/>
+        </svg>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <img src="img/logo-blanco.webp" alt="Pivot" width="132" height="31" loading="lazy">
+      <p>Agencia de marketing digital, pauta y diseño web.</p>
+      <p class="footer-meta">© <span id="year">2026</span> Pivot · pivotagencia.com</p>
+      <a class="to-top" href="#inicio">Volver arriba ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js?v=1"></script>
+</body>
+</html>
