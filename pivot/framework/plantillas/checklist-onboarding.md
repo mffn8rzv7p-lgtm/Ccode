@@ -24,13 +24,14 @@ Cliente: `[completar]` · Servicio: `[completar]` · Fecha de inicio: `[completa
 
 Regla: el cliente nos **invita** con nuestro propio usuario. Nunca se pide su usuario y contraseña. Detalle en [../04-seguridad-y-datos.md](../04-seguridad-y-datos.md).
 
-- [ ] **Meta Business Manager** (el panel de Meta donde se manejan páginas, cuentas de Instagram y anuncios): el cliente agrega a Pivot como **socio** (partner) y le da permiso a su página de Facebook, su cuenta de Instagram y su cuenta publicitaria. Se le envía el identificador del portafolio de Pivot: `[completar]`.
+- [ ] **Meta Business Manager** (el panel de Meta donde se manejan páginas, cuentas de Instagram y anuncios): el cliente agrega a Pivot como **socio** (partner) y le da permiso a su página de Facebook, su cuenta de Instagram y su cuenta publicitaria, con el permiso mínimo necesario (no control total/administrador salvo que haga falta). Se le envía el identificador del portafolio de Pivot: `[completar]`.
+- [ ] Dominio, hosting, Business Manager, cuenta publicitaria, página, Instagram y pixel (código que avisa a Meta cuando alguien compra o deja sus datos en la web) siempre a nombre del cliente; Pivot nunca los crea en su propio Business Manager.
 - [ ] Método de pago de los anuncios a nombre del cliente, configurado por el cliente.
 - [ ] **Canva:** invitación al equipo de Canva (enviada por Pivot al cliente, o por el cliente a Pivot si él tiene el suyo). Kit de marca cargado.
 - [ ] **Metricool** (herramienta para programar publicaciones y medir): redes del cliente conectadas por el propio cliente o con su autorización en el momento.
 - [ ] Web (si aplica): acceso a Hostinger o Netlify y al dominio mediante invitación o usuario propio de Pivot, no con la clave del cliente.
 - [ ] Herramientas pendientes de conectar (Google Ads, Google Analytics, Google Search Console, Google Business Profile, TikTok Ads): anotar si el cliente las usa: `[completar]`.
-- [ ] Lista de accesos recibidos anotada en Asana (qué cuenta, qué permiso, fecha), sin contraseñas.
+- [ ] Lista de accesos recibidos anotada en la carpeta del cliente en Drive (qué cuenta, qué permiso, fecha), sin contraseñas.
 
 ## Material del cliente
 - [ ] Logo en buena calidad, colores y letras.

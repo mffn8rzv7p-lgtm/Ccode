@@ -33,7 +33,7 @@ Aterriza las 7 etapas de [la metodología base](../03-metodologia-base.md).
    - *Presupuesto*: separar honorarios de Pivot y dinero de pauta del cliente.
    - *Calendario*: qué se hace cada mes durante los primeros 3 meses (sugerencia, editable).
 3. **Producción.** Armar la presentación en Google Slides con colores y logo de Pivot (ver [Marca Pivot](../05-marca-pivot.md)), máximo 15 diapositivas (sugerencia, editable).
-4. **Aprobación.** Presentar el plan en reunión y pedir aprobación por escrito (correo o WhatsApp). Ajustar máximo 2 rondas de cambios (sugerencia, editable).
+4. **Aprobación.** Presentar el plan en reunión y pedir aprobación por escrito por WhatsApp (o correo, cuando Pivot tenga correo propio). Ajustar máximo 2 rondas de cambios (sugerencia, editable).
 5. **Lanzamiento.** Crear las tareas en Asana según la [estructura de Asana](../plantillas/estructura-asana.md) y arrancar con los servicios que el cliente haya contratado.
 6. **Informe.** Cada mes usar la [plantilla de informe mensual](../plantillas/informe-mensual.md): qué se hizo, qué resultados dio y qué sigue.
 7. **Optimización.** Con los datos del mes, decidir qué seguir, qué cambiar y qué dejar. Revisar el plan completo cada 3 meses (sugerencia, editable).
@@ -47,7 +47,7 @@ Aterriza las 7 etapas de [la metodología base](../03-metodologia-base.md).
 | Asana | Tareas y calendario del plan | Conectada |
 | Meta Ads | Ver resultados de anuncios en Facebook e Instagram | Conectada |
 | Metricool | Ver resultados de redes sociales | Conectada |
-| Microsoft 365 (Outlook, Teams) | Reuniones y correos con el cliente | Conectada |
+| Microsoft 365 (Teams, Outlook) | Reuniones con el cliente en Teams; Outlook para correo cuando Pivot tenga correo propio | Conectada |
 | Google Analytics | Medir visitas y acciones en la web | Pendiente de conectar |
 | Google Business Profile | Ficha del negocio en Google Maps | Pendiente de conectar |
 
@@ -82,6 +82,8 @@ Los indicadores se escogen según el objetivo del negocio, no por moda:
 Nunca prometer cifras de resultados antes de tener datos reales del cliente.
 
 ## Agentes y skills de apoyo
+
+ECC es un conjunto de agentes y skills extra para Claude; solo funciona si su plugin (complemento que se instala en Claude) está instalado.
 
 - `marketing-agent` de ECC (requiere el plugin instalado): estratega que ordena público, posicionamiento y mensajes antes de escribir textos.
 - `brand-discovery` de ECC (requiere el plugin instalado): entrevista de marca por módulos; usar una versión corta para el diagnóstico.

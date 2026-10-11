@@ -9,8 +9,8 @@ Es una guía del alcance típico. Lo que se entrega en cada caso queda en la cot
 **Incluye:**
 - Brief de campaña, objetivo, públicos y estructura de campañas.
 - Piezas gráficas de los anuncios en Canva y textos.
-- Revisión del pixel (código que avisa a Meta cuando alguien compra o deja sus datos en la web) y de las conversiones.
-- Lanzamiento, revisión periódica, pruebas A/B e informe mensual.
+- Revisión del pixel (código que avisa a Meta cuando alguien compra o deja sus datos en la web) y de las conversiones (las acciones valiosas que queremos que la persona haga: escribir, dejar sus datos o comprar).
+- Lanzamiento, revisión periódica, pruebas A/B (comparar dos versiones de un anuncio cambiando una sola cosa: imagen, texto o público) e informe mensual.
 
 **No incluye:**
 - El dinero de la pauta: **lo paga el cliente directamente a la plataforma** con su propio medio de pago. Pivot no recibe ni maneja ese dinero.
@@ -26,19 +26,20 @@ Aterriza las 7 etapas de [la metodología base](../03-metodologia-base.md).
 2. **Estrategia.**
    - *Objetivo de campaña*: uno solo por campaña. Ejemplos: reconocimiento (que más gente conozca la marca), tráfico (visitas), clientes potenciales (que dejen sus datos o escriban), ventas.
    - *Públicos*: personas por ubicación, edad e intereses; públicos personalizados (personas que ya interactuaron con la marca) y similares (personas parecidas a los clientes actuales).
-   - *Presupuesto*: monto diario o total y duración. **Debe quedar aprobado por el cliente por escrito** (correo o WhatsApp) antes de lanzar.
+   - *Listas de clientes* (para públicos personalizados o similares): las sube el cliente, o Pivot dentro del Business Manager del cliente, solo si las personas autorizaron ese uso. Nunca se envían por WhatsApp ni por correo, ni se guardan fuera de la carpeta del cliente, y se borran después de subirlas.
+   - *Presupuesto*: monto diario o total y duración. **Debe quedar aprobado por el cliente por escrito** (por WhatsApp, o correo cuando Pivot tenga correo propio) antes de lanzar.
    - *Estructura y nombres*: campaña → conjunto de anuncios (a quién y cuánto) → anuncio (la pieza). Convención de nombres: `CLIENTE_OBJETIVO_PUBLICO_AAAAMM` (ej. de forma: `[CLIENTE]_LEADS_SIMILARES_[AAAAMM]`). Así cualquiera del equipo entiende qué es cada campaña.
-3. **Producción.** Diseñar las piezas en Canva con el kit de marca del cliente, en formatos cuadrado, vertical para historias/reels y horizontal si aplica. Escribir 2 o 3 versiones de texto por anuncio (sugerencia, editable), cada una con un solo llamado a la acción concreto.
+3. **Producción.** Diseñar las piezas en Canva con el kit de marca del cliente (su logo, colores y tipografías), en formatos cuadrado, vertical para historias/reels y horizontal si aplica. Escribir 2 o 3 versiones de texto por anuncio (sugerencia, editable), cada una con un solo llamado a la acción concreto.
 4. **Aprobación.** Enviar piezas, textos, públicos y presupuesto al cliente. No lanzar nada sin aprobación escrita.
 5. **Lanzamiento.**
-   - Confirmar acceso como socio (*partner access*) en el Business Manager del cliente. **Nunca pedir ni usar contraseñas** (ver [Seguridad y datos](../04-seguridad-y-datos.md)).
+   - Confirmar acceso como socio (*partner access*) en el Business Manager (el panel de Meta para administrar páginas, Instagram y anuncios) del cliente. Business Manager, cuenta publicitaria, página, Instagram y pixel siempre a nombre del cliente; Pivot nunca los crea en su propio Business Manager. **Nunca pedir ni usar contraseñas** (ver [Seguridad y datos](../04-seguridad-y-datos.md)).
    - Verificar que el pixel y las conversiones registran bien antes de gastar.
    - Revisar que el medio de pago del cliente esté activo.
    - Publicar y confirmar que los anuncios fueron aprobados por la plataforma.
 6. **Informe.** Mensual, con la [plantilla de informe mensual](../plantillas/informe-mensual.md). Explicar los números en palabras simples.
 7. **Optimización.**
-   - Revisar las campañas 2 o 3 veces por semana (sugerencia, editable); no hacer cambios grandes en los primeros 3 a 5 días (sugerencia, editable) porque la plataforma está aprendiendo.
-   - Pruebas A/B (comparar dos versiones cambiando una sola cosa: imagen, texto o público) durante al menos 7 días (sugerencia, editable).
+   - Revisar las campañas 2 veces por semana (sugerencia, editable); no hacer cambios grandes en los primeros 3 a 5 días (sugerencia, editable) porque la plataforma está aprendiendo.
+   - Pruebas A/B durante al menos 7 días (sugerencia, editable), cambiando una sola cosa a la vez.
    - Pausar lo que no funciona y pasar presupuesto a lo que sí, siempre dentro del monto aprobado.
 
 ## Herramientas
@@ -60,6 +61,7 @@ Aterriza las 7 etapas de [la metodología base](../03-metodologia-base.md).
 - [ ] Públicos definidos.
 - [ ] Presupuesto aprobado por el cliente **por escrito** y guardado en Drive.
 - [ ] Acceso como socio en el Business Manager (sin contraseñas).
+- [ ] Business Manager, cuenta publicitaria, página, Instagram y pixel a nombre del cliente (nada creado en el Business Manager de Pivot).
 - [ ] Medio de pago del cliente activo en la plataforma.
 - [ ] Pixel y conversiones verificados.
 - [ ] Nombres de campañas según `CLIENTE_OBJETIVO_PUBLICO_AAAAMM`.
@@ -84,6 +86,8 @@ El lanzamiento está **listo** cuando los anuncios están activos, aprobados por
 No prometer cifras antes de tener datos reales de las campañas del cliente.
 
 ## Agentes y skills de apoyo
+
+ECC es un conjunto de agentes y skills extra para Claude; solo funciona si su plugin (complemento que se instala en Claude) está instalado.
 
 - `marketing-agent` de ECC (requiere el plugin instalado): escribir variantes de texto de anuncios, cada una probando un ángulo distinto.
 - `marketing-campaign` de ECC (requiere el plugin instalado): planear una campaña con varios canales y su calendario.

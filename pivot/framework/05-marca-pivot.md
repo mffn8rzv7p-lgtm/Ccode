@@ -40,7 +40,7 @@ Nunca: prometer resultados exactos ("vas a vender el doble"), presionar con urge
 
 **2. Pedir una aprobación**
 - Así no: "Ahí te mandé las cosas, me cuentas."
-- Así sí: "Te comparto las 4 piezas de la próxima semana. ¿Me confirmas si las aprobamos o qué ajustamos? Si me respondes antes del `[completar día]`, salen a tiempo."
+- Así sí: "Te comparto el calendario y las piezas de `[completar mes]` completo. ¿Me confirmas si las aprobamos o qué ajustamos? Si me respondes antes del `[completar día]`, salen a tiempo."
 
 **3. Decir que algo está fuera del alcance**
 - Así no: "Eso no está incluido."

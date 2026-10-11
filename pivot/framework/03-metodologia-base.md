@@ -80,7 +80,7 @@ Brief → Estrategia → Producción → Aprobación → Lanzamiento → Informe
 
 ## Cómo queda registrada una aprobación
 
-1. El cliente aprueba por WhatsApp o correo con un mensaje claro ("Aprobado", "Sí, publiquen").
+1. El cliente aprueba por WhatsApp (o correo, cuando Pivot tenga correo propio) con un mensaje claro ("Aprobado", "Sí, publiquen").
 2. Se toma captura de pantalla o se exporta el mensaje.
 3. Se guarda en Drive en `05-Aprobaciones` con el nombre `AAAA-MM-DD_<cliente>_aprobacion-<que-se-aprobo>`.
 4. Se anota en la tarea de Asana y se marca como aprobada.
@@ -90,7 +90,8 @@ Un "me gusta" o un emoji no es aprobación: pedir confirmación en palabras.
 ## Ciclos según el tipo de servicio
 
 **Recurrentes (pauta y contenido):** se repiten cada mes.
-- Cada semana (sugerencia, editable): producir, aprobar y lanzar lo de la semana siguiente; revisar resultados de pauta.
+- Contenido: el mes completo se envía para aprobar por adelantado, al menos 5 días hábiles antes de que empiece el mes (sugerencia, editable). Ver [creación de contenido](servicios/creacion-contenido.md).
+- Pauta: revisar las campañas 2 veces por semana (sugerencia, editable).
 - Cada mes (sugerencia, editable): informe, optimización y nueva estrategia corta para el mes siguiente.
 
-**De una sola vez (web):** se recorren las 7 etapas una vez y termina con el acta de entrega ([plantillas/acta-entrega.md](plantillas/acta-entrega.md)). El informe es uno solo, al cierre, y la optimización se ofrece como servicio nuevo.
+**De una sola vez (web):** se recorren las 7 etapas una vez y termina con el acta de entrega ([plantillas/acta-entrega.md](plantillas/acta-entrega.md)). Una web solo tiene informes mensuales si el cliente contrata mantenimiento (ver [diseño web](servicios/diseno-web.md)); la optimización se ofrece como servicio nuevo.

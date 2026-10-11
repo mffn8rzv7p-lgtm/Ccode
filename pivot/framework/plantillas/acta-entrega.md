@@ -33,7 +33,8 @@ Para qué sirve: dejar por escrito qué entregó Pivot, que el cliente lo recibi
 
 ## Pago final
 - Saldo del 50% por transferencia bancaria: `[completar valor en COP]`.
-- Datos de la cuenta: se envían aparte por WhatsApp `[completar]`.
+- Datos de la cuenta (van impresos en este documento o PDF): `[completar]`.
+- Pivot nunca cambia su cuenta bancaria por mensaje; si llega un aviso de cambio, confirmar por llamada antes de pagar.
 
 ## Conformidad
 

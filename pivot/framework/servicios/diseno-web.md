@@ -11,7 +11,7 @@ Alcance típico (como guía; lo que se cobra lo define la cotización hecha con 
 - Página estática (hecha solo con archivos HTML, CSS y JavaScript, sin sistemas que haya que actualizar como WordPress), pensada primero para celular.
 - Revisión en computador y celular antes de mostrarla.
 - SEO básico (ajustes para que Google entienda la página y la muestre) y accesibilidad básica (que la pueda usar cualquier persona, también con dificultades visuales o con teclado).
-- Entrega en `.zip`, publicación en Hostinger o Netlify y verificación en vivo.
+- Entrega en `.zip` (un solo archivo comprimido con toda la web), publicación en Hostinger o Netlify y verificación en vivo.
 - Botón de WhatsApp y enlaces a redes del cliente.
 
 **No incluye (salvo que se cotice aparte)**
@@ -27,9 +27,9 @@ Aterriza las 7 etapas de [la metodología base](../03-metodologia-base.md). La p
 
 1. **Brief: entrevista del negocio.** Con la [plantilla de brief](../plantillas/brief-cliente.md) y la entrevista de `/neweb`: qué hace el negocio, a quién le vende, productos o servicios, cómo compran, contacto y redes, estilo deseado y material visual (logo, fotos). No inventar datos del negocio: lo que no se sepa, se pregunta o se deja fuera.
 2. **Estrategia: propuesta de estilo.** Se muestran colores (sacados del logo si existe), letras, detalles visuales, orden de secciones y tono de los textos. Se define también la frase principal por la que el negocio quiere que lo encuentren en Google (por ejemplo, "qué vende + en qué ciudad"). **No se construye sin un sí del cliente.**
-3. **Producción: construcción estática.** `/neweb` arma la página en `<cliente>/web/`. Cada versión queda guardada en GitHub (el lugar donde se guardan las versiones de las webs, así nada se pierde y se puede volver atrás).
+3. **Producción: construcción estática.** `/neweb` arma la página en `<cliente>/web/`. Cada versión queda guardada en GitHub (el lugar donde se guardan las versiones de las webs, así nada se pierde y se puede volver atrás). Repositorios privados, verificación en dos pasos en GitHub y acceso solo para quien trabaja en la web.
 4. **Aprobación: revisión en computador y celular.** `/neweb` saca capturas de ambas vistas y revisa errores, textos cortados e imágenes rotas. Luego se pasa la revisión de diseño con la skill `web-design-guidelines` y la [lista de chequeo](#lista-de-chequeo) de este archivo. Se le envían al cliente las capturas para aprobar; se aceptan hasta 2 rondas de cambios (sugerencia, editable).
-5. **Lanzamiento: entrega y publicación.** Se arma el `.zip` en `<cliente>/entregas/`, se publica en Hostinger (si el cliente ya tiene cuenta y dominio) o en Netlify (gratis y sencillo) y se **verifica en vivo** que lo publicado sea igual a lo aprobado. Se firma el [acta de entrega](../plantillas/acta-entrega.md) y se cobra el 50% final.
+5. **Lanzamiento: entrega y publicación.** Se arma el `.zip` en `<cliente>/entregas/`, se publica en Hostinger (si el cliente ya tiene cuenta y dominio) o en Netlify (gratis y sencillo) y se **verifica en vivo** que lo publicado sea igual a lo aprobado. Se hace el [acta de entrega](../plantillas/acta-entrega.md), confirmada por escrito por el cliente, y se cobra el 50% final.
 6. **Informe.** Si el cliente tiene mantenimiento, se reporta en el [informe mensual](../plantillas/informe-mensual.md) (ver [Qué medimos](#qué-medimos-informe-mensual)).
 7. **Optimización: mantenimiento posterior.** Cambios de precios, fotos o textos: se hace el cambio, se sube el número de versión de los archivos (para que los visitantes no vean la versión vieja guardada en su navegador), se revisa, se guarda en GitHub y se vuelve a verificar en vivo. Se sugiere revisar la web cada 3 meses (sugerencia, editable): enlaces, precios, WhatsApp y velocidad.
 
@@ -60,16 +60,16 @@ El dominio (la dirección, como `negocio.com`) y el hosting (el espacio donde vi
 
 | Herramienta | Para qué | Estado |
 |---|---|---|
-| Skill `/neweb` | Entrevista, estilo, construcción, revisión, entrega y verificación en vivo | conectada (en el proyecto) |
-| Skill `web-design-guidelines` | Revisión de diseño y accesibilidad | conectada (en el proyecto) |
-| GitHub | Guardar todas las versiones de cada web | conectada |
-| Hostinger / Netlify | Publicar la página | cuenta del cliente |
-| Canva | Imagen para compartir (Open Graph), piezas gráficas | conectada |
-| Google Drive | Material del cliente (logo, fotos) | conectada |
-| Asana | Tareas y fechas del proyecto | conectada |
-| Google Search Console | Ver cómo aparece la web en Google y avisarle que existe | pendiente de conectar |
-| Google Analytics | Medir visitas y clics | pendiente de conectar |
-| Google Business Profile | Ficha del negocio en Google Maps | pendiente de conectar |
+| Skill `/neweb` | Entrevista, estilo, construcción, revisión, entrega y verificación en vivo (skill del proyecto) | Conectada |
+| Skill `web-design-guidelines` | Revisión de diseño y accesibilidad (skill del proyecto) | Conectada |
+| GitHub | Guardar todas las versiones de cada web | Conectada |
+| Hostinger / Netlify | Publicar la página, en la cuenta del cliente | No aplica: la cuenta es del cliente; Pivot entra por invitación |
+| Canva | Imagen para compartir (Open Graph), piezas gráficas | Conectada |
+| Google Drive | Material del cliente (logo, fotos) | Conectada |
+| Asana | Tareas y fechas del proyecto | Conectada |
+| Google Search Console | Ver cómo aparece la web en Google y avisarle que existe | Pendiente de conectar |
+| Google Analytics | Medir visitas y clics | Pendiente de conectar |
+| Google Business Profile | Ficha del negocio en Google Maps | Pendiente de conectar |
 
 ## Lista de chequeo
 
@@ -88,11 +88,11 @@ El dominio (la dirección, como `negocio.com`) y el hosting (el espacio donde vi
 - [ ] `.zip` en `<cliente>/entregas/`.
 - [ ] Dominio y hosting a nombre del cliente.
 - [ ] Publicada y verificada en vivo (computador y celular).
-- [ ] Acta de entrega firmada.
+- [ ] Acta de entrega confirmada por escrito.
 
 ## Definición de terminado
 
-La web está "lista" cuando: el cliente aprobó el diseño, está publicada en su dominio o en Netlify, la verificación en vivo confirma que es la versión aprobada, se ve bien en computador y celular, el botón de WhatsApp funciona, la lista de chequeo está completa, la versión final está en GitHub y el acta de entrega está firmada.
+La web está "lista" cuando: el cliente aprobó el diseño, está publicada en su dominio o en Netlify, la verificación en vivo confirma que es la versión aprobada, se ve bien en computador y celular, el botón de WhatsApp funciona, la lista de chequeo está completa, la versión final está en GitHub y el acta de entrega está confirmada por escrito.
 
 ## Qué medimos (informe mensual)
 
@@ -104,6 +104,8 @@ Solo aplica si el cliente tiene mantenimiento. **Para medir visitas, clics y pos
 - **Posición en Google:** en qué lugar aparece la web al buscar la frase principal del negocio.
 
 ## Agentes y skills de apoyo
+
+ECC es un conjunto de agentes y skills extra para Claude; solo funciona si su plugin (complemento que se instala en Claude) está instalado.
 
 - **`/neweb`** (skill del proyecto): hace la web paso a paso, de la entrevista a la verificación en vivo.
 - **`web-design-guidelines`** (skill del proyecto): revisa diseño, usabilidad y accesibilidad.

@@ -33,14 +33,15 @@ Esta tabla es una versión simple de una matriz RACI (forma de repartir responsa
 
 - **Lunes:** planeación. Revisar Asana, ordenar prioridades de la semana y confirmar entregas con clientes.
 - **Martes a jueves:** producción, aprobaciones y lanzamientos.
-- **Miércoles:** revisión rápida de pauta (presupuesto gastado y resultados).
+- **Martes y viernes:** revisión rápida de pauta, 2 veces por semana (sugerencia, editable): presupuesto gastado y resultados.
 - **Viernes:** revisión. Qué se entregó, qué quedó pendiente, qué aprendimos. Dejar Asana al día.
 
 ## Canales
 
 | Para qué | Canal |
 |---|---|
-| Hablar con clientes | WhatsApp |
+| Hablar con clientes | WhatsApp (o correo, cuando Pivot tenga correo propio) |
+| Reuniones con clientes | Teams o videollamada/llamada |
 | Hablar entre el equipo | Microsoft Teams |
 | Tareas y fechas | Asana |
 | Archivos de clientes | Google Drive (por defecto). SharePoint es la alternativa si un cliente trabaja con Microsoft. |
@@ -76,4 +77,5 @@ Clientes/
 - Nombre del cliente sin tildes ni espacios raros, igual en Drive y en Asana.
 - Archivos con fecha al inicio: `AAAA-MM-DD_<cliente>_<que-es>` (por ejemplo `AAAA-MM-DD_<cliente>_informe-mensual`).
 - Versiones con `v1`, `v2`; la final termina en `final`.
+- Las webs viven en el repositorio (GitHub, el lugar donde se guardan las versiones de las webs), en `<cliente>/web/` y `<cliente>/entregas/`; una copia del .zip final (un solo archivo comprimido con toda la web) va en Drive `06-Entregas`.
 - Nunca guardar contraseñas en Drive. Ver [04-seguridad-y-datos.md](04-seguridad-y-datos.md).

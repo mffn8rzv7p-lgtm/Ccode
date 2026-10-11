@@ -9,7 +9,7 @@ Regla de oro: cada número va con una frase que diga qué significa para el nego
 **Informe de `[completar mes y año]` — `[completar cliente]`**
 Servicio: `[completar]` · Preparado por: `[completar]` · Fecha: `[completar]`
 
-## 1. Resumen en 3 líneas
+## 1. Resumen en 3 líneas (sugerencia, editable)
 - Lo más importante del mes: `[completar]`
 - Lo que mejor funcionó: `[completar]`
 - Lo que vamos a cambiar: `[completar]`

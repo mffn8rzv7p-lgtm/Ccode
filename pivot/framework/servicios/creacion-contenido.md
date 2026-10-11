@@ -9,7 +9,7 @@ Es una guía del alcance típico. La cantidad de publicaciones de cada cliente q
 **Incluye:**
 - Pilares de contenido (los 3 a 5 temas fijos de los que habla la marca (sugerencia, editable)).
 - Calendario mensual de publicaciones.
-- Diseño en Canva de posts, carruseles, reels e historias, con el kit de marca del cliente.
+- Diseño en Canva de posts, carruseles, reels e historias, con el kit de marca del cliente (su logo, colores y tipografías guardados en Canva).
 - Guiones para reels.
 - Programación en Metricool y medición.
 - Community management básico (responder comentarios y mensajes en el horario acordado).
@@ -31,7 +31,7 @@ Aterriza las 7 etapas de [la metodología base](../03-metodologia-base.md).
    - Mezclar formatos: **post** (una imagen), **carrusel** (varias imágenes que se deslizan, ideal para explicar), **reel** (video corto vertical) e **historia** (contenido que dura 24 horas).
 3. **Producción.**
    - Diseñar en Canva usando siempre el kit de marca del cliente (logo, colores, tipografías).
-   - Guion de reel de 15 a 45 segundos (sugerencia, editable): gancho en los primeros 3 segundos, desarrollo en bloques cortos, texto en pantalla y llamado a la acción al final.
+   - Guion de reel de 15 a 45 segundos (sugerencia, editable): gancho en los primeros 3 segundos (sugerencia, editable), desarrollo en bloques cortos, texto en pantalla y llamado a la acción al final.
    - Cada publicación lleva una sola idea y un solo llamado a la acción concreto.
 4. **Aprobación.** Enviar al cliente el calendario y las piezas del mes completo por adelantado, al menos 5 días hábiles antes de que empiece el mes (sugerencia, editable). Máximo 2 rondas de cambios (sugerencia, editable). Guardar la aprobación por escrito.
 5. **Lanzamiento.** Programar en Metricool. Antes de que salga cada publicación, otra persona revisa ortografía, fecha, hora, red y etiquetas (revisión de 4 ojos). Responder comentarios y mensajes dentro de 1 día hábil (sugerencia, editable), escalando al cliente lo que sea queja, precio o tema delicado.
@@ -46,7 +46,7 @@ Aterriza las 7 etapas de [la metodología base](../03-metodologia-base.md).
 | Metricool | Programar publicaciones y medir resultados | Conectada |
 | Google Drive / Sheets | Guardar material del cliente y el calendario | Conectada |
 | Asana | Tareas de producción y aprobación | Conectada |
-| Meta (Facebook e Instagram) | Redes donde se publica | Conectada (vía Metricool y Meta) |
+| Meta (Facebook e Instagram) | Redes donde se publica (vía Metricool y Meta) | Conectada |
 | TikTok Ads | Promocionar contenido en TikTok | Pendiente de conectar |
 | Google Business Profile | Publicaciones en la ficha de Google Maps | Pendiente de conectar |
 
@@ -79,6 +79,8 @@ El mes está **listo para salir** cuando el cliente aprobó todo por escrito y t
 No prometer cifras antes de tener datos reales de las redes del cliente.
 
 ## Agentes y skills de apoyo
+
+ECC es un conjunto de agentes y skills extra para Claude; solo funciona si su plugin (complemento que se instala en Claude) está instalado.
 
 - `content-engine` de ECC (requiere el plugin instalado): adaptar una idea a cada red y formato sin perder la voz.
 - `brand-voice` de ECC (requiere el plugin instalado): definir el tono del cliente a partir de sus textos reales.

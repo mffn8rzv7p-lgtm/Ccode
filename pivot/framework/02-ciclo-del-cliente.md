@@ -8,7 +8,7 @@ Para qué sirve: muestra el recorrido completo de un cliente con Pivot, del prim
 Primer contacto → Diagnóstico → Cotización → Aprobación y anticipo 50%
       → Bienvenida (onboarding) → Ejecución → Entrega y 50% final
       → Informe → ¿Renovación o nuevo servicio?
-                     ├─ sí → vuelve a Cotización o a Ejecución
+                     ├─ sí → vuelve a Aprobación y anticipo 50% (o a Cotización si cambia el alcance)
                      └─ no → Cierre (quitar accesos)
 ```
 
@@ -26,7 +26,7 @@ Los sombreros (roles) están explicados en [01-forma-de-trabajo.md](01-forma-de-
 ### 2. Diagnóstico
 - **Qué pasa:** se entiende el negocio, el problema y lo que espera lograr. Se revisa lo que ya tiene (redes, anuncios, web).
 - **Quién:** Dirección y comercial, con apoyo de Estrategia.
-- **Herramienta:** llamada o reunión en Teams; notas en Drive.
+- **Herramienta:** reunión en Teams, videollamada o llamada; notas en Drive.
 - **Salida:** notas del diagnóstico y servicio recomendado.
 - **Pasa a la siguiente cuando:** está claro qué servicio y qué alcance cotizar.
 
@@ -77,7 +77,8 @@ Los sombreros (roles) están explicados en [01-forma-de-trabajo.md](01-forma-de-
 - **Quién:** Dirección y comercial.
 - **Herramienta:** WhatsApp; skill `pivot-cotizacion` si hay nueva cotización.
 - **Salida:** decisión del cliente por escrito.
-- **Pasa a la siguiente cuando:** si renueva, vuelve a Ejecución (o a Cotización si cambia el alcance); si no, pasa a Cierre.
+- **Pasa a la siguiente cuando:** si renueva, vuelve a la etapa 4. Aprobación y anticipo 50% (o a Cotización si cambia el alcance); si no, pasa a Cierre.
+- **Servicios recurrentes (pauta, contenido):** el 50/50 aplica a cada ciclo, por ejemplo 50% al inicio de cada mes y 50% al cierre del mes (sugerencia, editable; confirmar con Dirección).
 
 ### 10. Cierre
 - **Qué pasa:** se agradece, se entregan los archivos finales y se quitan todos los accesos de Pivot a las cuentas del cliente.

@@ -31,12 +31,12 @@ Tareas que se repiten (en Asana se marcan como "repetir"):
 | Tarea | Frecuencia | Sombrero |
 |---|---|---|
 | Planear contenido del mes en [calendario-contenido.md](calendario-contenido.md) | Mensual (sugerencia, editable) | Contenido |
-| Producir y enviar piezas de la semana para aprobar | Semanal (sugerencia, editable) | Contenido |
+| Enviar mes para aprobar: calendario y piezas, al menos 5 días hábiles antes de que empiece el mes (sugerencia, editable) | Mensual (sugerencia, editable) | Contenido |
 | Programar publicaciones aprobadas en Metricool | Semanal (sugerencia, editable) | Contenido |
 | Revisar campañas en Meta Ads (gasto y resultados) | 2 veces por semana (sugerencia, editable) | Pauta |
 | Armar y enviar [informe-mensual.md](informe-mensual.md) | Mensual (sugerencia, editable) | Estrategia |
-| Reunión o mensaje de próximos pasos | Mensual (sugerencia, editable) | Dirección y comercial |
-| Recordar cobro del mes | Mensual (sugerencia, editable) | Dirección y comercial |
+| Reunión o mensaje de próximos pasos; si renueva, vuelve a la etapa 4. Aprobación y anticipo 50% de [../02-ciclo-del-cliente.md](../02-ciclo-del-cliente.md) (o a Cotización si cambia el alcance) | Mensual (sugerencia, editable) | Dirección y comercial |
+| Cobrar 50% al inicio del mes y 50% al cierre del mes (confirmar con Dirección) | Mensual (sugerencia, editable) | Dirección y comercial |
 
 ## Servicios de una sola vez (web)
 

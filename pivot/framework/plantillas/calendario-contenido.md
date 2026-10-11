@@ -28,7 +28,7 @@ Fecha | Día | Hora | Red | Formato | Tema | Objetivo | Texto (copy) | Llamado a
 | Resultado | Se llena después: alcance (cuántas personas la vieron), interacciones y comentarios relevantes. |
 
 ## Recomendaciones
-- Armar el mes completo antes de que empiece, con 1 semana de anticipación (sugerencia, editable).
+- Armar el mes completo antes de que empiece y enviarlo para aprobar al menos 5 días hábiles antes de que empiece el mes (sugerencia, editable).
 - Mezclar objetivos: no todo puede ser venta.
-- Enviar al cliente para aprobación por semanas o por mes completo, nunca pieza por pieza.
+- Enviar al cliente para aprobación el mes completo, nunca pieza por pieza. Ver [../servicios/creacion-contenido.md](../servicios/creacion-contenido.md).
 - Frecuencia de publicación según lo cotizado: `[completar]` por semana.
