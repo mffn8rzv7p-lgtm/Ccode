@@ -113,15 +113,23 @@ Pásales la lista de archivos cambiados (`git diff` contra el punto de partida) 
 
 ## Paso 5: Informe final con el diseño de PLM
 
-El entregable de cierre sigue el diseño de la propuesta **"Flamingo - Black Fiao"** de PLM Marketing Group: portada con etiqueta en mayúsculas espaciadas, "¿Cómo leímos el reto?" en tres columnas (lo que nos pidieron / lo que leímos / nuestra misión), cifras grandes, el cambio de mirada (antes / ahora) y cierre con fuentes.
+El entregable de cierre copia el diseño de la propuesta **"Flamingo - Black Fiao"** de PLM Marketing Group (láminas horizontales que en el PDF salen una por página):
+
+- **Portada y cierre en negro** (`#0d0d0d`), con `MED, COL`, `SINCE 2010` y `PLM.COM.CO / PLM EVERY_` en rojo en las esquinas y el título en rojo.
+- **Láminas grises** (`#e2e2e2`) con etiqueta en mayúsculas espaciadas, titular en rojo (`#e54529`), tarjetas blancas redondeadas con la última en negro, y la marca `✱—— PLM.COM.CO` abajo a la derecha.
+- **Separador rojo** a pantalla completa con el titular en negro.
+- **Cifras grandes en rojo** con una franja roja de conclusión.
+- **Antes / ahora** en una tarjeta blanca y una negra.
+- Letra **Calibri** (en la web se usa Carlito, que tiene las mismas medidas).
 
 1. Escribe los datos en `<scratchpad>/plm-ecc/informe.json` con la forma de `.claude/skills/plm-ecc/ejemplo.json`:
    - `tarea`, `subtitulo`, `cliente` (o el nombre del proyecto), `fecha` (AAAA-MM-DD).
-   - `reto`: `pedido`, `lectura`, `mision`.
+   - `reto`: `titular` (la frase roja de esa lámina), `pedido`, `lectura`, `mision`.
    - `pasos`: `titulo`, `agente`, `para_que`, `estado` (`hecho` o `pendiente`).
    - `equipo`: cada agente o skill de ECC que trabajó, con `tipo` (`agente` o `skill`) y su `rol` en una frase.
    - `hallazgos`: lo que encontraron los revisores, con `agente`, `hallazgo` y `estado`.
-   - `antes` y `ahora`: una frase cada una sobre lo que cambió para la persona.
+   - `conclusion`: la frase de la franja roja bajo las cifras (opcional).
+   - `antes` y `ahora`: una frase cada una sobre lo que cambió para la persona; `cambio_titular`: la frase roja que resume el cambio (opcional).
    - `pendientes`: lista corta y concreta.
    - `fuentes`: incluye siempre la documentación oficial de ECC.
    Todo en lenguaje simple: es para la persona, no para un programador. Solo hechos reales de este trabajo.
@@ -153,4 +161,5 @@ Qué queda pendiente: <lista corta, o "nada">
 - `planner` solo lee y planifica (sus herramientas son Read, Grep y Glob); no le pidas que cree archivos.
 - El nombre `/code-review` existe tanto en Claude Code como en ECC; en esta skill usa el **agente** `code-reviewer`, no el comando, para no confundir cuál se ejecutó.
 - El informe escapa todo el texto del `.json`; no metas HTML en los datos esperando que se vea con formato.
-- El referente de diseño (la presentación en SharePoint) no se puede descargar desde la nube; la estructura del informe se tomó de su contenido. Si cambian los colores o las letras de PLM, se ajustan en el bloque `:root` de `scripts/informe.py`.
+- El referente de diseño está en SharePoint y no se puede descargar desde la nube; los colores y la letra se tomaron del PDF de la presentación. Si cambian, se ajustan en el bloque `:root` de `scripts/informe.py`.
+- No dibujes el logo de PLM a mano en el informe: usa solo las marcas de texto de la plantilla.
