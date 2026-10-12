@@ -39,7 +39,8 @@
 *,*::before,*::after{box-sizing:border-box}
 html{background:var(--bg);overflow-x:clip}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:clip}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
+[hidden]{display:none!important}
 a{color:inherit}
 button{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--red);outline-offset:3px}
@@ -218,37 +219,91 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
 .p-peach{background:var(--peach)}
 .p-outline .ghost{position:absolute;right:-4%;bottom:-6%;font:900 clamp(120px,14vw,200px)/.8 var(--f-display);font-stretch:62%;color:transparent;-webkit-text-stroke:2px var(--ink);opacity:.18;pointer-events:none}
 .panel .icon-row{display:flex;justify-content:space-between;align-items:start}
+.deck-ctl{display:none}
+.deck-btn{width:48px;height:48px;display:grid;place-items:center;border:var(--b) solid var(--ink);background:var(--paper);color:var(--ink);box-shadow:3px 3px 0 var(--shade);cursor:pointer;transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+.deck-btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--shade)}
+.deck-btn .ico{font-size:20px}
+.deck-mid{display:grid;gap:8px;justify-items:center;min-width:0}
+.deck-name{font:800 15px/1.15 var(--f-display);font-stretch:112%;text-transform:uppercase;text-align:center}
+.deck-bars{display:flex;gap:6px}
+.deck-bars i{width:18px;height:8px;border:2px solid var(--ink);transition:background-color .3s}
+.deck-bars i.on{background:var(--red)}
+.deck-hint{color:var(--muted);font-size:12px}
 @media (max-width:899px){
   .track-vp{overflow:visible;padding-bottom:0}
-  .track{display:grid;grid-template-columns:1fr;width:auto;padding-inline:var(--gutter)}
-  .panel{width:auto;min-height:0}
+  .track{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;width:auto;padding-inline:var(--gutter)}
+  .panel{width:auto;min-height:0;gap:18px;padding:22px}
+  .panel .ico-big{font-size:34px}
+  .panel h3{font-size:clamp(28px,8.4vw,38px)}
+  .panel p{font-size:16px;margin-top:8px}
+  .p-red .big-mark{width:24%;right:-3%;bottom:-8%}
+  /* baraja: las tarjetas se apilan y se descartan deslizando */
+  .track.is-deck{grid-template-areas:"s";gap:0;padding-top:4px;padding-bottom:40px;touch-action:pan-y}
+  .track.is-deck .panel{grid-area:s;min-height:340px;z-index:calc(10 - var(--pos,0));
+    transform:translate3d(var(--tx,0px),calc(var(--pos,0) * 13px),0) rotate(calc(var(--rb,0deg) + var(--rz,0deg))) scale(calc(1 - var(--pos,0) * .045));
+    transition:transform .55s var(--spring),opacity .35s var(--ease);user-select:none;-webkit-user-select:none}
+  .track.is-deck .panel[data-pos="0"]{cursor:grab}
+  .track.is-deck .panel[data-pos="1"]{--rb:-3deg}
+  .track.is-deck .panel[data-pos="2"]{--rb:2.5deg}
+  .track.is-deck .panel[data-pos="3"],.track.is-deck .panel[data-pos="4"],.track.is-deck .panel[data-pos="5"]{opacity:0}
+  .track.is-deck .panel.dragging{transition:none;cursor:grabbing}
+  .deck-ctl{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding-inline:var(--gutter)}
 }
 
-/* ---------------- método: cuatro cuartos de vuelta ---------------- */
-.method{border-top:var(--b) solid var(--ink);padding-block:clamp(64px,8vw,104px)}
-.method.is-pinned{height:100dvh;padding-block:calc(var(--bar) + 32px) 32px;display:grid;align-content:center}
-.method-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,80px);align-items:center}
-.method h2{font-size:clamp(36px,4.4vw,68px);font-weight:900;line-height:.92;letter-spacing:-.04em;text-transform:uppercase;font-stretch:104%;margin-bottom:clamp(24px,3vw,40px)}
-.qdial{position:relative;width:min(100%,46vh,480px);aspect-ratio:1;border-radius:50%;border:var(--b) solid var(--ink);box-shadow:10px 10px 0 var(--shade);
+/* ---------------- método: dial interactivo por casos ---------------- */
+@property --deg{syntax:"<angle>";inherits:true;initial-value:0deg}
+.method{border-top:var(--b) solid var(--ink);padding-block:clamp(64px,8vw,112px)}
+.method-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-areas:"dial head" "dial card";column-gap:clamp(32px,5vw,80px);row-gap:28px;align-items:start}
+.m-head{grid-area:head;min-width:0}
+.m-dial{grid-area:dial;display:grid;gap:18px;justify-items:center;align-self:center}
+.m-card{grid-area:card;min-width:0}
+.method h2{font-size:clamp(36px,4.4vw,68px);font-weight:900;line-height:.92;letter-spacing:-.04em;text-transform:uppercase;font-stretch:104%;margin-bottom:24px}
+.cases{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.cases legend{padding:0;margin-bottom:12px;font-weight:700;font-size:17px}
+.case{position:relative;display:inline-flex}
+.case input{position:absolute;opacity:0;width:1px;height:1px}
+.case span{display:inline-flex;align-items:center;min-height:46px;padding:10px 16px;border:var(--b) solid var(--ink);background:var(--paper);font:700 15px/1.2 var(--f-body);cursor:pointer;
+  transition:background-color .25s,color .25s,box-shadow .25s var(--ease),transform .25s var(--ease)}
+.case span:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--shade)}
+.case input:checked + span{background:var(--ink);color:var(--paper);box-shadow:4px 4px 0 var(--red);transform:translate(-2px,-2px)}
+.case input:focus-visible + span{outline:3px solid var(--red);outline-offset:3px}
+.qdial{position:relative;width:min(100%,52vh,460px);aspect-ratio:1;max-width:100%;border-radius:50%;border:var(--b) solid var(--ink);box-shadow:10px 10px 0 var(--shade);cursor:grab;touch-action:none;
+  user-select:none;-webkit-user-select:none;transition:--deg .7s var(--spring);
   background:
     linear-gradient(var(--ink),var(--ink)) center/var(--b) 100% no-repeat,
     linear-gradient(var(--ink),var(--ink)) center/100% var(--b) no-repeat,
-    conic-gradient(var(--red) var(--deg,0deg),var(--paper) 0)}
-.qdial .hand{position:absolute;left:50%;top:50%;width:var(--b);height:50%;margin-left:calc(var(--b) / -2);transform-origin:50% 0;transform:rotate(calc(var(--deg,0deg) + 180deg));background:var(--ink)}
-.qdial .hub{position:absolute;inset:31%;border-radius:50%;background:var(--paper);border:var(--b) solid var(--ink);display:grid;place-items:center;
-  font:700 clamp(28px,4.4vh,46px)/1 var(--f-mono);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-.qdial .q{position:absolute;font:900 clamp(12px,1.6vh,16px)/1 var(--f-display);font-stretch:118%;text-transform:uppercase;letter-spacing:.02em}
-.qdial .q1{left:62%;top:20%}.qdial .q2{left:62%;top:76%}.qdial .q3{left:12%;top:76%}.qdial .q4{left:12%;top:20%}
-.steps{list-style:none;margin:0;padding:0;display:grid;gap:clamp(12px,1.6vh,18px)}
-.step{display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;padding:clamp(14px,2vh,22px) 20px;border:var(--b) solid var(--ink);background:var(--paper);
-  opacity:.38;transform:translateX(0);transition:opacity .4s var(--ease),transform .4s var(--ease),box-shadow .4s var(--ease),background-color .4s}
-.step.on{opacity:1;box-shadow:6px 6px 0 var(--shade);transform:translate(-3px,-3px)}
-.step.now{background:var(--peach)}
-.step .mono{font-weight:700;color:var(--red);padding-top:6px}
-.step h3{font-size:clamp(24px,2.4vw,34px);font-weight:900;line-height:1;letter-spacing:-.03em;text-transform:uppercase;font-stretch:112%}
-.step p{margin-top:6px;font-size:16px;line-height:1.45;color:var(--muted)}
-.step p b{color:var(--ink);font-weight:700}
-@media (max-width:900px){.method-grid{grid-template-columns:1fr}.qdial{width:min(80vw,320px)}.step{grid-template-columns:60px minmax(0,1fr)}}
+    conic-gradient(var(--red) var(--deg),var(--paper) 0)}
+.qdial.drag{transition:none;cursor:grabbing}
+.qdial:focus-visible{outline:3px solid var(--red);outline-offset:8px}
+.qdial .hand{position:absolute;left:50%;top:50%;width:var(--b);height:50%;margin-left:calc(var(--b) / -2);transform-origin:50% 0;transform:rotate(calc(var(--deg) + 180deg));background:var(--ink);pointer-events:none}
+.qdial .hand::after{content:"";position:absolute;left:50%;bottom:-17px;width:30px;height:30px;margin-left:-15px;border-radius:50%;background:var(--paper);border:var(--b) solid var(--ink);box-shadow:3px 3px 0 var(--shade)}
+.qdial .hub{position:absolute;inset:31%;border-radius:50%;background:var(--paper);border:var(--b) solid var(--ink);display:grid;place-items:center;pointer-events:none;
+  font:700 clamp(26px,4.2vh,44px)/1 var(--f-mono);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.qdial .q{position:absolute;font:900 clamp(12px,1.6vh,16px)/1 var(--f-display);font-stretch:118%;text-transform:uppercase;letter-spacing:.02em;pointer-events:none;opacity:.5;transition:opacity .3s}
+.qdial .q.on{opacity:1}
+.qdial .q1{left:57%;top:20%}.qdial .q2{left:57%;top:76%}.qdial .q3{left:14%;top:76%}.qdial .q4{left:14%;top:20%}
+.dial-hint{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.dial-hint .ico{font-size:16px}
+.stepcard{border:var(--b) solid var(--ink);background:var(--paper);box-shadow:8px 8px 0 var(--shade);padding:clamp(20px,2.4vw,32px);display:grid;gap:12px;perspective:700px}
+.stepcard .top{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.stepcard h3{font-size:clamp(34px,3.8vw,58px);font-weight:900;line-height:.95;letter-spacing:-.04em;text-transform:uppercase;font-stretch:112%}
+.stepcard .deg{font:700 16px var(--f-mono);color:var(--red);font-variant-numeric:tabular-nums}
+.stepcard .gen{color:var(--muted);font-size:16px}
+.stepcard .case-line{font-size:clamp(18px,1.5vw,21px);line-height:1.45;max-width:46ch}
+.stepcard .case-line b{color:var(--red)}
+.stepcard .take{display:flex;align-items:center;gap:10px;font-weight:700;padding-top:14px;margin-top:4px;border-top:2px dashed color-mix(in srgb,var(--ink) 30%,transparent)}
+.stepcard .take .ico{font-size:20px;color:var(--red)}
+.stepcard.in>*{animation:flipIn .5s var(--ease) both}
+.stepcard.in>*:nth-child(2){animation-delay:.04s}
+.stepcard.in>*:nth-child(3){animation-delay:.08s}
+.stepcard.in>*:nth-child(4){animation-delay:.12s}
+.step-nav{display:flex;flex-wrap:wrap;gap:14px;margin-top:24px}
+.step-nav .btn:disabled{opacity:.4;cursor:default;transform:none;box-shadow:5px 5px 0 var(--shade)}
+@media (max-width:900px){
+  .method-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "dial" "card"}
+  .qdial{width:min(76vw,300px)}
+  .qdial .q{font-size:11px}
+}
 
 /* ---------------- manifiesto ---------------- */
 .manifesto{border-top:var(--b) solid var(--ink);padding-block:clamp(88px,13vw,180px);text-align:center;overflow:hidden}
@@ -257,21 +312,48 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
 .manifesto .w.r{color:var(--red)}
 .manifesto .spin{display:inline-block;color:var(--red);transform-origin:50% 80%}
 
-/* ---------------- equipo ---------------- */
-.team{border-top:var(--b) solid var(--ink);padding-block:clamp(64px,9vw,128px)}
-.team h2{margin-inline:auto 0;font-size:clamp(40px,5.4vw,84px);font-weight:900;line-height:.9;letter-spacing:-.04em;text-transform:uppercase;font-stretch:108%;margin-bottom:clamp(36px,5vw,64px);max-width:14ch}
-.duo{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start}
-.sticker{border:var(--b) solid var(--ink);background:var(--paper);box-shadow:10px 10px 0 var(--shade);transition:transform .5s var(--spring),box-shadow .5s var(--spring)}
-.sticker:nth-child(1){grid-column:2 / span 4;transform:rotate(-2.5deg)}
-.sticker:nth-child(2){grid-column:8 / span 4;margin-top:clamp(0px,10vw,140px);transform:rotate(2deg)}
-.sticker:hover,.sticker:focus-within{transform:rotate(0) translate(-4px,-4px);box-shadow:14px 14px 0 var(--shade)}
-.sticker figure{margin:0;border-bottom:var(--b) solid var(--ink);background:#F5F0E8}
-.sticker img{width:100%;aspect-ratio:1;object-fit:cover}
-.sticker .info{padding:22px 24px 26px;display:grid;gap:6px}
-.sticker h3{font-size:clamp(34px,3.4vw,48px);font-weight:900;line-height:1;letter-spacing:-.03em;text-transform:uppercase;font-stretch:118%}
-.sticker .role{font-weight:700}
-.sticker .bio{color:var(--muted);max-width:42ch}
-@media (max-width:760px){.duo{grid-template-columns:1fr;gap:36px}.sticker:nth-child(n){grid-column:auto;margin-top:0}}
+/* ---------------- equipo: cromos que se giran ---------------- */
+.team{border-top:var(--b) solid var(--ink);padding-block:clamp(64px,9vw,128px);overflow:hidden}
+.team-head{display:grid;gap:14px;margin-bottom:clamp(36px,5vw,64px)}
+.team h2{font-size:clamp(40px,5.4vw,84px);font-weight:900;line-height:.9;letter-spacing:-.04em;text-transform:uppercase;font-stretch:108%;max-width:14ch}
+.team-hint{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.team-hint .ico{font-size:16px}
+.cromos{display:grid;grid-template-columns:repeat(2,minmax(0,380px));justify-content:center;gap:clamp(28px,6vw,96px);list-style:none;margin:0;padding:0}
+.cromo{perspective:1400px;transform:rotate(var(--tilt,0deg))}
+.cromo:nth-child(2){margin-top:clamp(0px,6vw,88px)}
+.cromo-in{display:grid;width:100%;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;transform-style:preserve-3d;
+  transform:rotateX(var(--rx,0deg)) rotateY(calc(var(--flip,0deg) + var(--ry,0deg)));transition:transform .9s var(--spring)}
+.cromo-in.tilting{transition:transform .12s linear}
+.cromo-in[aria-pressed="true"]{--flip:180deg}
+.cromo-in:focus-visible{outline:none}
+.cromo-in:focus-visible .face{outline:3px solid var(--red);outline-offset:4px}
+.face{grid-area:1/1;position:relative;display:grid;border:var(--b) solid var(--ink);overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.front{background:var(--paper);box-shadow:10px 10px 0 var(--shade);grid-template-rows:auto 1fr auto}
+.c-strip{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;background:var(--ink);color:var(--paper);font:700 12px/1 var(--f-mono);letter-spacing:.04em;text-transform:uppercase}
+.c-strip svg{width:8px;height:20px;fill:var(--red)}
+.c-strip .c-brand{display:flex;align-items:center;gap:8px}
+.c-pic{position:relative;border-bottom:var(--b) solid var(--ink);background:#F5F0E8}
+.c-pic img{width:100%;aspect-ratio:1;object-fit:cover}
+.foil{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;opacity:.9;
+  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.75) 47%,rgba(255,214,190,.5) 52%,transparent 64%) var(--fx,120%) 0/260% 100% no-repeat}
+.c-name{display:flex;justify-content:space-between;align-items:end;gap:12px;padding:16px 18px 18px}
+.c-n{font:900 clamp(36px,3.6vw,52px)/.9 var(--f-display);font-stretch:118%;letter-spacing:-.03em;text-transform:uppercase}
+.c-flip{display:flex;align-items:center;gap:6px;font:700 12px/1.2 var(--f-mono);color:var(--red);text-align:right}
+.c-flip .ico{font-size:16px;flex:none}
+.back{transform:rotateY(180deg);background:var(--red);color:var(--on-red-ink);box-shadow:-10px 10px 0 var(--shade);padding:clamp(20px,2.4vw,28px);align-content:space-between;gap:20px}
+.back .c-mark{position:absolute;right:-8%;bottom:-10%;width:42%;fill:color-mix(in srgb,var(--on-red) 22%,transparent);transform:rotate(14deg);pointer-events:none}
+.c-bname{font:900 clamp(40px,4vw,60px)/.88 var(--f-display);font-stretch:118%;letter-spacing:-.04em;text-transform:uppercase;color:var(--on-red);position:relative}
+.c-rows{display:grid;gap:12px;position:relative}
+.c-row{display:grid;gap:3px;padding-top:10px;border-top:2px solid var(--on-red-ink)}
+.c-row .mono{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.c-row span:last-child{font-size:17px;font-weight:600;line-height:1.3}
+.c-back-hint{display:flex;align-items:center;gap:6px;font:700 12px/1 var(--f-mono);position:relative}
+@media (max-width:760px){
+  .cromos{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:min(78vw,330px);justify-content:start;overflow-x:auto;scroll-snap-type:x mandatory;
+    margin-inline:calc(var(--gutter) * -1);padding:12px var(--gutter) 34px;scroll-padding-inline:var(--gutter);overscroll-behavior-x:contain}
+  .cromo{scroll-snap-align:start}
+  .cromo:nth-child(2){margin-top:0}
+}
 
 /* ---------------- preguntas ---------------- */
 .faq{border-top:var(--b) solid var(--ink);padding-block:clamp(64px,9vw,128px)}
@@ -329,6 +411,8 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
     <symbol id="i-chats" viewBox="0 0 256 256"><path d="M236.34,187.09A84,84,0,0,0,172.29,68.9,84,84,0,0,0,19.66,139.090l-6.84,23.26a20,20,0,0,0,24.83,24.83l23.26-6.84a83.94,83.94,0,0,0,22.76,6.74,84.06,84.06,0,0,0,111.42,41.26l23.26,6.84a20,20,0,0,0,24.83-24.83ZM62,155.5a11.88,11.88,0,0,0-3.39.49l-20.72,6.09L44,141.35a12,12,0,0,0-.93-9A60,60,0,1,1,67.7,156.92,12,12,0,0,0,62,155.5Zm150.89,24.8a12,12,0,0,0-.93,9l6.090,20.73L197.36,204a12,12,0,0,0-9.06.93A60,60,0,0,1,111,186.63a83.93,83.93,0,0,0,68.55-91.37,60,60,0,0,1,33.38,85Z"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 256 256"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></symbol>
     <symbol id="i-right" viewBox="0 0 256 256"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></symbol>
+    <symbol id="i-left" viewBox="0 0 256 256"><path d="M228,128a12,12,0,0,1-12,12H69l51.52,51.51a12,12,0,0,1-17,17l-72-72a12,12,0,0,1,0-17l72-72a12,12,0,0,1,17,17L69,116H216A12,12,0,0,1,228,128Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></symbol>
     <symbol id="i-plus" viewBox="0 0 256 256"><path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"/></symbol>
     <symbol id="i-copy" viewBox="0 0 256 256"><path d="M216,28H88A12,12,0,0,0,76,40V76H40A12,12,0,0,0,28,88V216a12,12,0,0,0,12,12H168a12,12,0,0,0,12-12V180h36a12,12,0,0,0,12-12V40A12,12,0,0,0,216,28ZM156,204H52V100H156Zm48-48H180V88a12,12,0,0,0-12-12H100V52H204Z"/></symbol>
     <symbol id="i-rotate" viewBox="0 0 256 256"><path d="M228,48V96a12,12,0,0,1-12,12H168a12,12,0,0,1,0-24h19l-7.8-7.8a75.55,75.55,0,0,0-53.32-22.26h-.43A75.49,75.49,0,0,0,72.39,75.57,12,12,0,1,1,55.61,58.41a99.38,99.38,0,0,1,69.87-28.47H126A99.42,99.42,0,0,1,196.2,59.23L204,67V48a12,12,0,0,1,24,0ZM183.61,180.43a75.49,75.49,0,0,1-53.09,21.63h-.43A75.55,75.55,0,0,1,76.77,179.8L69,172H88a12,12,0,0,0,0-24H40a12,12,0,0,0-12,12v48a12,12,0,0,0,24,0V189l7.8,7.8A99.42,99.42,0,0,0,130,226.06h.56a99.38,99.38,0,0,0,69.87-28.47,12,12,0,0,0-16.78-17.16Z"/></symbol>
@@ -469,27 +553,52 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
         </article>
       </div>
     </div>
+    <div class="deck-ctl" id="deckCtl">
+      <button class="deck-btn" id="deckPrev" type="button" aria-label="Servicio anterior"><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg></button>
+      <div class="deck-mid">
+        <p class="deck-name" id="deckName" aria-live="polite">Estrategia digital</p>
+        <span class="deck-bars" id="deckBars" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="mono deck-hint">Desliza la tarjeta</span>
+      </div>
+      <button class="deck-btn" id="deckNext" type="button" aria-label="Siguiente servicio"><svg class="ico" aria-hidden="true"><use href="#i-right"/></svg></button>
+    </div>
   </section>
 
   <!-- MÉTODO -->
   <section class="method" id="metodo" data-sec="2">
     <div class="wrap method-grid">
-      <div class="qdial" id="qdial" style="--deg:360deg" role="img" aria-label="Dial dividido en cuatro cuartos: escuchamos, definimos, creamos y medimos. Cada paso es un cuarto de vuelta.">
-        <span class="q q1" aria-hidden="true">Escuchar</span>
-        <span class="q q2" aria-hidden="true">Definir</span>
-        <span class="q q3" aria-hidden="true">Crear</span>
-        <span class="q q4" aria-hidden="true">Medir</span>
-        <i class="hand" aria-hidden="true"></i>
-        <span class="hub" id="qdeg" aria-hidden="true">360°</span>
-      </div>
-      <div>
+      <div class="m-head">
         <h2>Cuatro cuartos de vuelta. Un giro <span class="bang">completo!</span></h2>
-        <ol class="steps" id="steps">
-          <li class="step on"><span class="mono">090°</span><div><h3>Escuchamos</h3><p>Entendemos tu marca, tu público y dónde estás hoy. <b>Te llevas un diagnóstico claro.</b></p></div></li>
-          <li class="step on"><span class="mono">180°</span><div><h3>Definimos</h3><p>Elegimos el giro: objetivos, mensajes y canales. <b>Te llevas tu estrategia.</b></p></div></li>
-          <li class="step on"><span class="mono">270°</span><div><h3>Creamos</h3><p>Diseñamos, producimos y lanzamos contenido, web y campañas. <b>Te llevas piezas listas para salir.</b></p></div></li>
-          <li class="step on"><span class="mono">360°</span><div><h3>Medimos</h3><p>Revisamos los números cada mes y ajustamos para crecer. <b>Te llevas resultados que puedes ver.</b></p></div></li>
-        </ol>
+        <fieldset class="cases">
+          <legend>¿Dónde está tu marca hoy?</legend>
+          <label class="case"><input type="radio" name="caso" id="caso-a" value="0" checked><span>Nadie me conoce</span></label>
+          <label class="case"><input type="radio" name="caso" id="caso-b" value="1"><span>Tengo seguidores, pero no ventas</span></label>
+          <label class="case"><input type="radio" name="caso" id="caso-c" value="2"><span>Publico sin un plan</span></label>
+        </fieldset>
+      </div>
+      <div class="m-dial">
+        <div class="qdial" id="qdial" style="--deg:90deg" role="slider" tabindex="0" aria-label="Paso del método" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" aria-valuetext="90 grados: Escuchamos">
+          <span class="q q1 on" aria-hidden="true">Escuchar</span>
+          <span class="q q2" aria-hidden="true">Definir</span>
+          <span class="q q3" aria-hidden="true">Crear</span>
+          <span class="q q4" aria-hidden="true">Medir</span>
+          <i class="hand" aria-hidden="true"></i>
+          <span class="hub" id="qdeg" aria-hidden="true">090°</span>
+        </div>
+        <p class="mono dial-hint"><svg class="ico" aria-hidden="true"><use href="#i-rotate"/></svg>Gira el dial o toca un cuarto</p>
+      </div>
+      <div class="m-card">
+        <article class="stepcard" id="stepcard" aria-live="polite">
+          <div class="top"><h3 id="scTitle">Escuchamos</h3><span class="deg" id="scDeg">090°</span></div>
+          <p class="gen" id="scGen">Entendemos tu marca, tu público y dónde estás hoy.</p>
+          <p class="case-line"><b>En tu caso:</b> <span id="scCase">revisamos dónde aparece hoy tu marca y quién debería conocerla.</span></p>
+          <p class="take"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Te llevas <span id="scTake">un diagnóstico claro</span>.</span></p>
+        </article>
+        <div class="step-nav">
+          <button class="btn btn-paper" id="stPrev" type="button" disabled><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg><span>Anterior</span></button>
+          <button class="btn btn-red" id="stNext" type="button"><span>Siguiente cuarto</span><svg class="ico" aria-hidden="true"><use href="#i-rotate"/></svg></button>
+          <a class="btn btn-red" id="stCta" href="#contacto" hidden><span>Hablemos!</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
       </div>
     </div>
   </section>
@@ -504,25 +613,50 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
   <!-- EQUIPO -->
   <section class="team" id="equipo" data-sec="4">
     <div class="wrap">
-      <h2>Las caras detrás del <span class="bang">giro!</span></h2>
-      <div class="duo">
-        <article class="sticker">
-          <figure><img src="img/daniel.webp" alt="Ilustración de Daniel: barba, gafas y gorra" width="640" height="640" loading="lazy"></figure>
-          <div class="info">
-            <h3>Daniel</h3>
-            <p class="role">Publicista</p>
-            <p class="bio">Más de 10 años en marketing digital. Un gomoso por contar historias.</p>
-          </div>
-        </article>
-        <article class="sticker">
-          <figure><img src="img/laura.webp" alt="Ilustración de Laura: trenzas, pecas y gorra" width="640" height="640" loading="lazy"></figure>
-          <div class="info">
-            <h3>Laura</h3>
-            <p class="role">Comunicadora gráfica publicitaria</p>
-            <p class="bio">La cara tierna de Pivot, la tesa creando contenido y pensando para tu marca.</p>
-          </div>
-        </article>
+      <div class="team-head">
+        <h2>Las caras detrás del <span class="bang">giro!</span></h2>
+        <p class="mono team-hint"><svg class="ico" aria-hidden="true"><use href="#i-rotate"/></svg>Toca cada cromo para darle la vuelta</p>
       </div>
+      <ul class="cromos">
+        <li class="cromo" style="--tilt:-3deg">
+          <button class="cromo-in" type="button" aria-pressed="false">
+            <span class="face front">
+              <span class="c-strip"><span class="c-brand"><svg viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>Pivot</span><span>Publicista</span></span>
+              <span class="c-pic"><img src="img/daniel.webp" alt="Ilustración de Daniel: barba, gafas y gorra" width="640" height="640" loading="lazy"><span class="foil" aria-hidden="true"></span></span>
+              <span class="c-name"><span class="c-n">Daniel</span><span class="c-flip" aria-hidden="true"><svg class="ico"><use href="#i-rotate"/></svg>Dale la vuelta</span></span>
+            </span>
+            <span class="face back">
+              <svg class="c-mark" viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>
+              <span class="c-bname">Daniel</span>
+              <span class="c-rows">
+                <span class="c-row"><span class="mono">Profesión</span><span>Publicista</span></span>
+                <span class="c-row"><span class="mono">Experiencia</span><span>Más de 10 años en marketing digital</span></span>
+                <span class="c-row"><span class="mono">Lo suyo</span><span>Un gomoso por contar historias</span></span>
+              </span>
+              <span class="c-back-hint" aria-hidden="true"><svg class="ico"><use href="#i-rotate"/></svg>Toca para volver</span>
+            </span>
+          </button>
+        </li>
+        <li class="cromo" style="--tilt:2.5deg">
+          <button class="cromo-in" type="button" aria-pressed="false">
+            <span class="face front">
+              <span class="c-strip"><span class="c-brand"><svg viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>Pivot</span><span>Comunicadora gráfica</span></span>
+              <span class="c-pic"><img src="img/laura.webp" alt="Ilustración de Laura: trenzas, pecas y gorra" width="640" height="640" loading="lazy"><span class="foil" aria-hidden="true"></span></span>
+              <span class="c-name"><span class="c-n">Laura</span><span class="c-flip" aria-hidden="true"><svg class="ico"><use href="#i-rotate"/></svg>Dale la vuelta</span></span>
+            </span>
+            <span class="face back">
+              <svg class="c-mark" viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>
+              <span class="c-bname">Laura</span>
+              <span class="c-rows">
+                <span class="c-row"><span class="mono">Profesión</span><span>Comunicadora gráfica publicitaria</span></span>
+                <span class="c-row"><span class="mono">En Pivot</span><span>La cara tierna del equipo</span></span>
+                <span class="c-row"><span class="mono">Lo suyo</span><span>Crear contenido y pensar para tu marca</span></span>
+              </span>
+              <span class="c-back-hint" aria-hidden="true"><svg class="ico"><use href="#i-rotate"/></svg>Toca para volver</span>
+            </span>
+          </button>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -755,15 +889,172 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
     setTimeout(function(){ copyLbl.textContent = 'Copiar'; }, 2200);
   });
 
-  /* ---------- movimiento ligado al scroll ---------- */
-  var qdial = $('#qdial'), qdeg = $('#qdeg'), steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
-  function setDial(p){
-    var deg = Math.max(0, Math.min(360, p * 360));
-    qdial.style.setProperty('--deg', deg + 'deg');
-    qdeg.textContent = pad(deg) + '°';
-    var now = Math.min(3, Math.floor(deg / 90 - 0.0001));
-    steps.forEach(function(s, k){ s.classList.toggle('on', k <= now || p >= 1); s.classList.toggle('now', k === now && p < 1); });
+  /* ---------- servicios en celular: baraja que se desliza ---------- */
+  var track = $('#track'), panels = Array.prototype.slice.call(track.querySelectorAll('.panel'));
+  var deckName = $('#deckName'), deckBars = Array.prototype.slice.call(document.querySelectorAll('#deckBars i'));
+  var NP = panels.length, dI = 0, deckOn = false;
+  function layoutDeck(){
+    panels.forEach(function(p, k){
+      var pos = (k - dI + NP) % NP;
+      p.dataset.pos = pos; p.style.setProperty('--pos', pos); p.inert = pos !== 0;
+    });
+    deckName.textContent = panels[dI].querySelector('h3').textContent;
+    deckBars.forEach(function(b, k){ b.classList.toggle('on', k === dI); });
   }
+  function deckGo(d){ dI = (dI + d + NP) % NP; layoutDeck(); }
+  function fling(dir){
+    var p = panels[dI];
+    p.classList.remove('dragging');
+    p.style.setProperty('--tx', (dir * 120) + 'vw');
+    p.style.setProperty('--rz', (dir * 22) + 'deg');
+    setTimeout(function(){
+      p.classList.add('dragging');
+      p.style.removeProperty('--tx'); p.style.removeProperty('--rz');
+      deckGo(1);
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ p.classList.remove('dragging'); }); });
+    }, reduce ? 0 : 260);
+  }
+  var mqDeck = matchMedia('(max-width: 899px)');
+  function setDeck(){
+    deckOn = mqDeck.matches;
+    track.classList.toggle('is-deck', deckOn);
+    if (deckOn) { layoutDeck(); return; }
+    panels.forEach(function(p){ p.inert = false; p.removeAttribute('data-pos'); p.style.removeProperty('--pos'); });
+  }
+  mqDeck.addEventListener('change', setDeck); setDeck();
+  $('#deckPrev').addEventListener('click', function(){ deckGo(-1); });
+  $('#deckNext').addEventListener('click', function(){ fling(-1); });
+  var sx = 0, sy = 0, sDown = false, sDrag = false;
+  track.addEventListener('pointerdown', function(e){
+    if (!deckOn || !panels[dI].contains(e.target)) return;
+    sDown = true; sDrag = false; sx = e.clientX; sy = e.clientY;
+  });
+  track.addEventListener('pointermove', function(e){
+    if (!sDown) return;
+    var dx = e.clientX - sx, dy = e.clientY - sy, p = panels[dI];
+    if (!sDrag) {
+      if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) { sDrag = true; p.classList.add('dragging'); try { track.setPointerCapture(e.pointerId); } catch(_){} }
+      else if (Math.abs(dy) > 10) sDown = false;
+      return;
+    }
+    p.style.setProperty('--tx', dx + 'px'); p.style.setProperty('--rz', (dx * .06) + 'deg');
+  });
+  function sEnd(e){
+    if (!sDown) return;
+    sDown = false;
+    if (!sDrag) return;
+    var dx = e.clientX - sx, p = panels[dI];
+    if (Math.abs(dx) > 80) fling(dx > 0 ? 1 : -1);
+    else { p.classList.remove('dragging'); p.style.removeProperty('--tx'); p.style.removeProperty('--rz'); }
+  }
+  track.addEventListener('pointerup', sEnd);
+  track.addEventListener('pointercancel', sEnd);
+
+  /* ---------- método: dial interactivo según el caso ---------- */
+  var STEPS = [
+    { t: 'Escuchamos', g: 'Entendemos tu marca, tu público y dónde estás hoy.', k: 'un diagnóstico claro' },
+    { t: 'Definimos', g: 'Elegimos el giro: objetivos, mensajes y canales.', k: 'tu estrategia por escrito' },
+    { t: 'Creamos', g: 'Diseñamos, producimos y lanzamos contenido, web y campañas.', k: 'piezas listas para salir' },
+    { t: 'Medimos', g: 'Revisamos los números cada mes y ajustamos para crecer.', k: 'un informe mensual con lo que funcionó' }
+  ];
+  var CASES = [
+    ['revisamos dónde aparece hoy tu marca y quién debería conocerla.',
+     'elegimos los canales donde está tu público y el mensaje que te diferencia.',
+     'hacemos contenido constante y pauta para que te vean personas nuevas.',
+     'seguimos cuánta gente nueva te descubre cada mes y ajustamos el rumbo.'],
+    ['miramos qué publicas, quién te sigue y en qué punto se pierde la venta.',
+     'definimos ofertas claras y el camino del seguidor hasta la compra.',
+     'creamos piezas que invitan a comprar, una web que vende y anuncios para quien ya te conoce.',
+     'medimos mensajes, clics y ventas, no solo likes.'],
+    ['revisamos lo que has publicado y qué funcionó mejor.',
+     'armamos un calendario con temas, formatos y fechas.',
+     'producimos las piezas del mes para que no tengas que improvisar.',
+     'cada mes te mostramos qué funcionó y qué vamos a cambiar.']
+  ];
+  var qdial = $('#qdial'), qdeg = $('#qdeg'), card = $('#stepcard');
+  var qs = Array.prototype.slice.call(qdial.querySelectorAll('.q'));
+  var stPrev = $('#stPrev'), stNext = $('#stNext'), stCta = $('#stCta');
+  var mStep = 0, mCase = 0, mDeg = 90;
+  function renderStep(anim){
+    var s = STEPS[mStep];
+    $('#scTitle').textContent = s.t;
+    $('#scDeg').textContent = pad((mStep + 1) * 90) + '°';
+    $('#scGen').textContent = s.g;
+    $('#scCase').textContent = CASES[mCase][mStep];
+    $('#scTake').textContent = s.k;
+    qs.forEach(function(q, k){ q.classList.toggle('on', k <= mStep); });
+    qdial.setAttribute('aria-valuenow', mStep + 1);
+    qdial.setAttribute('aria-valuetext', ((mStep + 1) * 90) + ' grados: ' + s.t);
+    stPrev.disabled = mStep === 0;
+    stNext.hidden = mStep === 3;
+    stCta.hidden = mStep !== 3;
+    if (anim && !reduce) { card.classList.remove('in'); void card.offsetWidth; card.classList.add('in'); }
+  }
+  function setDeg(d){
+    mDeg = Math.max(0, Math.min(360, d));
+    qdial.style.setProperty('--deg', mDeg + 'deg');
+    qdeg.textContent = pad(mDeg) + '°';
+    var st = Math.min(3, Math.max(0, Math.ceil(mDeg / 90) - 1));
+    if (st !== mStep) { mStep = st; renderStep(true); }
+  }
+  function goStep(i){ setDeg((Math.max(0, Math.min(3, i)) + 1) * 90); }
+  stPrev.addEventListener('click', function(){ goStep(mStep - 1); });
+  stNext.addEventListener('click', function(){ goStep(mStep + 1); if (mStep === 3) stCta.focus({ preventScroll: true }); });
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="caso"]'), function(r){
+    r.addEventListener('change', function(){ mCase = +r.value; renderStep(true); });
+  });
+  qdial.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'ArrowUp') { e.preventDefault(); goStep(mStep + 1); }
+    if (k === 'ArrowLeft' || k === 'ArrowDown') { e.preventDefault(); goStep(mStep - 1); }
+    if (k === 'Home') { e.preventDefault(); goStep(0); }
+    if (k === 'End') { e.preventDefault(); goStep(3); }
+  });
+  function dAngle(e){
+    var r = qdial.getBoundingClientRect();
+    var a = Math.atan2(e.clientX - (r.left + r.width / 2), -(e.clientY - (r.top + r.height / 2))) * 180 / Math.PI;
+    return (a + 360) % 360;
+  }
+  var dDown = false, dMoved = false, dLast = 0, dx0 = 0, dy0 = 0;
+  qdial.addEventListener('pointerdown', function(e){
+    dDown = true; dMoved = false; dLast = dAngle(e); dx0 = e.clientX; dy0 = e.clientY;
+    try { qdial.setPointerCapture(e.pointerId); } catch(_){}
+  });
+  qdial.addEventListener('pointermove', function(e){
+    if (!dDown) return;
+    if (!dMoved && Math.hypot(e.clientX - dx0, e.clientY - dy0) < 6) return;
+    if (!dMoved) { dMoved = true; qdial.classList.add('drag'); }
+    var a = dAngle(e); setDeg(mDeg + norm(a - dLast)); dLast = a;
+  });
+  function dEnd(e){
+    if (!dDown) return;
+    dDown = false;
+    if (!dMoved) { goStep(Math.ceil(Math.max(1, dAngle(e)) / 90) - 1); return; }
+    qdial.classList.remove('drag');
+    goStep(mStep);
+  }
+  qdial.addEventListener('pointerup', dEnd);
+  qdial.addEventListener('pointercancel', dEnd);
+
+  /* ---------- equipo: cromos que se giran ---------- */
+  var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  Array.prototype.forEach.call(document.querySelectorAll('.cromo-in'), function(c){
+    function reset(){ c.classList.remove('tilting'); c.style.removeProperty('--rx'); c.style.removeProperty('--ry'); c.style.removeProperty('--fx'); }
+    c.addEventListener('click', function(){
+      reset();
+      c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    });
+    if (!fine || reduce) return;
+    c.addEventListener('pointermove', function(e){
+      var r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+      c.classList.add('tilting');
+      c.style.setProperty('--ry', ((px - .5) * 16) + 'deg');
+      c.style.setProperty('--rx', ((.5 - py) * 12) + 'deg');
+      c.style.setProperty('--fx', (px * 100) + '%');
+    });
+    c.addEventListener('pointerleave', reset);
+  });
+
   if (!hasGsap) return;
 
   var turn = $('#turnKnob');
@@ -771,17 +1062,14 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
 
   var mm = gsap.matchMedia();
   mm.add('(min-width: 900px) and (min-height: 620px) and (prefers-reduced-motion: no-preference)', function(){
-    var svc = $('#servicios'), track = $('#track'), method = $('#metodo');
+    var svc = $('#servicios');
     svc.classList.add('is-pinned');
-    method.classList.add('is-pinned');
     var dist = function(){ return Math.max(0, track.scrollWidth - innerWidth); };
     gsap.to(track, {
       x: function(){ return -dist(); }, ease: 'none',
       scrollTrigger: { trigger: svc, start: 'top top', end: function(){ return '+=' + dist(); }, pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true }
     });
-    setDial(0);
-    ScrollTrigger.create({ trigger: method, start: 'top top', end: '+=220%', pin: true, anticipatePin: 1, onUpdate: function(s){ setDial(s.progress); } });
-    return function(){ svc.classList.remove('is-pinned'); method.classList.remove('is-pinned'); setDial(1); };
+    return function(){ svc.classList.remove('is-pinned'); };
   });
 
   if (!reduce) {
@@ -797,7 +1085,7 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
       rotate: 12, ease: 'none',
       scrollTrigger: { trigger: '#contacto', start: 'top bottom', end: 'bottom bottom', scrub: true }
     });
-    ScrollTrigger.batch('.sticker, .faq details', {
+    ScrollTrigger.batch('.cromo, .faq details', {
       start: 'top 88%', once: true,
       onEnter: function(b){ gsap.from(b, { y: 60, rotate: 0, duration: .9, stagger: .1, ease: 'expo.out', clearProps: 'transform' }); }
     });
