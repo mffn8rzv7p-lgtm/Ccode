@@ -1060,17 +1060,21 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
   });
 
   /* ---------- títulos que giran al entrar ---------- */
+  /* la inclinación solo existe fuera de pantalla: en cuanto el título asoma, se endereza */
   if (!reduce && 'IntersectionObserver' in window) {
     var heads = Array.prototype.slice.call(document.querySelectorAll('.method h2, .team h2, .faq h2, .cta h2'));
-    var tio = new IntersectionObserver(function(){
+    var releaseVisible = function(){
       heads.forEach(function(h){
-        if (h.classList.contains('turn-pre') && h.getBoundingClientRect().top < innerHeight * .88) { h.classList.remove('turn-pre'); tio.unobserve(h); }
+        if (h.classList.contains('turn-pre') && h.getBoundingClientRect().top < innerHeight) { h.classList.remove('turn-pre'); tio.unobserve(h); }
       });
-    }, { rootMargin: '0px 0px -12% 0px' });
+    };
+    var tio = new IntersectionObserver(releaseVisible);
     heads.forEach(function(h){
       h.classList.add('turn');
-      if (h.getBoundingClientRect().top > innerHeight * .88) { h.classList.add('turn-pre'); tio.observe(h); }
+      if (h.getBoundingClientRect().top >= innerHeight) { h.classList.add('turn-pre'); tio.observe(h); }
     });
+    addEventListener('scrollend', releaseVisible, { passive: true });
+    addEventListener('resize', releaseVisible, { passive: true });
   }
 
   if (!hasGsap) return;
