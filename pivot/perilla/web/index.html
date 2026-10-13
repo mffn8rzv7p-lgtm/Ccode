@@ -390,17 +390,42 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
 .contact{padding:0 var(--gutter) clamp(32px,5vw,64px)}
 .cta{position:relative;max-width:calc(var(--max) + 80px);margin-inline:auto;background:var(--red);color:var(--on-red-ink);border:var(--b) solid var(--ink);box-shadow:12px 12px 0 var(--shade);
   padding:clamp(36px,7vw,104px) clamp(22px,6vw,88px);overflow:hidden;display:grid;gap:28px}
-.cta h2{font-size:clamp(52px,10vw,168px);font-weight:800;line-height:.84;letter-spacing:-.01em;text-transform:uppercase;font-stretch:100%;color:var(--on-red);max-width:9ch;position:relative;z-index:1}
+.cta h2{font-size:clamp(52px,7.6vw,132px);font-weight:800;line-height:.84;letter-spacing:-.01em;text-transform:uppercase;font-stretch:100%;color:var(--on-red);max-width:9ch;position:relative;z-index:1}
 .cta h2 b{color:var(--on-red-ink)}
 .cta p{font-size:clamp(18px,1.6vw,21px);max-width:36ch;position:relative;z-index:1}
-.cta-actions{display:flex;flex-wrap:wrap;gap:16px;align-items:center;position:relative;z-index:1}
+.cta-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(28px,4vw,64px);align-items:center;position:relative;z-index:1}
+.cta-copy{display:grid;gap:24px;align-content:center;min-width:0}
+/* ventana de mensaje: se envía con el gestor de correo del visitante */
+.compose{background:var(--paper);color:var(--ink);border:var(--b) solid var(--on-red-ink);box-shadow:8px 8px 0 var(--on-red-ink);min-width:0}
+.compose-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:var(--on-red-ink);color:var(--on-red);font:700 13px/1 var(--f-mono)}
+.compose-bar span{display:flex;align-items:center;gap:8px}
+.compose-bar svg{width:7px;height:17px;fill:var(--red)}
+.c-row{display:grid;grid-template-columns:76px minmax(0,1fr) auto;align-items:center;gap:8px 12px;padding:12px 16px;border-bottom:2px solid var(--ink)}
+.c-row label,.c-row .lab{font:700 13px/1 var(--f-mono);color:var(--muted)}
+.c-row .val{font:700 15px/1.3 var(--f-mono);overflow-wrap:anywhere;min-width:0;user-select:all;-webkit-user-select:all}
+.c-row input{grid-column:2 / -1;width:100%;min-width:0;min-height:44px;padding:8px 12px;border:2px solid var(--ink);border-radius:0;background:var(--bg);color:var(--ink);font:600 16px var(--f-body)}
+.copy{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:0 14px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;font:700 13px var(--f-mono);white-space:nowrap;box-shadow:3px 3px 0 var(--red);transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+.copy:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--red)}
+.copy .ico{font-size:15px}
+.c-msg{display:grid;gap:8px;padding:14px 16px}
+.c-msg label{font:700 13px/1 var(--f-mono);color:var(--muted)}
+.c-msg textarea{width:100%;min-height:150px;resize:vertical;padding:12px;border:2px solid var(--ink);border-radius:0;background:var(--bg);color:var(--ink);font:400 17px/1.5 var(--f-body)}
+.c-msg textarea::placeholder{color:var(--muted)}
+.compose input:focus-visible,.compose textarea:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.c-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;padding:0 16px 16px}
+.c-foot .note{font-size:14px;line-height:1.4;color:var(--muted);max-width:30ch;margin:0}
+.compose .btn-red{border-color:var(--ink);box-shadow:5px 5px 0 var(--shade)}
+@media (max-width:900px){.cta-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){
+  .c-row{grid-template-columns:minmax(0,1fr)}
+  .c-row input{grid-column:auto}
+  .c-row .val{overflow-wrap:normal;word-break:keep-all}
+  .copy{justify-self:start}
+  .c-foot .btn{width:100%;justify-content:center}
+}
 .cta .btn{border-color:var(--on-red-ink);box-shadow:5px 5px 0 var(--on-red-ink)}
 .cta .btn-paper{background:var(--on-red);color:var(--on-red-ink)}
-.mail{display:flex;flex-wrap:wrap;max-width:100%;align-items:center;border:var(--b) solid var(--on-red-ink);background:color-mix(in srgb,var(--on-red) 18%,transparent)}
-.mail span{font-family:var(--f-mono);font-weight:700;font-size:14px;padding:8px 14px;overflow-wrap:anywhere;min-width:0;user-select:all;-webkit-user-select:all}
-.mail button{display:flex;align-items:center;gap:6px;background:var(--on-red-ink);color:var(--on-red);border:0;padding:12px 14px;cursor:pointer;font:700 13px var(--f-mono)}
-.cta .mark{position:absolute;right:clamp(-40px,2vw,40px);bottom:-8%;width:clamp(120px,18vw,260px);fill:var(--on-red-ink);opacity:.92;transform-origin:50% 86%}
-@media (max-width:700px){.cta .mark{opacity:.16}}
+.cta .mark{position:absolute;right:clamp(-40px,2vw,40px);bottom:-8%;width:clamp(120px,18vw,260px);fill:var(--on-red-ink);opacity:.16;transform-origin:50% 86%}
 
 /* ---------------- pie ---------------- */
 .foot{border-top:var(--b) solid var(--ink);padding-block:40px}
@@ -764,11 +789,21 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
   <section class="contact" id="contacto" data-sec="6">
     <div class="cta">
       <svg class="mark" id="ctaMark" viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>
-      <h2>¿Listo para el <b>giro!</b></h2>
-      <p>Cuéntanos de tu marca y diseñemos juntos su próximo movimiento.</p>
-      <div class="cta-actions">
-        <a class="btn btn-paper" href="mailto:hola@pivotagencia.com"><span>Hablemos!</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        <div class="mail"><span id="mail">hola@pivotagencia.com</span><button type="button" id="copy"><svg class="ico" aria-hidden="true"><use href="#i-copy"/></svg><span id="copyLbl">Copiar</span></button></div>
+      <div class="cta-grid">
+        <div class="cta-copy">
+          <h2>¿Listo para el <b>giro!</b></h2>
+          <p>Cuéntanos de tu marca y diseñemos juntos su próximo movimiento.</p>
+        </div>
+        <form class="compose" id="compose">
+          <div class="compose-bar"><span><svg viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>Nuevo mensaje</span></div>
+          <div class="c-row"><span class="lab">Para:</span><span class="val" id="mail">hola@pivotagencia.com</span><button class="copy" type="button" id="copy"><svg class="ico" aria-hidden="true"><use href="#i-copy"/></svg><span id="copyLbl">Copiar</span></button></div>
+          <div class="c-row"><label for="asunto">Asunto:</label><input id="asunto" name="asunto" type="text" value="Quiero darle un giro a mi marca"></div>
+          <div class="c-msg"><label for="mensaje">Mensaje:</label><textarea id="mensaje" name="mensaje" placeholder="Cuéntanos de tu marca: qué vendes, a quién y qué te gustaría lograr."></textarea></div>
+          <div class="c-foot">
+            <p class="note">Se abre tu correo con este mensaje listo para enviar. Si no se abre, escríbenos a la dirección de arriba.</p>
+            <button class="btn btn-red" type="submit"><span>Hablemos!</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </div>
+        </form>
       </div>
     </div>
   </section>
@@ -1122,6 +1157,12 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
     function sel(){ var r = document.createRange(); r.selectNodeContents($('#mail')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); copyLbl.textContent = 'Seleccionado'; }
     try { navigator.clipboard.writeText('hola@pivotagencia.com').then(function(){ copyLbl.textContent = 'Copiado'; }, sel); } catch(_) { sel(); }
     setTimeout(function(){ copyLbl.textContent = 'Copiar'; }, 2200);
+  });
+
+  /* ---------- enviar el mensaje con el gestor de correo ---------- */
+  $('#compose').addEventListener('submit', function(e){
+    e.preventDefault();
+    location.href = 'mailto:hola@pivotagencia.com?subject=' + encodeURIComponent($('#asunto').value) + '&body=' + encodeURIComponent($('#mensaje').value);
   });
 
   /* ---------- servicios en celular: baraja que se desliza ---------- */
