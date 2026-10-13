@@ -395,6 +395,10 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
 .foot nav a:hover{color:var(--red)}
 .foot small{color:var(--muted);font-size:14px}
 
+/* entrada de títulos: giran a su lugar una sola vez (siempre visibles) */
+.turn{transform-origin:0 100%;transition:transform .6s var(--spring),font-stretch .6s var(--ease)}
+.turn.turn-pre{transform:rotate(-5deg) translateY(.12em);font-stretch:68%}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
@@ -1054,6 +1058,20 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
     });
     c.addEventListener('pointerleave', reset);
   });
+
+  /* ---------- títulos que giran al entrar ---------- */
+  if (!reduce && 'IntersectionObserver' in window) {
+    var heads = Array.prototype.slice.call(document.querySelectorAll('.method h2, .team h2, .faq h2, .cta h2'));
+    var tio = new IntersectionObserver(function(){
+      heads.forEach(function(h){
+        if (h.classList.contains('turn-pre') && h.getBoundingClientRect().top < innerHeight * .88) { h.classList.remove('turn-pre'); tio.unobserve(h); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    heads.forEach(function(h){
+      h.classList.add('turn');
+      if (h.getBoundingClientRect().top > innerHeight * .88) { h.classList.add('turn-pre'); tio.observe(h); }
+    });
+  }
 
   if (!hasGsap) return;
 
