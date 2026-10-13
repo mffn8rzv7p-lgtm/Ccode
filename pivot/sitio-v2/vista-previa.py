@@ -17,7 +17,7 @@ head = html[html.index("<head>") + 6:html.index("</head>")]
 body = html[html.index("<body>") + 6:html.index("</body>")]
 keep = [l for l in head.splitlines() if re.search(r"<title>|name=\"description\"|rel=\"icon\"|preconnect|fonts.googleapis.com/css2", l)]
 early = head[head.index("<script>"):head.index("</script>") + 9]
-body = body.replace('<script src="script.js?v=5"></script>', f"<script>\n{js}\n</script>")
+body = body.replace('<script src="script.js?v=6"></script>', f"<script>\n{js}\n</script>")
 keep = ["<title>Pivot Sitio v2</title>" if "<title>" in l else l for l in keep]
 out = "\n".join(l.strip() for l in keep) + f"\n<style>\n{css}\n</style>\n{early}\n{body.strip()}\n"
 open(f"{BASE}/vista-previa.html", "w", encoding="utf8").write(out)

@@ -712,3 +712,6 @@ p { margin: 0; }
 }
 .btn:disabled:hover { background: transparent; color: inherit; }
 .btn-outline-white:disabled:hover { color: var(--white); }
+.btn-cream { background: var(--cream); color: var(--red); border-color: var(--cream); }
+.btn-cream:hover { background: var(--white); color: var(--red-deep); border-color: var(--white); }
+.btn-cream:disabled:hover { background: var(--cream); color: var(--red); border-color: var(--cream); }
