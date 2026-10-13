@@ -380,8 +380,8 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
 .cta-actions{display:flex;flex-wrap:wrap;gap:16px;align-items:center;position:relative;z-index:1}
 .cta .btn{border-color:var(--on-red-ink);box-shadow:5px 5px 0 var(--on-red-ink)}
 .cta .btn-paper{background:var(--on-red);color:var(--on-red-ink)}
-.mail{display:flex;align-items:center;border:var(--b) solid var(--on-red-ink);background:color-mix(in srgb,var(--on-red) 18%,transparent)}
-.mail span{font-family:var(--f-mono);font-weight:700;font-size:14px;padding:0 14px;user-select:all;-webkit-user-select:all}
+.mail{display:flex;flex-wrap:wrap;max-width:100%;align-items:center;border:var(--b) solid var(--on-red-ink);background:color-mix(in srgb,var(--on-red) 18%,transparent)}
+.mail span{font-family:var(--f-mono);font-weight:700;font-size:14px;padding:8px 14px;overflow-wrap:anywhere;min-width:0;user-select:all;-webkit-user-select:all}
 .mail button{display:flex;align-items:center;gap:6px;background:var(--on-red-ink);color:var(--on-red);border:0;padding:12px 14px;cursor:pointer;font:700 13px var(--f-mono)}
 .cta .mark{position:absolute;right:clamp(-40px,2vw,40px);bottom:-8%;width:clamp(120px,18vw,260px);fill:var(--on-red-ink);opacity:.92;transform-origin:50% 86%}
 @media (max-width:700px){.cta .mark{opacity:.16}}
@@ -398,6 +398,57 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
 /* entrada de títulos: giran a su lugar una sola vez (siempre visibles) */
 .turn{transform-origin:0 100%;transition:transform .6s var(--spring),font-stretch .6s var(--ease)}
 .turn.turn-pre{transform:rotate(-5deg) translateY(.12em);font-stretch:75%}
+
+/* ---------------- preloader: una vuelta completa ---------------- */
+.preloader{display:none}
+.pl .preloader{position:fixed;inset:0;z-index:300;display:grid;place-items:center;align-content:center;gap:22px;background:var(--red);color:var(--on-red-ink);cursor:pointer;
+  clip-path:circle(150vmax at 50% 50%);transition:clip-path .7s cubic-bezier(.7,0,.2,1)}
+.pl .preloader.done{clip-path:circle(0px at 50% 50%)}
+.pl-knob{position:relative;width:min(38vw,180px);aspect-ratio:1;border-radius:50%;background:var(--on-red);border:var(--b) solid var(--on-red-ink);box-shadow:8px 8px 0 var(--on-red-ink)}
+.pl-knob svg{position:absolute;left:50%;top:9%;width:12%;margin-left:-6%;fill:var(--red)}
+.pl-knob i{position:absolute;inset:0;transform:rotate(var(--pl,0deg))}
+.pl-deg{font:700 clamp(40px,8vw,72px)/1 var(--f-mono);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.pl-txt{font:800 15px/1 var(--f-display);text-transform:uppercase;letter-spacing:.06em}
+.pl:not(.pl-out) .hero h1 .w,.pl:not(.pl-out) .hero-sub,.pl:not(.pl-out) .hero-cta,.pl:not(.pl-out) .hero-art{animation-play-state:paused}
+
+/* ---------------- easter egg: el botón prohibido ---------------- */
+.egg{padding:clamp(48px,7vw,96px) var(--gutter) clamp(40px,6vw,72px);display:grid;justify-items:center;gap:16px;text-align:center}
+.egg-btn{width:clamp(150px,22vw,200px);aspect-ratio:1;border-radius:50%;cursor:pointer;border:var(--b) solid var(--ink);background:var(--red);color:var(--on-red-ink);
+  font:800 clamp(15px,1.5vw,18px)/1.15 var(--f-display);text-transform:uppercase;padding:18px;box-shadow:0 10px 0 var(--shade);
+  transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+.egg-btn:hover{transform:translateY(-3px) rotate(-6deg);box-shadow:0 13px 0 var(--shade)}
+.egg-btn:active{transform:translateY(10px);box-shadow:0 0 0 var(--shade)}
+.egg small{color:var(--muted);font-size:14px}
+@keyframes giroLoco{0%{transform:none}35%{transform:rotate(200deg) scale(.62)}70%{transform:rotate(330deg) scale(.86)}100%{transform:rotate(360deg) scale(1)}}
+.spinning{animation:giroLoco 1.5s cubic-bezier(.6,0,.3,1) both}
+
+/* ---------------- minijuego: detén la perilla ---------------- */
+.game{position:fixed;inset:0;z-index:150;background:var(--red);color:var(--on-red-ink);overflow:auto;display:grid;place-items:center;padding:calc(env(safe-area-inset-top,0px) + 72px) var(--gutter) calc(env(safe-area-inset-bottom,0px) + 32px)}
+.game-close{position:absolute;top:calc(env(safe-area-inset-top,0px) + 14px);right:var(--gutter)}
+.game-in{display:grid;gap:clamp(16px,2.6vh,26px);justify-items:center;text-align:center;width:min(100%,520px)}
+.game h2{font-size:clamp(32px,5vw,56px);font-weight:800;line-height:.92;letter-spacing:-.01em;text-transform:uppercase;color:var(--on-red)}
+.game-help{font-size:17px;max-width:36ch}
+.hud{display:flex;justify-content:space-between;align-items:center;width:min(100%,360px);font:700 15px var(--f-mono)}
+.hud .lives{display:flex;gap:6px}
+.hud .lives svg{width:9px;height:22px;fill:var(--on-red-ink);transition:opacity .3s}
+.hud .lives svg.lost{opacity:.22}
+.gdial{position:relative;width:min(72vw,340px,42vh);aspect-ratio:1;border-radius:50%;background:var(--on-red);border:var(--b) solid var(--on-red-ink);box-shadow:8px 8px 0 var(--on-red-ink);cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.gdial .zone{position:absolute;inset:-1px;border-radius:50%;background:conic-gradient(from var(--z0,0deg),var(--on-red-ink) 0 var(--zw,60deg),transparent 0);
+  -webkit-mask:radial-gradient(circle,transparent 0 58%,#000 58.5%);mask:radial-gradient(circle,transparent 0 58%,#000 58.5%)}
+.gdial .core{position:absolute;inset:21%;border-radius:50%;border:var(--b) solid var(--on-red-ink);background:var(--on-red);display:grid;place-items:center;font:700 clamp(28px,5vw,44px)/1 var(--f-mono);font-variant-numeric:tabular-nums}
+.gdial .needle{position:absolute;inset:0;transform:rotate(var(--a,0deg));pointer-events:none}
+.gdial .needle svg{position:absolute;left:50%;top:3%;width:7%;margin-left:-3.5%;fill:var(--red);filter:drop-shadow(0 0 0 var(--on-red-ink))}
+.gdial.hit{animation:hitPop .35s var(--spring)}
+.gdial.miss{animation:shake .4s ease}
+@keyframes hitPop{40%{transform:scale(1.06)}}
+@keyframes shake{20%{transform:translateX(-10px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+.game .btn{border-color:var(--on-red-ink);box-shadow:5px 5px 0 var(--on-red-ink)}
+.game .btn-ink{background:var(--on-red-ink);color:var(--on-red)}
+.game .btn-paper{background:var(--on-red);color:var(--on-red-ink)}
+.game-msg{font:800 clamp(20px,2.4vw,26px)/1.2 var(--f-display);min-height:1.2em}
+.game-end{display:grid;gap:16px;justify-items:center}
+.game-end .big{font:700 clamp(64px,12vw,120px)/.9 var(--f-mono);letter-spacing:-.04em}
+.game-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -427,6 +478,20 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
 </svg>
 
 <a class="sr-only" href="#servicios">Saltar al contenido</a>
+
+<script>
+/* preloader: solo la primera vez de cada visita y nunca con movimiento reducido */
+(function(){
+  try {
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && sessionStorage.getItem('pivot-pl') !== '1') document.documentElement.classList.add('pl');
+  } catch(e) {}
+})();
+</script>
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="pl-knob"><i id="plKnob"><svg viewBox="0 0 140 350"><use href="#mark"/></svg></i></div>
+  <p class="pl-deg" id="plDeg">000°</p>
+  <p class="pl-txt">Dando el giro</p>
+</div>
 
 <header class="bar" id="bar">
   <div class="wrap bar-in">
@@ -690,6 +755,12 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
       </div>
     </div>
   </section>
+  <!-- EASTER EGG -->
+  <section class="egg" aria-label="Botón sorpresa">
+    <button class="egg-btn" id="eggBtn" type="button">No oprimas este botón</button>
+    <small>En serio. No lo hagas.</small>
+  </section>
+
 </main>
 
 <footer class="foot">
@@ -702,6 +773,34 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
     <small>© 2026 Pivot. Agencia de marketing digital en Medellín.</small>
   </div>
 </footer>
+
+<!-- MINIJUEGO -->
+<div class="game" id="game" role="dialog" aria-modal="true" aria-labelledby="gameTitle" hidden>
+  <button class="close game-close" id="gameClose" type="button"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>Cerrar</button>
+  <div class="game-in">
+    <h2 id="gameTitle">Te dijimos! Ahora detén la perilla</h2>
+    <div id="gamePlay" class="game-in">
+      <p class="game-help">Toca la perilla (o la barra espaciadora) cuando el ! pase por la zona negra. Cada acierto la hace girar más rápido.</p>
+      <div class="hud"><span>Giros: <b id="gScore">0</b></span><span class="lives" id="gLives" aria-label="3 vidas"><svg viewBox="0 0 140 350"><use href="#mark"/></svg><svg viewBox="0 0 140 350"><use href="#mark"/></svg><svg viewBox="0 0 140 350"><use href="#mark"/></svg></span></div>
+      <div class="gdial" id="gDial" role="button" tabindex="0" aria-label="Detener la perilla">
+        <span class="zone" id="gZone"></span>
+        <span class="needle" id="gNeedle"><svg viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg></span>
+        <span class="core" id="gCore">0</span>
+      </div>
+      <p class="game-msg" id="gMsg" aria-live="polite"></p>
+    </div>
+    <div class="game-end" id="gameEnd" hidden>
+      <p class="big" id="gFinal">0</p>
+      <p class="game-msg" id="gFinalTxt">giros</p>
+      <p class="game-help" id="gBest"></p>
+      <p class="game-help">Imagina lo que hacemos cuando la que gira es tu marca.</p>
+      <div class="game-actions">
+        <button class="btn btn-paper" id="gAgain" type="button"><span>Otra vez</span></button>
+        <a class="btn btn-ink" id="gTalk" href="#contacto"><span>Hablemos!</span></a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -833,6 +932,121 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
   stage.addEventListener('pointerup', endDrag);
   stage.addEventListener('pointercancel', endDrag);
   setActive(0);
+
+  /* ---------- preloader ---------- */
+  (function(){
+    var pl = $('#preloader');
+    if (!document.documentElement.classList.contains('pl')) { pl.remove(); return; }
+    try { sessionStorage.setItem('pivot-pl', '1'); } catch(_){}
+    var knob = $('#plKnob'), deg = $('#plDeg'), t0 = performance.now(), DUR = 1000, ended = false;
+    var ready = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    var fontsOk = false; ready.then(function(){ fontsOk = true; });
+    function finish(){
+      if (ended) return; ended = true;
+      pl.classList.add('done');
+      document.documentElement.classList.add('pl-out');
+      setTimeout(function(){ pl.remove(); document.documentElement.classList.remove('pl', 'pl-out'); }, 750);
+    }
+    pl.addEventListener('click', finish);
+    (function tick(now){
+      if (ended) return;
+      var p = Math.min(1, (now - t0) / DUR), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      knob.style.setProperty('--pl', (e * 360) + 'deg');
+      deg.textContent = pad(e * 360) + '°';
+      if (p < 1) requestAnimationFrame(tick);
+      else if (fontsOk || now - t0 > 2500) setTimeout(finish, 180);
+      else requestAnimationFrame(tick);
+    })(t0);
+  })();
+
+  /* ---------- easter egg: giro de la página + minijuego ---------- */
+  (function(){
+    var btn = $('#eggBtn'), game = $('#game'), dial = $('#gDial'), needle = $('#gNeedle'), zone = $('#gZone');
+    var core = $('#gCore'), scoreEl = $('#gScore'), msg = $('#gMsg'), lives = Array.prototype.slice.call(document.querySelectorAll('#gLives svg'));
+    var play = $('#gamePlay'), end = $('#gameEnd'), foot = document.querySelector('.foot');
+    var a = 0, speed = 120, dir = 1, z0 = 0, zw = 64, score = 0, life = 3, running = false, last = 0, raf = 0, locked = false, endedAt = 0;
+    var BEST = 'pivot-giros';
+    function best(){ try { return +localStorage.getItem(BEST) || 0; } catch(_) { return 0; } }
+    function saveBest(n){ try { localStorage.setItem(BEST, String(n)); } catch(_){} }
+    function newZone(){
+      z0 = (a + 90 + Math.random() * 180) % 360;
+      zone.style.setProperty('--z0', z0 + 'deg'); zone.style.setProperty('--zw', zw + 'deg');
+    }
+    function loop(now){
+      if (!running) return;
+      var dt = Math.min(.05, (now - last) / 1000); last = now;
+      a = (a + dir * speed * dt + 360) % 360;
+      needle.style.setProperty('--a', a + 'deg');
+      raf = requestAnimationFrame(loop);
+    }
+    function start(){
+      a = 0; speed = 120; dir = 1; zw = 64; score = 0; life = 3; locked = false;
+      scoreEl.textContent = '0'; core.textContent = '0'; msg.textContent = '';
+      lives.forEach(function(l){ l.classList.remove('lost'); });
+      play.hidden = false; end.hidden = true;
+      $('#gameTitle').textContent = 'Te dijimos! Ahora detén la perilla';
+      newZone();
+      running = true; last = performance.now(); raf = requestAnimationFrame(loop);
+      setTimeout(function(){ dial.focus({ preventScroll: true }); }, 50);
+    }
+    function pulse(cls){ dial.classList.remove('hit', 'miss'); void dial.offsetWidth; dial.classList.add(cls); }
+    function stop(){
+      if (!running || locked) return;
+      var d = ((a - z0) % 360 + 360) % 360;
+      if (d <= zw) {
+        score++; scoreEl.textContent = score; core.textContent = score;
+        speed = Math.min(520, speed * 1.16 + 8); zw = Math.max(16, zw - 5); dir = -dir;
+        msg.textContent = ['Giro!', 'Eso!', 'Otra vuelta!', 'Imparable!'][score % 4];
+        pulse('hit'); newZone();
+      } else {
+        life--; lives[2 - life] && lives[2 - life].classList.add('lost');
+        msg.textContent = life ? 'Casi. Te quedan ' + life + '.' : 'Se acabó el giro.';
+        pulse('miss');
+        if (!life) { locked = true; setTimeout(over, 700); }
+      }
+    }
+    function over(){
+      running = false; cancelAnimationFrame(raf);
+      var b = best(); if (score > b) { saveBest(score); b = score; }
+      $('#gameTitle').textContent = 'Se acabó el giro';
+      $('#gFinal').textContent = score;
+      $('#gFinalTxt').textContent = score === 1 ? 'giro' : 'giros';
+      $('#gBest').textContent = !b ? 'La perilla es tramposa. Inténtalo otra vez.' : (score >= b ? 'Nuevo récord en este navegador!' : 'Tu récord: ' + b + (b === 1 ? ' giro' : ' giros') + '.');
+      play.hidden = true; end.hidden = false; endedAt = performance.now();
+      $('#gAgain').focus({ preventScroll: true });
+    }
+    function openGame(){
+      game.hidden = false; main.inert = true; bar.inert = true; if (foot) foot.inert = true;
+      document.documentElement.style.overflow = 'hidden';
+      start();
+    }
+    function closeGame(toContact){
+      running = false; cancelAnimationFrame(raf);
+      game.hidden = true; main.inert = false; bar.inert = false; if (foot) foot.inert = false;
+      document.documentElement.style.overflow = '';
+      if (toContact) { var c = document.getElementById('contacto'); scrollTo({ top: c.getBoundingClientRect().top + scrollY - 120, behavior: reduce ? 'auto' : 'smooth' }); }
+      else btn.focus({ preventScroll: true });
+    }
+    btn.addEventListener('click', function(){
+      if (reduce) { openGame(); return; }
+      var origin = '50% ' + (scrollY + innerHeight / 2) + 'px';
+      [main, foot].forEach(function(el){ if (!el) return; el.style.transformOrigin = el === main ? origin : '50% 50%'; el.classList.add('spinning'); });
+      bar.classList.add('spinning');
+      setTimeout(function(){
+        [main, foot, bar].forEach(function(el){ if (el) { el.classList.remove('spinning'); el.style.transformOrigin = ''; } });
+        openGame();
+      }, 1550);
+    });
+    dial.addEventListener('pointerdown', function(e){ e.preventDefault(); stop(); });
+    dial.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); stop(); } });
+    game.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') { e.preventDefault(); closeGame(false); }
+      if (e.key === ' ' && running && e.target !== dial && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A') { e.preventDefault(); stop(); }
+    });
+    $('#gameClose').addEventListener('click', function(){ closeGame(false); });
+    $('#gAgain').addEventListener('click', function(){ if (performance.now() - endedAt > 600) start(); });
+    $('#gTalk').addEventListener('click', function(e){ e.preventDefault(); closeGame(true); });
+  })();
 
   /* ---------- la perilla de la portada ---------- */
   var PHRASES = [
