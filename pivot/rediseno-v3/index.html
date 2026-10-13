@@ -165,33 +165,32 @@ main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
 @keyframes spinIn{from{transform:rotate(-14deg) scale(.9);opacity:0}to{transform:none;opacity:1}}
 
 /* la perilla de la portada */
-.hero-art{position:relative;background:var(--red);border:var(--b) solid var(--ink);box-shadow:10px 10px 0 var(--shade);
-  padding:clamp(20px,3vw,36px);display:grid;gap:clamp(18px,2.4vw,28px);justify-items:center;min-width:0;color:var(--on-red-ink)}
-.knob-wrap{position:relative;width:min(100%,340px);aspect-ratio:1;max-width:100%}
+.hero-art{position:relative;display:grid;gap:clamp(16px,2vw,24px);justify-items:center;align-content:center;justify-self:center;width:100%;min-width:0;color:var(--ink)}
+.knob-wrap{position:relative;width:min(100%,420px);aspect-ratio:1;max-width:100%}
 .knob-ticks{position:absolute;inset:0;border-radius:50%;
-  background:repeating-conic-gradient(from -1.5deg,var(--on-red-ink) 0 3deg,transparent 3deg 72deg);
+  background:repeating-conic-gradient(from -1.5deg,var(--ink) 0 3deg,transparent 3deg 72deg);
   -webkit-mask:radial-gradient(circle,transparent 0 63%,#000 63.5% 70%,transparent 70.5%);
           mask:radial-gradient(circle,transparent 0 63%,#000 63.5% 70%,transparent 70.5%)}
-.knob-fine{position:absolute;inset:0;border-radius:50%;opacity:.45;
-  background:repeating-conic-gradient(var(--on-red-ink) 0 .8deg,transparent .8deg 9deg);
+.knob-fine{position:absolute;inset:0;border-radius:50%;opacity:.4;
+  background:repeating-conic-gradient(var(--ink) 0 .8deg,transparent .8deg 9deg);
   -webkit-mask:radial-gradient(circle,transparent 0 66%,#000 66.5% 70%,transparent 70.5%);
           mask:radial-gradient(circle,transparent 0 66%,#000 66.5% 70%,transparent 70.5%)}
-.knob{position:absolute;inset:17%;border-radius:50%;background:var(--on-red);border:var(--b) solid var(--on-red-ink);
-  box-shadow:6px 6px 0 var(--on-red-ink);cursor:grab;touch-action:none;transform:rotate(var(--k,0deg));transition:transform .55s var(--spring)}
+.knob{position:absolute;inset:17%;border-radius:50%;background:var(--red);border:var(--b) solid var(--ink);
+  box-shadow:8px 8px 0 var(--shade);cursor:grab;touch-action:none;transform:rotate(var(--k,0deg));transition:transform .55s var(--spring)}
 .knob.drag{cursor:grabbing;transition:none}
-.knob::before{content:"";position:absolute;inset:14%;border-radius:50%;border:2px dashed color-mix(in srgb,var(--on-red-ink) 30%,transparent)}
-.knob svg{position:absolute;left:50%;top:7%;width:11%;margin-left:-5.5%;fill:var(--red)}
-.knob:focus-visible{outline:3px solid var(--on-red-ink);outline-offset:6px}
+.knob::before{content:"";position:absolute;inset:14%;border-radius:50%;border:2px dashed color-mix(in srgb,var(--on-red-ink) 35%,transparent)}
+.knob svg{position:absolute;left:50%;top:7%;width:11%;margin-left:-5.5%;fill:var(--on-red)}
+.knob:focus-visible{outline:3px solid var(--red);outline-offset:8px}
 .phrase{text-align:center;display:grid;gap:4px;min-height:2.6em;perspective:600px}
-.phrase .from{font:600 clamp(16px,1.4vw,19px)/1.2 var(--f-body)}
-.phrase .from s{text-decoration-thickness:2px}
-.phrase .to{font:900 clamp(26px,2.6vw,38px)/1 var(--f-display);font-stretch:118%;letter-spacing:-.03em;text-transform:uppercase;color:var(--on-red)}
+.phrase .from{font:600 clamp(16px,1.4vw,19px)/1.2 var(--f-body);color:var(--muted)}
+.phrase .from s{text-decoration-thickness:2px;text-decoration-color:var(--red)}
+.phrase .to{font:900 clamp(26px,2.6vw,38px)/1 var(--f-display);font-stretch:118%;letter-spacing:-.03em;text-transform:uppercase;color:var(--red)}
 .phrase.in>*{animation:flipIn .55s var(--ease) both}
 .phrase.in .to{animation-delay:.06s}
 @keyframes flipIn{from{transform:rotateX(-90deg);opacity:0}to{transform:none;opacity:1}}
-.knob-hint{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:12px;font-weight:700;letter-spacing:.04em}
+.knob-hint{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--muted)}
 .knob-hint .ico{font-size:16px}
-@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.knob-wrap{width:min(100%,280px)}}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.knob-wrap{width:min(100%,300px)}}
 
 /* ---------------- servicios: pan horizontal ---------------- */
 .svc{position:relative;padding-block:clamp(64px,8vw,104px) clamp(56px,7vw,96px);overflow:hidden;border-top:var(--b) solid var(--ink)}
