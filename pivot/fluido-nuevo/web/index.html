@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pivot · Agencia de marketing digital, pauta y diseño web</title>
+  <meta name="description" content="Pivot es una agencia de marketing digital: creación de contenido, estrategia digital, pauta, branding y diseño web para que tu marca deje de pasar desapercibida.">
+  <link rel="canonical" href="https://pivotagencia.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pivotagencia.com/">
+  <meta property="og:title" content="Pivot · Tu marca necesita un giro">
+  <meta property="og:description" content="Agencia de marketing digital: contenido, estrategia, pauta, branding y diseño web.">
+  <meta property="og:image" content="https://pivotagencia.com/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#E63915">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=1">
+  <script>
+    document.documentElement.classList.add('js');
+    /* Preloader: solo la primera vez de cada visita y nunca con movimiento reducido */
+    try {
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && sessionStorage.getItem('pivot-pl') !== '1') document.documentElement.classList.add('pl');
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- Filtro "goo": las formas cercanas se funden como líquido -->
+      <filter id="goo" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="b"/>
+        <feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11" result="g"/>
+        <feComposite in="SourceGraphic" in2="g" operator="atop"/>
+      </filter>
+      <!-- Iconos: Phosphor Icons (bold), MIT -->
+      <symbol id="i-ig" viewBox="0 0 256 256"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,72a24,24,0,1,1,24-24A24,24,0,0,1,128,152ZM176,20H80A60.07,60.07,0,0,0,20,80v96a60.07,60.07,0,0,0,60,60h96a60.07,60.07,0,0,0,60-60V80A60.07,60.07,0,0,0,176,20Zm36,156a36,36,0,0,1-36,36H80a36,36,0,0,1-36-36V80A36,36,0,0,1,80,44h96a36,36,0,0,1,36,36ZM196,76a16,16,0,1,1-16-16A16,16,0,0,1,196,76Z"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 256 256"><path d="M216,28H88A12,12,0,0,0,76,40V76H40A12,12,0,0,0,28,88V216a12,12,0,0,0,12,12H168a12,12,0,0,0,12-12V180h36a12,12,0,0,0,12-12V40A12,12,0,0,0,216,28ZM156,204H52V100H156Zm48-48H180V88a12,12,0,0,0-12-12H100V52H204Z"/></symbol>
+      <symbol id="i-x" viewBox="0 0 256 256"><path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"/></symbol>
+      <symbol id="i-right" viewBox="0 0 256 256"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></symbol>
+      <symbol id="i-check" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 256 256"><path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"/></symbol>
+      <!-- El "!" del logo P!VOT -->
+      <symbol id="mark" viewBox="0 0 140 350"><path d="M22 0H118Q132 0 131 14L113 226Q112 238 100 238H40Q28 238 27 226L9 14Q8 0 22 0Z"/><ellipse cx="70" cy="300" rx="58" ry="46"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- PRELOADER: la pantalla se llena de líquido -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="pl-liquid"><span></span><span></span></div>
+    <div class="pl-info">
+      <svg viewBox="0 0 140 350"><use href="#mark"/></svg>
+      <p class="pl-num" id="plNum">000</p>
+      <p class="pl-txt">Dando el giro</p>
+    </div>
+  </div>
+
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <header class="top" id="top">
+    <a class="brand" href="#inicio" aria-label="Pivot, ir al inicio">
+      <img src="img/logo.webp" alt="Pivot" width="112" height="27">
+    </a>
+  </header>
+
+  <!-- MENÚ: una isla flotante; las secciones brotan como gotas -->
+  <div class="isla-bg" id="islaBg" aria-hidden="true"></div>
+  <nav class="isla" id="isla" aria-label="Menú principal">
+    <div class="isla-goo">
+      <ul class="drops" id="drops">
+        <li style="--i:6"><a href="#inicio">Inicio</a></li>
+        <li style="--i:5"><a href="#servicios">Servicios</a></li>
+        <li style="--i:4"><a href="#metodo">Método</a></li>
+        <li style="--i:3"><a href="#manifiesto">Manifiesto</a></li>
+        <li style="--i:2"><a href="#equipo">Equipo</a></li>
+        <li style="--i:1"><a href="#preguntas">Preguntas</a></li>
+        <li style="--i:0"><a href="#contacto">Contacto</a></li>
+      </ul>
+      <button class="isla-btn" id="islaBtn" type="button" aria-expanded="false" aria-controls="drops">
+        <span class="isla-fill" aria-hidden="true"></span>
+        <svg class="isla-mark" viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>
+        <span class="isla-lbl" id="islaLbl">Menú</span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="contenido">
+    <!-- PORTADA -->
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="tag">Agencia de marketing digital</p>
+          <h1 class="hero-title">
+            <span class="ln"><span>Tu marca necesita</span></span>
+            <span class="ln"><span>un giro<em>!</em></span></span>
+          </h1>
+          <p class="rotator">
+            <span class="sr-only">De invisible a inolvidable. De seguidores a clientes. De likes a ventas. De publicar por publicar a tener estrategia. De una más a la elegida.</span>
+            <span class="rotator-words" id="rotator" aria-hidden="true">
+              <span class="is-on">De <s>invisible</s> a <b>inolvidable</b></span>
+              <span>De <s>seguidores</s> a <b>clientes</b></span>
+              <span>De <s>likes</s> a <b>ventas</b></span>
+              <span>De <s>publicar por publicar</s> a <b>tener estrategia</b></span>
+              <span>De <s>una más</s> a <b>la elegida</b></span>
+            </span>
+          </p>
+          <p class="lead">Somos Pivot: unimos estrategia, creatividad y pauta digital para que tu marca deje de pasar desapercibida y empiece a moverse.</p>
+          <div class="cta-row">
+            <a class="btn btn-red" href="#contacto"><span>Hablemos de tu marca<b class="bang">!</b></span></a>
+            <a class="btn btn-line" href="#servicios"><span>Ver servicios</span></a>
+          </div>
+        </div>
+
+        <div class="lava" id="lava" aria-hidden="true">
+          <div class="lava-goo">
+            <span class="lb lb-main"></span>
+            <span class="lb lb1"></span>
+            <span class="lb lb2"></span>
+            <span class="lb lb3"></span>
+            <span class="lb lb4"></span>
+            <span class="lb lb5"></span>
+            <span class="lb lb6"></span>
+            <span class="lb lb-cur" id="lavaCur"></span>
+          </div>
+          <svg class="lava-mark" id="lavaMark" viewBox="0 0 140 350"><use href="#mark"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <div class="wave" style="--from:var(--cream);--to:var(--ink)" aria-hidden="true"><svg viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 60C240 10 480 10 720 60S1200 110 1440 60 1920 10 2160 60 2640 110 2880 60V120H0Z"/></svg></div>
+
+    <!-- FÓRMULA: tres gotas que alimentan una más grande -->
+    <section class="formula" id="formula" aria-labelledby="fTitle">
+      <div class="wrap">
+        <h2 class="f-title rv" id="fTitle">La fórmula del giro</h2>
+        <p class="sr-only">Estrategia más creatividad más pauta es igual a resultados.</p>
+        <div class="f-stage" id="fStage" aria-hidden="true">
+          <div class="f-goo">
+            <span class="drip dr1"></span><span class="drip dr2"></span><span class="drip dr3"></span>
+            <span class="drip dr1 late"></span><span class="drip dr2 late"></span><span class="drip dr3 late"></span>
+            <span class="fd fd1"><i>Estrategia</i></span>
+            <span class="fd fd2"><i>Creatividad</i></span>
+            <span class="fd fd3"><i>Pauta</i></span>
+            <span class="fd fd-res"><i>Resultados<b>!</b></i></span>
+          </div>
+          <span class="f-op f-op1">+</span>
+          <span class="f-op f-op2">+</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="wave" style="--from:var(--ink);--to:var(--cream)" aria-hidden="true"><svg viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 60C240 110 480 110 720 60S1200 10 1440 60 1920 110 2160 60 2640 10 2880 60V120H0Z"/></svg></div>
+
+    <!-- SERVICIOS: una lista y una gota que cambia de forma -->
+    <section class="section services" id="servicios">
+      <div class="wrap">
+        <header class="s-head">
+          <h2 class="rv">Todo lo que tu marca necesita para <span class="red">moverse.</span></h2>
+          <p class="sub rv">Pasa por cada servicio (o tócalo) para ver qué incluye.</p>
+        </header>
+        <div class="svc">
+          <div class="svc-list rv" role="tablist" aria-label="Servicios" id="svcList">
+            <button role="tab" type="button" id="t0" aria-controls="svcPanel" aria-selected="true"><span class="n">01</span>Creación de contenido</button>
+            <button role="tab" type="button" id="t1" aria-controls="svcPanel" aria-selected="false" tabindex="-1"><span class="n">02</span>Estrategia digital</button>
+            <button role="tab" type="button" id="t2" aria-controls="svcPanel" aria-selected="false" tabindex="-1"><span class="n">03</span>Diseño web</button>
+            <button role="tab" type="button" id="t3" aria-controls="svcPanel" aria-selected="false" tabindex="-1"><span class="n">04</span>Pauta digital</button>
+            <button role="tab" type="button" id="t4" aria-controls="svcPanel" aria-selected="false" tabindex="-1"><span class="n">05</span>Branding</button>
+            <button role="tab" type="button" id="t5" aria-controls="svcPanel" aria-selected="false" tabindex="-1"><span class="n">06</span>Redes sociales</button>
+          </div>
+          <div class="svc-stage rv">
+            <div class="svc-blob" id="svcBlob" aria-hidden="true"></div>
+            <div class="svc-panel" id="svcPanel" role="tabpanel" aria-labelledby="t0" tabindex="0">
+              <p class="svc-n" id="svcN">01 / 06</p>
+              <h3 id="svcTitle">Creación de contenido</h3>
+              <p class="svc-text" id="svcText">Piezas que detienen el scroll y cuentan quién eres.</p>
+              <ul class="svc-items" id="svcItems">
+                <li>Ideas y guiones para redes</li>
+                <li>Fotografía y video</li>
+                <li>Diseño de piezas y carruseles</li>
+                <li>Reels y formatos cortos</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wave" style="--from:var(--cream);--to:var(--ink)" aria-hidden="true"><svg viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 60C240 10 480 10 720 60S1200 110 1440 60 1920 10 2160 60 2640 110 2880 60V120H0Z"/></svg></div>
+
+    <!-- MÉTODO: un río que se llena de rojo mientras bajas -->
+    <section class="section method" id="metodo">
+      <div class="wrap">
+        <header class="s-head m-head">
+          <h2 class="rv">Cuatro pasos. <span class="red">Cero improvisación.</span></h2>
+          <fieldset class="cases rv">
+            <legend>¿Dónde está tu marca hoy?</legend>
+            <label class="case"><input type="radio" name="caso" value="0" checked><span>Nadie me conoce</span></label>
+            <label class="case"><input type="radio" name="caso" value="1"><span>Tengo seguidores, pero no ventas</span></label>
+            <label class="case"><input type="radio" name="caso" value="2"><span>Publico sin un plan</span></label>
+          </fieldset>
+        </header>
+
+        <div class="flow" id="flow">
+          <svg class="river" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
+            <path class="r-track" d="M50 0C75 62 75 188 50 250S25 438 50 500 75 688 50 750 25 938 50 1000"/>
+            <path class="r-fill" pathLength="1" d="M50 0C75 62 75 188 50 250S25 438 50 500 75 688 50 750 25 938 50 1000"/>
+          </svg>
+          <ol class="steps" id="steps">
+            <li class="step">
+              <span class="st-drop" aria-hidden="true">1</span>
+              <div class="st-body">
+                <h3>Diagnóstico</h3>
+                <p>Entendemos tu marca, tu público y dónde estás hoy.</p>
+                <p class="st-case"><b>En tu caso:</b> <span class="cl">revisamos dónde aparece hoy tu marca y quién debería conocerla.</span></p>
+                <p class="st-take"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Te llevas un diagnóstico claro.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="st-drop" aria-hidden="true">2</span>
+              <div class="st-body">
+                <h3>Estrategia</h3>
+                <p>Definimos el giro: objetivos, mensajes y canales.</p>
+                <p class="st-case"><b>En tu caso:</b> <span class="cl">elegimos los canales donde está tu público y el mensaje que te diferencia.</span></p>
+                <p class="st-take"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Te llevas tu estrategia por escrito.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="st-drop" aria-hidden="true">3</span>
+              <div class="st-body">
+                <h3>Creación</h3>
+                <p>Diseñamos, producimos y lanzamos.</p>
+                <p class="st-case"><b>En tu caso:</b> <span class="cl">hacemos contenido constante y pauta para que te vean personas nuevas.</span></p>
+                <p class="st-take"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Te llevas piezas listas para salir.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="st-drop" aria-hidden="true">4</span>
+              <div class="st-body">
+                <h3>Optimización</h3>
+                <p>Medimos, aprendemos y ajustamos para crecer.</p>
+                <p class="st-case"><b>En tu caso:</b> <span class="cl">seguimos cuánta gente nueva te descubre cada mes y ajustamos el rumbo.</span></p>
+                <p class="st-take"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Te llevas un informe mensual con lo que funcionó.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+        <div class="m-cta rv"><a class="btn btn-red" href="#contacto"><span>Empecemos por el diagnóstico<b class="bang">!</b></span></a></div>
+      </div>
+    </section>
+
+    <div class="wave" style="--from:var(--ink);--to:var(--cream)" aria-hidden="true"><svg viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 60C240 110 480 110 720 60S1200 10 1440 60 1920 110 2160 60 2640 10 2880 60V120H0Z"/></svg></div>
+
+    <!-- MANIFIESTO: la frase dentro de una gota gigante -->
+    <section class="manifesto" id="manifiesto">
+      <div class="m-blob" id="mBlob" aria-hidden="true"></div>
+      <p class="phrase rv">
+        <span>Las marcas que se quedan quietas, desaparecen.</span>
+        <span class="hot">Hagamos que la tuya gire!</span>
+      </p>
+    </section>
+
+    <!-- EQUIPO -->
+    <section class="section team" id="equipo">
+      <div class="wrap">
+        <header class="s-head">
+          <h2 class="rv">Las caras detrás <span class="red">del giro.</span></h2>
+        </header>
+        <ul class="people">
+          <li class="person rv">
+            <div class="p-pic">
+              <span class="p-orb" aria-hidden="true"></span>
+              <div class="p-mask"><img src="img/daniel.webp" alt="Ilustración de Daniel: barba, gafas y gorra" width="640" height="640" loading="lazy"></div>
+            </div>
+            <h3>Daniel</h3>
+            <p class="p-role">Publicista</p>
+            <p>Más de 10 años en marketing digital. Un gomoso por contar historias.</p>
+          </li>
+          <li class="person rv">
+            <div class="p-pic">
+              <span class="p-orb" aria-hidden="true"></span>
+              <div class="p-mask"><img src="img/laura.webp" alt="Ilustración de Laura: trenzas, pecas y gorra" width="640" height="640" loading="lazy"></div>
+            </div>
+            <h3>Laura</h3>
+            <p class="p-role">Comunicadora gráfica publicitaria</p>
+            <p>La cara tierna de Pivot, la tesa creando contenido y pensando para tu marca.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS -->
+    <section class="section faq" id="preguntas">
+      <div class="wrap faq-grid">
+        <header class="s-head">
+          <h2 class="rv">Lo que nos <span class="red">preguntan</span> antes de empezar.</h2>
+        </header>
+        <div class="faq-list">
+          <details class="rv">
+            <summary>¿Tengo que contratar todos los servicios?<svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>No. Armamos un plan con lo que tu marca necesita hoy. Puedes empezar por un solo servicio y sumar otros cuando quieras.</p>
+          </details>
+          <details class="rv">
+            <summary>¿Cuánto cuesta trabajar con Pivot?<svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Depende de lo que necesites. Después de una primera conversación te enviamos una propuesta a la medida, sin compromiso.</p>
+          </details>
+          <details class="rv">
+            <summary>¿Qué es la pauta digital?<svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Es la publicidad pagada en internet: anuncios en Instagram, Facebook, Google y otras plataformas. Con ella tu marca llega a personas que todavía no te conocen pero que podrían ser tus clientes.</p>
+          </details>
+          <details class="rv">
+            <summary>¿Pueden hacer solo mi página web?<svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Sí. Diseñamos tu página y te acompañamos para publicarla en tu dominio.</p>
+          </details>
+          <details class="rv">
+            <summary>¿Por dónde empezamos?<svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Por una conversación. Cuéntanos de tu marca y de lo que quieres lograr, y te proponemos el primer giro.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <div class="wave" style="--from:var(--cream);--to:var(--red)" aria-hidden="true"><svg viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 60C240 10 480 10 720 60S1200 110 1440 60 1920 10 2160 60 2640 110 2880 60V120H0Z"/></svg></div>
+
+    <!-- CONTACTO -->
+    <section class="contact" id="contacto">
+      <span class="c-drift c-d1" aria-hidden="true"></span>
+      <span class="c-drift c-d2" aria-hidden="true"></span>
+      <div class="wrap contact-grid">
+        <div class="contact-copy">
+          <h2 class="rv">¿Listo para el giro<span class="bang">!</span></h2>
+          <p class="contact-lead rv">Cuéntanos de tu marca y diseñemos juntos su próximo movimiento.</p>
+          <a class="ig rv" href="https://www.instagram.com/pivot.agencia/" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-ig"/></svg>Síguenos en @pivot.agencia</a>
+        </div>
+        <form class="compose rv" id="compose">
+          <p class="compose-bar"><svg viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>Nuevo mensaje</p>
+          <div class="c-field c-to"><span class="c-label">Para</span><span class="c-val" id="mail">hola@pivotagencia.com</span><button class="copy" type="button" id="copy"><svg class="ico" aria-hidden="true"><use href="#i-copy"/></svg><span id="copyLbl">Copiar</span></button></div>
+          <div class="c-field"><label class="c-label" for="asunto">Asunto</label><input id="asunto" name="asunto" type="text" value="Quiero darle un giro a mi marca"></div>
+          <div class="c-field c-msg"><label class="c-label" for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos de tu marca: qué vendes, a quién y qué te gustaría lograr."></textarea></div>
+          <div class="c-foot">
+            <p class="c-note">Se abre tu correo con este mensaje listo para enviar. Si no se abre, escríbenos a la dirección de arriba.</p>
+            <button class="btn btn-red" type="submit"><span>Hablemos<b class="bang">!</b></span></button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <div class="wave" style="--from:var(--red);--to:var(--ink)" aria-hidden="true"><svg viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 60C240 110 480 110 720 60S1200 10 1440 60 1920 110 2160 60 2640 10 2880 60V120H0Z"/></svg></div>
+
+    <!-- EASTER EGG -->
+    <section class="egg" aria-label="Botón sorpresa">
+      <button class="egg-btn" id="eggBtn" type="button">No oprimas este botón</button>
+      <small>En serio. No lo hagas.</small>
+    </section>
+  </main>
+
+  <footer class="footer" id="footer">
+    <div class="wrap footer-inner">
+      <img src="img/logo-blanco.webp" alt="Pivot" width="132" height="31" loading="lazy">
+      <p>Agencia de marketing digital, pauta y diseño web.</p>
+      <a class="ig" href="https://www.instagram.com/pivot.agencia/" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-ig"/></svg>@pivot.agencia</a>
+      <p class="footer-meta">© <span id="year">2026</span> Pivot · pivotagencia.com</p>
+    </div>
+  </footer>
+
+  <!-- La inundación que abre el minijuego -->
+  <div class="flood" id="flood" aria-hidden="true">
+    <svg viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 60C240 10 480 10 720 60S1200 110 1440 60 1920 10 2160 60 2640 110 2880 60V120H0Z"/></svg>
+  </div>
+
+  <!-- MINIJUEGO -->
+  <div class="game" id="game" role="dialog" aria-modal="true" aria-labelledby="gameTitle" hidden>
+    <button class="btn btn-ink btn-sm game-close" id="gameClose" type="button"><span><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>Cerrar</span></button>
+    <div class="game-in">
+      <h2 id="gameTitle">Te dijimos! Ahora detén la perilla</h2>
+      <div id="gamePlay" class="game-in">
+        <p class="game-help">Toca la perilla (o la barra espaciadora) cuando el ! pase por la zona oscura. Cada acierto la hace girar más rápido.</p>
+        <div class="hud"><span>Giros: <b id="gScore">0</b></span><span class="lives" id="gLives" aria-label="3 vidas"><svg viewBox="0 0 140 350"><use href="#mark"/></svg><svg viewBox="0 0 140 350"><use href="#mark"/></svg><svg viewBox="0 0 140 350"><use href="#mark"/></svg></span></div>
+        <div class="gdial" id="gDial" role="button" tabindex="0" aria-label="Detener la perilla">
+          <span class="zone" id="gZone"></span>
+          <span class="needle-g" id="gNeedle"><svg viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg></span>
+          <span class="core" id="gCore">0</span>
+        </div>
+        <p class="game-msg" id="gMsg" aria-live="polite"></p>
+      </div>
+      <div class="game-end" id="gameEnd" hidden>
+        <p class="big" id="gFinal">0</p>
+        <p class="game-msg" id="gFinalTxt">giros</p>
+        <p class="game-help" id="gBest"></p>
+        <p class="game-help">Imagina lo que hacemos cuando la que gira es tu marca.</p>
+        <div class="game-actions">
+          <button class="btn btn-cream" id="gAgain" type="button"><span>Otra vez</span></button>
+          <a class="btn btn-ink" id="gTalk" href="#contacto"><span>Hablemos<b class="bang">!</b></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=1"></script>
+</body>
+</html>

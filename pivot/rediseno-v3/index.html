@@ -1,0 +1,1371 @@
+<title>Pivot La Perilla</title>
+<meta name="description" content="Pivot es una agencia de marketing digital en Medellín: estrategia, contenido, pauta, branding y diseño web.">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=DM+Sans:opsz,wght@9..40,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Lectura: rediseño-overhaul de la agencia Pivot para dueños de marca en Colombia. Lenguaje neo-brutalista,
+   todo gira: la navegación es una ruleta, la portada es una perilla, el método son cuatro cuartos de vuelta.
+   Diales 9 / 8 / 3. Bordes duros, sombras planas, radio 0 (solo los diales son círculos).
+   Tipos del kit de marca: Bricolage Grotesque (su eje de ancho 75-100 se anima), DM Sans para lectura, Space Mono para grados. */
+:root{
+  --bg:#EEEDE8;
+  --paper:#FAFAF7;
+  --ink:#171615;
+  --muted:#55514C;
+  --red:#E63915;
+  --on-red:#FFF5EF;
+  --on-red-ink:#171615;
+  --peach:#FBE3DA;
+  --shade:#171615;
+  --f-display:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;
+  --f-body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Space Mono",ui-monospace,Menlo,monospace;
+  --gutter:clamp(16px,4vw,56px);
+  --max:1320px;
+  --bar:64px;
+  --b:3px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --spring:cubic-bezier(.3,1.4,.4,1);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#131211;--paper:#1D1B19;--ink:#F1EFEA;--muted:#ABA59E;--red:#F0461F;--on-red:#FFF5EF;--on-red-ink:#171615;
+  --peach:#3A1E15;--shade:#F0461F;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#131211;--paper:#1D1B19;--ink:#F1EFEA;--muted:#ABA59E;--red:#F0461F;--on-red:#FFF5EF;--on-red-ink:#171615;
+  --peach:#3A1E15;--shade:#F0461F;color-scheme:dark}
+
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bg);overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{max-width:100%;height:auto;display:block}
+[hidden]{display:none!important}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+.ico{width:1em;height:1em;fill:currentColor;flex:none}
+.bang{color:var(--red)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--f-mono);font-weight:400;font-size:13px;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+
+/* botones: rectángulos con sombra plana que se hunden al presionar */
+.btn{display:inline-flex;align-items:center;gap:10px;white-space:nowrap;text-decoration:none;cursor:pointer;
+  font:800 16px/1 var(--f-display);font-stretch:100%;letter-spacing:-.01em;padding:16px 22px;
+  border:var(--b) solid var(--ink);box-shadow:5px 5px 0 var(--shade);
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease)}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--shade)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 var(--shade)}
+.btn-red{background:var(--red);color:var(--on-red-ink)}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-paper{background:var(--paper);color:var(--ink)}
+.btn .ico{font-size:18px}
+
+/* ---------------- barra superior ---------------- */
+.bar{position:fixed;left:0;right:0;top:0;z-index:50;padding-top:env(safe-area-inset-top,0px);
+  background:var(--bg);border-bottom:var(--b) solid var(--ink)}
+.bar-in{height:var(--bar);display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:20px}
+.bar .logo img{height:26px;width:auto}
+:root .logo-dark{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-light{display:none}:root:not([data-theme="light"]) .logo-dark{display:block}}
+:root[data-theme="dark"] .logo-light{display:none}
+:root[data-theme="dark"] .logo-dark{display:block}
+
+/* lectura de posición: grados + nombre de sección que rueda */
+.readout{justify-self:center;display:flex;align-items:center;gap:12px;min-width:0}
+.readout .deg{font-family:var(--f-mono);font-weight:700;font-size:13px;color:var(--red);font-variant-numeric:tabular-nums;min-width:4ch;text-align:right}
+.roll{height:22px;overflow:hidden;min-width:0}
+.roll ul{list-style:none;margin:0;padding:0;transform:translateY(calc(var(--i,0) * -22px));transition:transform .55s var(--spring)}
+.roll li{height:22px;line-height:22px;font:800 15px/22px var(--f-display);font-stretch:100%;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap}
+.bar-actions{display:flex;align-items:center;gap:14px}
+.bar .btn{padding:11px 16px;font-size:14px;box-shadow:3px 3px 0 var(--shade)}
+.bar .btn:hover{box-shadow:5px 5px 0 var(--shade)}
+
+/* botón perilla del menú: gira con el avance de la página */
+.menu-btn{display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;cursor:pointer;font:800 14px/1 var(--f-display);font-stretch:100%;text-transform:uppercase;letter-spacing:.04em}
+.knob-sm{position:relative;width:46px;height:46px;border-radius:50%;border:var(--b) solid var(--ink);background:var(--paper);
+  box-shadow:3px 3px 0 var(--shade);transition:transform .18s var(--ease),box-shadow .18s var(--ease)}
+.knob-sm i{position:absolute;inset:0;transform:rotate(var(--turn,0deg))}
+.knob-sm svg{position:absolute;left:50%;top:5px;width:9px;height:20px;margin-left:-4.5px;fill:var(--red)}
+.menu-btn:hover .knob-sm{transform:translate(-2px,-2px) rotate(-8deg);box-shadow:5px 5px 0 var(--shade)}
+.menu-btn:active .knob-sm{transform:translate(3px,3px);box-shadow:0 0 0 var(--shade)}
+@media (max-width:760px){.bar .btn{display:none}.readout .deg{display:none}}
+@media (max-width:420px){.menu-btn .lbl{display:none}}
+
+/* ---------------- la ruleta (menú a pantalla completa) ---------------- */
+.ruleta{position:fixed;inset:0;z-index:100;background:var(--red);color:var(--on-red-ink);overflow:hidden;
+  clip-path:circle(0px at var(--ox,95%) var(--oy,32px));visibility:hidden;
+  transition:clip-path .75s cubic-bezier(.7,0,.2,1),visibility 0s .75s;touch-action:none;user-select:none;-webkit-user-select:none}
+.ruleta.open{clip-path:circle(160vmax at var(--ox,95%) var(--oy,32px));visibility:visible;transition:clip-path .75s cubic-bezier(.7,0,.2,1),visibility 0s}
+.ruleta-top{position:absolute;left:0;right:0;top:0;padding-top:env(safe-area-inset-top,0px)}
+.ruleta-top .wrap{height:var(--bar);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.ruleta-top img{height:26px;width:auto}
+.close{display:flex;align-items:center;gap:10px;background:var(--on-red-ink);color:var(--on-red);border:0;padding:12px 16px;cursor:pointer;font:800 14px/1 var(--f-display);font-stretch:100%;text-transform:uppercase;letter-spacing:.04em}
+.close .ico{font-size:18px}
+.stage{--R:min(36vh,30vw);--cx:7vw;--cy:52%;position:absolute;inset:0;cursor:grab}
+.stage.drag{cursor:grabbing}
+.wheel{position:absolute;left:var(--cx);top:var(--cy);width:0;height:0;transform:rotate(var(--rot,0deg));transition:transform .7s var(--spring)}
+.stage.drag .wheel{transition:none}
+.dial-ring{position:absolute;left:calc(var(--R) * -.82);top:calc(var(--R) * -.82);width:calc(var(--R) * 1.64);height:calc(var(--R) * 1.64);border-radius:50%;
+  border:var(--b) solid var(--on-red-ink);
+  background:repeating-conic-gradient(from -1deg,var(--on-red-ink) 0 2deg,transparent 2deg 10deg);
+  -webkit-mask:radial-gradient(circle,transparent 0 calc(var(--R) * .70),#000 calc(var(--R) * .70 + 1px));
+          mask:radial-gradient(circle,transparent 0 calc(var(--R) * .70),#000 calc(var(--R) * .70 + 1px))}
+.dial-core{position:absolute;left:calc(var(--R) * -.5);top:calc(var(--R) * -.5);width:var(--R);height:var(--R);border-radius:50%;border:var(--b) solid var(--on-red-ink);background:var(--on-red)}
+.dial-core svg{position:absolute;left:50%;top:10%;width:12%;margin-left:-6%;fill:var(--red);transform-origin:50% 335%}
+.spokes{list-style:none;margin:0;padding:0}
+.spoke{position:absolute;left:0;top:0;transform-origin:0 0;transform:rotate(var(--a)) translate(calc(var(--R) * 1.24),-50%)}
+.spoke button{display:flex;align-items:baseline;gap:14px;background:none;border:0;padding:6px 10px;cursor:pointer;white-space:nowrap;color:var(--on-red-ink);
+  font:800 clamp(30px,6.2vh,78px)/1 var(--f-display);font-stretch:100%;letter-spacing:-.01em;text-transform:uppercase;opacity:.42;font-stretch:85%;
+  transition:opacity .4s var(--ease),font-stretch .5s var(--ease)}
+.spoke button .mono{font-size:clamp(11px,1.4vh,14px);font-weight:700;letter-spacing:.02em}
+.spoke.on button{opacity:1;font-stretch:100%}
+.spoke button:hover{opacity:.8}
+.needle{position:absolute;left:calc(var(--cx) + var(--R) * .962);top:var(--cy);width:calc(var(--R) * .136);transform:translate(0,-50%) rotate(90deg);fill:var(--on-red-ink);pointer-events:none}
+.ruleta-info{position:absolute;right:var(--gutter);bottom:clamp(20px,5vh,56px);width:min(360px,30vw);display:grid;gap:16px;justify-items:start}
+.ruleta-info .deg-big{font:700 clamp(48px,9vh,96px)/.9 var(--f-mono);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.ruleta-info p{font-size:17px;line-height:1.45;max-width:30ch}
+.ruleta-info .btn{box-shadow:5px 5px 0 var(--on-red-ink);border-color:var(--on-red-ink)}
+.ruleta-info .btn-ink{background:var(--on-red-ink);color:var(--on-red)}
+.ruleta-hint{opacity:.8}
+@media (max-width:860px){
+  .stage{--R:34vw;--cx:2vw;--cy:40%}
+  .spoke button{font-size:clamp(22px,6.4vw,40px)}
+  .spoke.on button{font-stretch:100%}
+  .spoke button .mono{display:none}
+  .ruleta-info{left:var(--gutter);right:var(--gutter);width:auto;bottom:24px;grid-template-columns:auto minmax(0,1fr);align-items:end;gap:10px 16px}
+  .ruleta-info .deg-big{font-size:44px;grid-row:span 2}
+  .ruleta-info p{font-size:15px}
+  .ruleta-info .btn{grid-column:1/-1}
+  .ruleta-hint{display:none}
+}
+
+/* ---------------- portada ---------------- */
+main{padding-top:calc(var(--bar) + var(--b) + env(safe-area-inset-top,0px))}
+.hero{padding-block:clamp(28px,5vw,64px) clamp(48px,6vw,88px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,56px);align-items:center}
+.hero-copy{display:grid;gap:28px;min-width:0}
+.hero h1{font-size:clamp(52px,8.2vw,124px);font-weight:800;line-height:.86;letter-spacing:-.01em;text-transform:uppercase}
+.hero h1 .ln{display:block}
+.hero h1 .w{display:inline-block;font-stretch:100%;transition:font-stretch .5s var(--ease),color .3s}
+.hero h1 .w:hover{font-stretch:75%}
+.hero h1 .w.red{color:var(--red)}
+.hero-sub{max-width:40ch;font-size:clamp(18px,1.5vw,21px);line-height:1.5;color:var(--muted)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:16px}
+@media (prefers-reduced-motion:no-preference){
+  .hero h1 .w{animation:stretchIn 1s var(--ease) both;animation-delay:calc(var(--d) * 90ms)}
+  .hero-sub,.hero-cta{animation:rise .8s .45s var(--ease) both}
+  .hero-art{animation:spinIn 1.1s .15s var(--spring) both}
+}
+@keyframes stretchIn{from{font-stretch:75%;transform:translateY(40%);opacity:0}to{font-stretch:100%;transform:none;opacity:1}}
+@keyframes rise{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+@keyframes spinIn{from{transform:rotate(-14deg) scale(.9);opacity:0}to{transform:none;opacity:1}}
+
+/* la perilla de la portada */
+.hero-art{position:relative;display:grid;gap:clamp(16px,2vw,24px);justify-items:center;align-content:center;justify-self:center;width:100%;min-width:0;color:var(--ink)}
+.knob-wrap{position:relative;width:min(100%,420px);aspect-ratio:1;max-width:100%}
+.knob-ticks{position:absolute;inset:0;border-radius:50%;
+  background:repeating-conic-gradient(from -1.5deg,var(--ink) 0 3deg,transparent 3deg 72deg);
+  -webkit-mask:radial-gradient(circle,transparent 0 63%,#000 63.5% 70%,transparent 70.5%);
+          mask:radial-gradient(circle,transparent 0 63%,#000 63.5% 70%,transparent 70.5%)}
+.knob-fine{position:absolute;inset:0;border-radius:50%;opacity:.4;
+  background:repeating-conic-gradient(var(--ink) 0 .8deg,transparent .8deg 9deg);
+  -webkit-mask:radial-gradient(circle,transparent 0 66%,#000 66.5% 70%,transparent 70.5%);
+          mask:radial-gradient(circle,transparent 0 66%,#000 66.5% 70%,transparent 70.5%)}
+.knob{position:absolute;inset:17%;border-radius:50%;background:var(--red);border:var(--b) solid var(--ink);
+  box-shadow:8px 8px 0 var(--shade);cursor:grab;touch-action:none;transform:rotate(var(--k,0deg));transition:transform .55s var(--spring)}
+.knob.drag{cursor:grabbing;transition:none}
+.knob::before{content:"";position:absolute;inset:14%;border-radius:50%;border:2px dashed color-mix(in srgb,var(--on-red-ink) 35%,transparent)}
+.knob svg{position:absolute;left:50%;top:7%;width:11%;margin-left:-5.5%;fill:var(--on-red)}
+.knob:focus-visible{outline:3px solid var(--red);outline-offset:8px}
+.phrase{text-align:center;display:grid;gap:4px;min-height:2.6em;perspective:600px}
+.phrase .from{font:600 clamp(16px,1.4vw,19px)/1.2 var(--f-body);color:var(--muted)}
+.phrase .from s{text-decoration-thickness:2px;text-decoration-color:var(--red)}
+.phrase .to{font:800 clamp(26px,2.6vw,38px)/1 var(--f-display);font-stretch:100%;letter-spacing:-.01em;text-transform:uppercase;color:var(--red)}
+.phrase.in>*{animation:flipIn .55s var(--ease) both}
+.phrase.in .to{animation-delay:.06s}
+@keyframes flipIn{from{transform:rotateX(-90deg);opacity:0}to{transform:none;opacity:1}}
+.knob-hint{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--muted)}
+.knob-hint .ico{font-size:16px}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.knob-wrap{width:min(100%,300px)}}
+
+/* ---------------- servicios: pan horizontal ---------------- */
+.svc{position:relative;padding-block:clamp(64px,8vw,104px) clamp(56px,7vw,96px);overflow:hidden;border-top:var(--b) solid var(--ink)}
+.svc.is-pinned{grid-template-columns:minmax(0,1fr);height:100dvh;padding-block:calc(var(--bar) + 40px) 40px;display:grid;grid-template-rows:auto minmax(0,1fr);gap:clamp(24px,3vh,40px);align-content:start}
+.svc-head h2{font-size:clamp(40px,5.8vw,88px);font-weight:800;line-height:.9;letter-spacing:-.01em;text-transform:uppercase;font-stretch:100%;max-width:16ch}
+.svc-head{margin-bottom:clamp(28px,4vw,48px)}
+.svc.is-pinned .svc-head{margin-bottom:0;width:100%}
+.track-vp{min-width:0;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:16px}
+.svc.is-pinned .track-vp{overflow:visible;padding-bottom:0;min-height:0}
+.track{display:flex;gap:24px;width:max-content;padding-inline:var(--gutter);padding-bottom:12px}
+.svc.is-pinned .track{height:100%;padding-bottom:12px}
+.panel{position:relative;flex:none;width:min(80vw,540px);min-height:430px;scroll-snap-align:start;border:var(--b) solid var(--ink);box-shadow:8px 8px 0 var(--shade);
+  padding:clamp(22px,2.6vw,34px);display:grid;grid-template-rows:auto 1fr auto;gap:22px;overflow:hidden;background:var(--paper)}
+.svc.is-pinned .panel{min-height:0;height:calc(100% - 8px)}
+.panel .ico-big{font-size:44px}
+.panel h3{font-size:clamp(34px,3.4vw,52px);font-weight:800;line-height:.92;letter-spacing:-.01em;text-transform:uppercase;font-stretch:100%}
+.panel p{font-size:18px;line-height:1.45;max-width:30ch;margin-top:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.chips li{font:600 14px/1 var(--f-body);padding:9px 12px;border:2px solid currentColor}
+.p-red{background:var(--red);color:var(--on-red-ink)}
+.p-red .big-mark{position:absolute;right:-6%;bottom:-14%;width:40%;fill:color-mix(in srgb,var(--on-red) 26%,transparent);transform:rotate(16deg)}
+.p-ink{background:var(--ink);color:var(--paper)}
+.p-ink .chips li{border-color:color-mix(in srgb,var(--paper) 60%,transparent)}
+.p-hatch{background-color:var(--paper);background-image:repeating-linear-gradient(-45deg,color-mix(in srgb,var(--ink) 9%,transparent) 0 2px,transparent 2px 13px)}
+.p-peach{background:var(--peach)}
+.p-outline .ghost{position:absolute;right:-4%;bottom:-6%;font:800 clamp(120px,14vw,200px)/.8 var(--f-display);font-stretch:75%;color:transparent;-webkit-text-stroke:2px var(--ink);opacity:.18;pointer-events:none}
+.panel .icon-row{display:flex;justify-content:space-between;align-items:start}
+.deck-ctl{display:none}
+.deck-btn{width:48px;height:48px;display:grid;place-items:center;border:var(--b) solid var(--ink);background:var(--paper);color:var(--ink);box-shadow:3px 3px 0 var(--shade);cursor:pointer;transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+.deck-btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--shade)}
+.deck-btn .ico{font-size:20px}
+.deck-mid{display:grid;gap:8px;justify-items:center;min-width:0}
+.deck-name{font:800 15px/1.15 var(--f-display);font-stretch:100%;text-transform:uppercase;text-align:center}
+.deck-bars{display:flex;gap:6px}
+.deck-bars i{width:18px;height:8px;border:2px solid var(--ink);transition:background-color .3s}
+.deck-bars i.on{background:var(--red)}
+.deck-hint{color:var(--muted);font-size:12px}
+@media (max-width:899px){
+  .track-vp{overflow:visible;padding-bottom:0}
+  .track{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;width:auto;padding-inline:var(--gutter)}
+  .panel{width:auto;min-height:0;gap:18px;padding:22px}
+  .panel .ico-big{font-size:34px}
+  .panel h3{font-size:clamp(28px,8.4vw,38px)}
+  .panel p{font-size:16px;margin-top:8px}
+  .p-red .big-mark{width:24%;right:-3%;bottom:-8%}
+  /* baraja: las tarjetas se apilan y se descartan deslizando */
+  .track.is-deck{grid-template-areas:"s";gap:0;padding-top:4px;padding-bottom:40px;touch-action:pan-y}
+  .track.is-deck .panel{grid-area:s;min-height:340px;z-index:calc(10 - var(--pos,0));
+    transform:translate3d(var(--tx,0px),calc(var(--pos,0) * 13px),0) rotate(calc(var(--rb,0deg) + var(--rz,0deg))) scale(calc(1 - var(--pos,0) * .045));
+    transition:transform .55s var(--spring),opacity .35s var(--ease);user-select:none;-webkit-user-select:none}
+  .track.is-deck .panel[data-pos="0"]{cursor:grab}
+  .track.is-deck .panel[data-pos="1"]{--rb:-3deg}
+  .track.is-deck .panel[data-pos="2"]{--rb:2.5deg}
+  .track.is-deck .panel[data-pos="3"],.track.is-deck .panel[data-pos="4"],.track.is-deck .panel[data-pos="5"]{opacity:0}
+  .track.is-deck .panel.dragging{transition:none;cursor:grabbing}
+  .deck-ctl{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding-inline:var(--gutter)}
+}
+
+/* ---------------- método: dial interactivo por casos ---------------- */
+@property --deg{syntax:"<angle>";inherits:true;initial-value:0deg}
+.method{border-top:var(--b) solid var(--ink);padding-block:clamp(64px,8vw,112px)}
+.method-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-areas:"dial head" "dial card";column-gap:clamp(32px,5vw,80px);row-gap:28px;align-items:start}
+.m-head{grid-area:head;min-width:0}
+.m-dial{grid-area:dial;display:grid;gap:18px;justify-items:center;align-self:center}
+.m-card{grid-area:card;min-width:0}
+.method h2{font-size:clamp(36px,4.4vw,68px);font-weight:800;line-height:.92;letter-spacing:-.01em;text-transform:uppercase;font-stretch:100%;margin-bottom:24px}
+.cases{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.cases legend{padding:0;margin-bottom:12px;font-weight:700;font-size:17px}
+.case{position:relative;display:inline-flex}
+.case input{position:absolute;opacity:0;width:1px;height:1px}
+.case span{display:inline-flex;align-items:center;min-height:46px;padding:10px 16px;border:var(--b) solid var(--ink);background:var(--paper);font:700 15px/1.2 var(--f-body);cursor:pointer;
+  transition:background-color .25s,color .25s,box-shadow .25s var(--ease),transform .25s var(--ease)}
+.case span:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--shade)}
+.case input:checked + span{background:var(--ink);color:var(--paper);box-shadow:4px 4px 0 var(--red);transform:translate(-2px,-2px)}
+.case input:focus-visible + span{outline:3px solid var(--red);outline-offset:3px}
+.qdial{position:relative;width:min(100%,52vh,460px);aspect-ratio:1;max-width:100%;border-radius:50%;border:var(--b) solid var(--ink);box-shadow:10px 10px 0 var(--shade);cursor:grab;touch-action:none;
+  user-select:none;-webkit-user-select:none;transition:--deg .7s var(--spring);
+  background:
+    linear-gradient(var(--ink),var(--ink)) center/var(--b) 100% no-repeat,
+    linear-gradient(var(--ink),var(--ink)) center/100% var(--b) no-repeat,
+    conic-gradient(var(--red) var(--deg),var(--paper) 0)}
+.qdial.drag{transition:none;cursor:grabbing}
+.qdial:focus-visible{outline:3px solid var(--red);outline-offset:8px}
+.qdial .hand{position:absolute;left:50%;top:50%;width:var(--b);height:50%;margin-left:calc(var(--b) / -2);transform-origin:50% 0;transform:rotate(calc(var(--deg) + 180deg));background:var(--ink);pointer-events:none}
+.qdial .hand::after{content:"";position:absolute;left:50%;bottom:-17px;width:30px;height:30px;margin-left:-15px;border-radius:50%;background:var(--paper);border:var(--b) solid var(--ink);box-shadow:3px 3px 0 var(--shade)}
+.qdial .hub{position:absolute;inset:31%;border-radius:50%;background:var(--paper);border:var(--b) solid var(--ink);display:grid;place-items:center;pointer-events:none;
+  font:700 clamp(26px,4.2vh,44px)/1 var(--f-mono);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.qdial .q{position:absolute;font:800 clamp(12px,1.6vh,16px)/1 var(--f-display);font-stretch:100%;text-transform:uppercase;letter-spacing:.02em;pointer-events:none;opacity:.5;transition:opacity .3s}
+.qdial .q.on{opacity:1}
+.qdial .q{transform:translate(-50%,-50%);text-align:center;white-space:nowrap}
+.qdial .q1{left:74.4%;top:25.6%}.qdial .q2{left:74.4%;top:74.4%}.qdial .q3{left:25.6%;top:74.4%}.qdial .q4{left:25.6%;top:25.6%}
+.dial-hint{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.dial-hint .ico{font-size:16px}
+.stepcard{border:var(--b) solid var(--ink);background:var(--paper);box-shadow:8px 8px 0 var(--shade);padding:clamp(20px,2.4vw,32px);display:grid;gap:12px;perspective:700px}
+.stepcard .top{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.stepcard h3{font-size:clamp(34px,3.8vw,58px);font-weight:800;line-height:.95;letter-spacing:-.01em;text-transform:uppercase;font-stretch:100%}
+.stepcard .deg{font:700 16px var(--f-mono);color:var(--red);font-variant-numeric:tabular-nums}
+.stepcard .gen{color:var(--muted);font-size:16px}
+.stepcard .case-line{font-size:clamp(18px,1.5vw,21px);line-height:1.45;max-width:46ch}
+.stepcard .case-line b{color:var(--red)}
+.stepcard .take{display:flex;align-items:center;gap:10px;font-weight:700;padding-top:14px;margin-top:4px;border-top:2px dashed color-mix(in srgb,var(--ink) 30%,transparent)}
+.stepcard .take .ico{font-size:20px;color:var(--red)}
+.stepcard.in>*{animation:flipIn .5s var(--ease) both}
+.stepcard.in>*:nth-child(2){animation-delay:.04s}
+.stepcard.in>*:nth-child(3){animation-delay:.08s}
+.stepcard.in>*:nth-child(4){animation-delay:.12s}
+.step-nav{display:flex;flex-wrap:wrap;gap:14px;margin-top:24px}
+.step-nav .btn:disabled{opacity:.4;cursor:default;transform:none;box-shadow:5px 5px 0 var(--shade)}
+@media (max-width:900px){
+  .method-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "dial" "card"}
+  .qdial{width:min(76vw,300px)}
+  .qdial .q{font-size:11px}
+}
+
+/* ---------------- manifiesto ---------------- */
+.manifesto{border-top:var(--b) solid var(--ink);padding-block:clamp(88px,13vw,180px);text-align:center;overflow:hidden}
+.manifesto p{font:800 clamp(40px,7.4vw,116px)/.92 var(--f-display);letter-spacing:-.01em;text-transform:uppercase;max-width:15ch;margin-inline:auto;text-wrap:balance}
+.manifesto .w{display:inline-block}
+.manifesto .w.r{color:var(--red)}
+.manifesto .spin{display:inline-block;color:var(--red);transform-origin:50% 80%}
+
+/* ---------------- equipo: cromos que se giran ---------------- */
+.team{border-top:var(--b) solid var(--ink);padding-block:clamp(64px,9vw,128px);overflow:hidden}
+.team-head{display:grid;gap:14px;margin-bottom:clamp(36px,5vw,64px)}
+.team h2{font-size:clamp(40px,5.4vw,84px);font-weight:800;line-height:.9;letter-spacing:-.01em;text-transform:uppercase;font-stretch:100%;max-width:14ch}
+.team-hint{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.team-hint .ico{font-size:16px}
+.cromos{display:grid;grid-template-columns:repeat(2,minmax(0,380px));justify-content:center;gap:clamp(28px,6vw,96px);list-style:none;margin:0;padding:0}
+.cromo{perspective:1400px;transform:rotate(var(--tilt,0deg))}
+.cromo:nth-child(2){margin-top:clamp(0px,6vw,88px)}
+.cromo-in{display:grid;width:100%;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;transform-style:preserve-3d;
+  transform:rotateX(var(--rx,0deg)) rotateY(calc(var(--flip,0deg) + var(--ry,0deg)));transition:transform .9s var(--spring)}
+.cromo-in.tilting{transition:transform .12s linear}
+.cromo-in[aria-pressed="true"]{--flip:180deg}
+.cromo-in:focus-visible{outline:none}
+.cromo-in:focus-visible .face{outline:3px solid var(--red);outline-offset:4px}
+.face{grid-area:1/1;position:relative;display:grid;border:var(--b) solid var(--ink);overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.front{background:var(--paper);box-shadow:10px 10px 0 var(--shade);grid-template-rows:auto 1fr auto}
+.c-strip{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;background:var(--ink);color:var(--paper);font:700 12px/1 var(--f-mono);letter-spacing:.04em;text-transform:uppercase}
+.c-strip svg{width:8px;height:20px;fill:var(--red)}
+.c-strip .c-brand{display:flex;align-items:center;gap:8px}
+.c-pic{position:relative;border-bottom:var(--b) solid var(--ink);background:#F5F0E8}
+.c-pic img{width:100%;aspect-ratio:1;object-fit:cover}
+.foil{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;opacity:.9;
+  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.75) 47%,rgba(255,214,190,.5) 52%,transparent 64%) var(--fx,120%) 0/260% 100% no-repeat}
+.c-name{display:flex;justify-content:space-between;align-items:end;gap:12px;padding:16px 18px 18px}
+.c-n{font:800 clamp(36px,3.6vw,52px)/.9 var(--f-display);font-stretch:100%;letter-spacing:-.01em;text-transform:uppercase}
+.c-flip{display:flex;align-items:center;gap:6px;font:700 12px/1.2 var(--f-mono);color:var(--red);text-align:right}
+.c-flip .ico{font-size:16px;flex:none}
+.back{transform:rotateY(180deg);background:var(--red);color:var(--on-red-ink);box-shadow:-10px 10px 0 var(--shade);padding:clamp(20px,2.4vw,28px);align-content:space-between;gap:20px}
+.back .c-mark{position:absolute;right:-8%;bottom:-10%;width:42%;fill:color-mix(in srgb,var(--on-red) 22%,transparent);transform:rotate(14deg);pointer-events:none}
+.c-bname{font:800 clamp(40px,4vw,60px)/.88 var(--f-display);font-stretch:100%;letter-spacing:-.01em;text-transform:uppercase;color:var(--on-red);position:relative}
+.c-rows{display:grid;gap:12px;position:relative}
+.c-row{display:grid;gap:3px;padding-top:10px;border-top:2px solid var(--on-red-ink)}
+.c-row .mono{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.c-row span:last-child{font-size:17px;font-weight:600;line-height:1.3}
+.c-back-hint{display:flex;align-items:center;gap:6px;font:700 12px/1 var(--f-mono);position:relative}
+@media (max-width:760px){
+  .cromos{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:min(78vw,330px);justify-content:start;overflow-x:auto;scroll-snap-type:x mandatory;
+    margin-inline:calc(var(--gutter) * -1);padding:12px var(--gutter) 34px;scroll-padding-inline:var(--gutter);overscroll-behavior-x:contain}
+  .cromo{scroll-snap-align:start}
+  .cromo:nth-child(2){margin-top:0}
+}
+
+/* ---------------- preguntas ---------------- */
+.faq{border-top:var(--b) solid var(--ink);padding-block:clamp(64px,9vw,128px)}
+.faq-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(28px,5vw,72px);align-items:start}
+.faq h2{font-size:clamp(36px,4.2vw,64px);font-weight:800;line-height:.92;letter-spacing:-.01em;text-transform:uppercase;font-stretch:100%;position:sticky;top:calc(var(--bar) + 32px)}
+.faq-list{display:grid;gap:14px}
+.faq details{border:var(--b) solid var(--ink);background:var(--paper);transition:box-shadow .3s var(--ease),transform .3s var(--ease)}
+.faq details[open]{box-shadow:6px 6px 0 var(--shade);transform:translate(-3px,-3px)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 22px;
+  font:800 clamp(19px,1.8vw,24px)/1.2 var(--f-display);letter-spacing:-.015em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{flex:none;width:36px;height:36px;display:grid;place-items:center;background:var(--red);color:var(--on-red-ink);border:2px solid var(--ink);transition:transform .4s var(--spring)}
+.faq details[open] .pm{transform:rotate(135deg)}
+.faq details p{padding:0 22px 22px;color:var(--muted);max-width:60ch}
+@media (max-width:860px){.faq-grid{grid-template-columns:1fr}.faq h2{position:static}}
+
+/* ---------------- contacto ---------------- */
+.contact{padding:0 var(--gutter) clamp(32px,5vw,64px)}
+.cta{position:relative;max-width:calc(var(--max) + 80px);margin-inline:auto;background:var(--red);color:var(--on-red-ink);border:var(--b) solid var(--ink);box-shadow:12px 12px 0 var(--shade);
+  padding:clamp(36px,7vw,104px) clamp(22px,6vw,88px);overflow:hidden;display:grid;gap:28px}
+.cta h2{font-size:clamp(52px,7.6vw,132px);font-weight:800;line-height:.84;letter-spacing:-.01em;text-transform:uppercase;font-stretch:100%;color:var(--on-red);max-width:9ch;position:relative;z-index:1}
+.cta h2 b{color:var(--on-red-ink)}
+.cta p{font-size:clamp(18px,1.6vw,21px);max-width:36ch;position:relative;z-index:1}
+.cta-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(28px,4vw,64px);align-items:center;position:relative;z-index:1}
+.cta-copy{display:grid;gap:24px;align-content:center;min-width:0}
+/* ventana de mensaje: se envía con el gestor de correo del visitante */
+.compose{background:var(--paper);color:var(--ink);border:var(--b) solid var(--on-red-ink);box-shadow:8px 8px 0 var(--on-red-ink);min-width:0}
+.compose-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:var(--on-red-ink);color:var(--on-red);font:700 13px/1 var(--f-mono)}
+.compose-bar span{display:flex;align-items:center;gap:8px}
+.compose-bar svg{width:7px;height:17px;fill:var(--red)}
+.c-row{display:grid;grid-template-columns:76px minmax(0,1fr) auto;align-items:center;gap:8px 12px;padding:12px 16px;border-bottom:2px solid var(--ink)}
+.c-row label,.c-row .lab{font:700 13px/1 var(--f-mono);color:var(--muted)}
+.c-row .val{font:700 15px/1.3 var(--f-mono);overflow-wrap:anywhere;min-width:0;user-select:all;-webkit-user-select:all}
+.c-row input{grid-column:2 / -1;width:100%;min-width:0;min-height:44px;padding:8px 12px;border:2px solid var(--ink);border-radius:0;background:var(--bg);color:var(--ink);font:600 16px var(--f-body)}
+.copy{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:0 14px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;font:700 13px var(--f-mono);white-space:nowrap;box-shadow:3px 3px 0 var(--red);transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+.copy:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--red)}
+.copy .ico{font-size:15px}
+.c-msg{display:grid;gap:8px;padding:14px 16px}
+.c-msg label{font:700 13px/1 var(--f-mono);color:var(--muted)}
+.c-msg textarea{width:100%;min-height:150px;resize:vertical;padding:12px;border:2px solid var(--ink);border-radius:0;background:var(--bg);color:var(--ink);font:400 17px/1.5 var(--f-body)}
+.c-msg textarea::placeholder{color:var(--muted)}
+.compose input:focus-visible,.compose textarea:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.c-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;padding:0 16px 16px}
+.c-foot .note{font-size:14px;line-height:1.4;color:var(--muted);max-width:30ch;margin:0}
+.compose .btn-red{border-color:var(--ink);box-shadow:5px 5px 0 var(--shade)}
+@media (max-width:900px){.cta-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){
+  .c-row{grid-template-columns:minmax(0,1fr)}
+  .c-row input{grid-column:auto}
+  .c-row .val{overflow-wrap:normal;word-break:keep-all}
+  .copy{justify-self:start}
+  .c-foot .btn{width:100%;justify-content:center}
+}
+.cta .btn{border-color:var(--on-red-ink);box-shadow:5px 5px 0 var(--on-red-ink)}
+.cta .btn-paper{background:var(--on-red);color:var(--on-red-ink)}
+.cta .mark{position:absolute;right:clamp(-40px,2vw,40px);bottom:-8%;width:clamp(120px,18vw,260px);fill:var(--on-red-ink);opacity:.16;transform-origin:50% 86%}
+
+/* ---------------- pie ---------------- */
+.foot{border-top:var(--b) solid var(--ink);padding-block:40px}
+.foot-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px 40px;align-items:center}
+.foot img{height:24px;width:auto}
+.foot nav{display:flex;flex-wrap:wrap;gap:8px 22px}
+.foot nav a{text-decoration:none;font-weight:600}
+.foot nav a:hover{color:var(--red)}
+.foot small{color:var(--muted);font-size:14px}
+
+/* entrada de títulos: giran a su lugar una sola vez (siempre visibles) */
+.turn{transform-origin:0 100%;transition:transform .6s var(--spring),font-stretch .6s var(--ease)}
+.turn.turn-pre{transform:rotate(-5deg) translateY(.12em);font-stretch:75%}
+
+/* ---------------- preloader: una vuelta completa ---------------- */
+.preloader{display:none}
+.pl .preloader{position:fixed;inset:0;z-index:300;display:grid;place-items:center;align-content:center;gap:22px;background:var(--red);color:var(--on-red-ink);cursor:pointer;
+  clip-path:circle(150vmax at 50% 50%);transition:clip-path .7s cubic-bezier(.7,0,.2,1)}
+.pl .preloader.done{clip-path:circle(0px at 50% 50%)}
+.pl-knob{position:relative;width:min(38vw,180px);aspect-ratio:1;border-radius:50%;background:var(--on-red);border:var(--b) solid var(--on-red-ink);box-shadow:8px 8px 0 var(--on-red-ink)}
+.pl-knob svg{position:absolute;left:50%;top:9%;width:12%;margin-left:-6%;fill:var(--red)}
+.pl-knob i{position:absolute;inset:0;transform:rotate(var(--pl,0deg))}
+.pl-deg{font:700 clamp(40px,8vw,72px)/1 var(--f-mono);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.pl-txt{font:800 15px/1 var(--f-display);text-transform:uppercase;letter-spacing:.06em}
+.pl:not(.pl-out) .hero h1 .w,.pl:not(.pl-out) .hero-sub,.pl:not(.pl-out) .hero-cta,.pl:not(.pl-out) .hero-art{animation-play-state:paused}
+
+/* ---------------- easter egg: el botón prohibido ---------------- */
+.egg{padding:clamp(48px,7vw,96px) var(--gutter) clamp(40px,6vw,72px);display:grid;justify-items:center;gap:16px;text-align:center}
+.egg-btn{width:clamp(150px,22vw,200px);aspect-ratio:1;border-radius:50%;cursor:pointer;border:var(--b) solid var(--ink);background:var(--red);color:var(--on-red-ink);
+  font:800 clamp(15px,1.5vw,18px)/1.15 var(--f-display);text-transform:uppercase;padding:18px;box-shadow:0 10px 0 var(--shade);
+  transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+.egg-btn:hover{transform:translateY(-3px) rotate(-6deg);box-shadow:0 13px 0 var(--shade)}
+.egg-btn:active{transform:translateY(10px);box-shadow:0 0 0 var(--shade)}
+.egg small{color:var(--muted);font-size:14px}
+@keyframes giroLoco{0%{transform:none}35%{transform:rotate(200deg) scale(.62)}70%{transform:rotate(330deg) scale(.86)}100%{transform:rotate(360deg) scale(1)}}
+.spinning{animation:giroLoco 1.5s cubic-bezier(.6,0,.3,1) both}
+
+/* ---------------- minijuego: detén la perilla ---------------- */
+.game{position:fixed;inset:0;z-index:150;background:var(--red);color:var(--on-red-ink);overflow:auto;display:grid;place-items:center;padding:calc(env(safe-area-inset-top,0px) + 72px) var(--gutter) calc(env(safe-area-inset-bottom,0px) + 32px)}
+.game-close{position:absolute;top:calc(env(safe-area-inset-top,0px) + 14px);right:var(--gutter)}
+.game-in{display:grid;gap:clamp(16px,2.6vh,26px);justify-items:center;text-align:center;width:min(100%,520px)}
+.game h2{font-size:clamp(32px,5vw,56px);font-weight:800;line-height:.92;letter-spacing:-.01em;text-transform:uppercase;color:var(--on-red)}
+.game-help{font-size:17px;max-width:36ch}
+.hud{display:flex;justify-content:space-between;align-items:center;width:min(100%,360px);font:700 15px var(--f-mono)}
+.hud .lives{display:flex;gap:6px}
+.hud .lives svg{width:9px;height:22px;fill:var(--on-red-ink);transition:opacity .3s}
+.hud .lives svg.lost{opacity:.22}
+.gdial{position:relative;width:min(72vw,340px,42vh);aspect-ratio:1;border-radius:50%;background:var(--on-red);border:var(--b) solid var(--on-red-ink);box-shadow:8px 8px 0 var(--on-red-ink);cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.gdial .zone{position:absolute;inset:-1px;border-radius:50%;background:conic-gradient(from var(--z0,0deg),var(--on-red-ink) 0 var(--zw,60deg),transparent 0);
+  -webkit-mask:radial-gradient(circle,transparent 0 58%,#000 58.5%);mask:radial-gradient(circle,transparent 0 58%,#000 58.5%)}
+.gdial .core{position:absolute;inset:21%;border-radius:50%;border:var(--b) solid var(--on-red-ink);background:var(--on-red);display:grid;place-items:center;font:700 clamp(28px,5vw,44px)/1 var(--f-mono);font-variant-numeric:tabular-nums}
+.gdial .needle{position:absolute;inset:0;transform:rotate(var(--a,0deg));pointer-events:none}
+.gdial .needle svg{position:absolute;left:50%;top:3%;width:7%;margin-left:-3.5%;fill:var(--red);filter:drop-shadow(0 0 0 var(--on-red-ink))}
+.gdial.hit{animation:hitPop .35s var(--spring)}
+.gdial.miss{animation:shake .4s ease}
+@keyframes hitPop{40%{transform:scale(1.06)}}
+@keyframes shake{20%{transform:translateX(-10px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+.game .btn{border-color:var(--on-red-ink);box-shadow:5px 5px 0 var(--on-red-ink)}
+.game .btn-ink{background:var(--on-red-ink);color:var(--on-red)}
+.game .btn-paper{background:var(--on-red);color:var(--on-red-ink)}
+.game-msg{font:800 clamp(20px,2.4vw,26px)/1.2 var(--f-display);min-height:1.2em}
+.game-end{display:grid;gap:16px;justify-items:center}
+.game-end .big{font:700 clamp(64px,12vw,120px)/.9 var(--f-mono);letter-spacing:-.04em}
+.game-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- iconos: Phosphor Icons (bold), MIT -->
+    <symbol id="i-video" viewBox="0 0 256 256"><path d="M249.45,69.31a12,12,0,0,0-12.51,1L212,88.43V72a20,20,0,0,0-20-20H32A20,20,0,0,0,12,72V184a20,20,0,0,0,20,20H192a20,20,0,0,0,20-20V167.57l24.94,18.14A12,12,0,0,0,256,176V80A12,12,0,0,0,249.45,69.31ZM188,180H36V76H188Zm44-27.57-20-14.54V118.11l20-14.54Z"/></symbol>
+    <symbol id="i-target" viewBox="0 0 256 256"><path d="M229.26,90.4a108,108,0,0,1-177.63,114A108,108,0,0,1,195.41,43.630l20.1-20.11a12,12,0,0,1,17,17l-96,96a12,12,0,1,1-17-17l24-24a36,36,0,1,0,19.76,39.65,12,12,0,0,1,23.53,4.74,60,60,0,1,1-25.73-62L178.3,60.74a84,84,0,1,0,28.460,38,12,12,0,1,1,22.5-8.35Z"/></symbol>
+    <symbol id="i-browser" viewBox="0 0 256 256"><path d="M216,36H40A20,20,0,0,0,20,56V200a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V56A20,20,0,0,0,216,36Zm-4,24V84H44V60ZM44,196V108H212v88Z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 256 256"><path d="M236,208a12,12,0,0,1-12,12H32a12,12,0,0,1-12-12V48a12,12,0,0,1,24,0v99l43.51-43.52a12,12,0,0,1,17,0L128,127l43-43H160a12,12,0,0,1,0-24h40a12,12,0,0,1,12,12v40a12,12,0,0,1-24,0V101l-51.51,51.52a12,12,0,0,1-17,0L96,129,44,181v15H224A12,12,0,0,1,236,208Z"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 256 256"><path d="M199,125.31l-49.88-18.39L130.69,57a19.920,19.920,0,0,0-37.38,0L74.92,106.92,25,125.31a19.92,19.92,0,0,0,0,37.38l49.88,18.39L93.31,231a19.92,19.92,0,0,0,37.38,0l18.39-49.88L199,162.690a19.92,19.92,0,0,0,0-37.38Zm-63.38,35.16a12,12,0,0,0-7.11,7.11L112,212.28l-16.47-44.7a12,12,0,0,0-7.11-7.11L43.72,144l44.7-16.47a12,12,0,0,0,7.11-7.11L112,75.72l16.47,44.7a12,12,0,0,0,7.11,7.11L180.28,144ZM140,40a12,12,0,0,1,12-12h12V16a12,12,0,0,1,24,0V28h12a12,12,0,0,1,0,24H188V64a12,12,0,0,1-24,0V52H152A12,12,0,0,1,140,40ZM252,88a12,12,0,0,1-12,12h-4v4a12,12,0,0,1-24,0v-4h-4a12,12,0,0,1,0-24h4V72a12,12,0,0,1,24,0v4h4A12,12,0,0,1,252,88Z"/></symbol>
+    <symbol id="i-chats" viewBox="0 0 256 256"><path d="M236.34,187.09A84,84,0,0,0,172.29,68.9,84,84,0,0,0,19.66,139.090l-6.84,23.26a20,20,0,0,0,24.83,24.83l23.26-6.84a83.94,83.94,0,0,0,22.76,6.74,84.06,84.06,0,0,0,111.42,41.26l23.26,6.84a20,20,0,0,0,24.83-24.83ZM62,155.5a11.88,11.88,0,0,0-3.39.49l-20.72,6.09L44,141.35a12,12,0,0,0-.93-9A60,60,0,1,1,67.7,156.92,12,12,0,0,0,62,155.5Zm150.89,24.8a12,12,0,0,0-.93,9l6.090,20.73L197.36,204a12,12,0,0,0-9.06.93A60,60,0,0,1,111,186.63a83.93,83.93,0,0,0,68.55-91.37,60,60,0,0,1,33.38,85Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 256 256"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></symbol>
+    <symbol id="i-right" viewBox="0 0 256 256"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></symbol>
+    <symbol id="i-left" viewBox="0 0 256 256"><path d="M228,128a12,12,0,0,1-12,12H69l51.52,51.51a12,12,0,0,1-17,17l-72-72a12,12,0,0,1,0-17l72-72a12,12,0,0,1,17,17L69,116H216A12,12,0,0,1,228,128Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 256 256"><path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 256 256"><path d="M216,28H88A12,12,0,0,0,76,40V76H40A12,12,0,0,0,28,88V216a12,12,0,0,0,12,12H168a12,12,0,0,0,12-12V180h36a12,12,0,0,0,12-12V40A12,12,0,0,0,216,28ZM156,204H52V100H156Zm48-48H180V88a12,12,0,0,0-12-12H100V52H204Z"/></symbol>
+    <symbol id="i-rotate" viewBox="0 0 256 256"><path d="M228,48V96a12,12,0,0,1-12,12H168a12,12,0,0,1,0-24h19l-7.8-7.8a75.55,75.55,0,0,0-53.32-22.26h-.43A75.49,75.49,0,0,0,72.39,75.57,12,12,0,1,1,55.61,58.41a99.38,99.38,0,0,1,69.87-28.47H126A99.42,99.42,0,0,1,196.2,59.23L204,67V48a12,12,0,0,1,24,0ZM183.61,180.43a75.49,75.49,0,0,1-53.09,21.63h-.43A75.55,75.55,0,0,1,76.77,179.8L69,172H88a12,12,0,0,0,0-24H40a12,12,0,0,0-12,12v48a12,12,0,0,0,24,0V189l7.8,7.8A99.42,99.42,0,0,0,130,226.06h.56a99.38,99.38,0,0,0,69.87-28.47,12,12,0,0,0-16.78-17.16Z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 256 256"><path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"/></symbol>
+    <!-- el "!" del logo P!VOT -->
+    <symbol id="mark" viewBox="0 0 140 350"><path d="M22 0H118Q132 0 131 14L113 226Q112 238 100 238H40Q28 238 27 226L9 14Q8 0 22 0Z"/><ellipse cx="70" cy="300" rx="58" ry="46"/></symbol>
+  </defs>
+</svg>
+
+<a class="sr-only" href="#servicios">Saltar al contenido</a>
+
+<script>
+/* preloader: solo la primera vez de cada visita y nunca con movimiento reducido */
+(function(){
+  try {
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && sessionStorage.getItem('pivot-pl') !== '1') document.documentElement.classList.add('pl');
+  } catch(e) {}
+})();
+</script>
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="pl-knob"><i id="plKnob"><svg viewBox="0 0 140 350"><use href="#mark"/></svg></i></div>
+  <p class="pl-deg" id="plDeg">000°</p>
+  <p class="pl-txt">Dando el giro</p>
+</div>
+
+<header class="bar" id="bar">
+  <div class="wrap bar-in">
+    <a class="logo" href="#inicio" aria-label="Pivot, ir al inicio">
+      <img class="logo-light" src="img/logo.webp" alt="Pivot" width="110" height="26">
+      <img class="logo-dark" src="img/logo-blanco.webp" alt="" width="110" height="26">
+    </a>
+    <div class="readout" aria-hidden="true">
+      <span class="deg" id="rdDeg">000°</span>
+      <div class="roll"><ul id="rdRoll">
+        <li>Inicio</li><li>Servicios</li><li>Método</li><li>Manifiesto</li><li>Equipo</li><li>Preguntas</li><li>Contacto</li>
+      </ul></div>
+    </div>
+    <div class="bar-actions">
+      <a class="btn btn-red" href="#contacto"><span>Hablemos!</span></a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="ruleta">
+        <span class="lbl">Menú</span>
+        <span class="knob-sm" aria-hidden="true"><i id="turnKnob"><svg viewBox="0 0 140 350"><use href="#mark"/></svg></i></span>
+        <span class="sr-only">Abrir la ruleta de navegación</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- LA RULETA -->
+<div class="ruleta" id="ruleta" role="dialog" aria-modal="true" aria-label="Navegación" aria-hidden="true">
+  <div class="stage" id="stage">
+    <div class="wheel" id="wheel">
+      <div class="dial-ring"></div>
+      <div class="dial-core"><svg viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg></div>
+      <ul class="spokes" id="spokes">
+        <li class="spoke" style="--a:0deg"><button type="button" data-target="servicios" data-deg="060" data-desc="Contenido, estrategia, pauta, branding, web y redes."><span>Servicios</span><span class="mono">060°</span></button></li>
+        <li class="spoke" style="--a:60deg"><button type="button" data-target="metodo" data-deg="120" data-desc="Cuatro cuartos de vuelta para pasar de la idea al resultado."><span>Método</span><span class="mono">120°</span></button></li>
+        <li class="spoke" style="--a:120deg"><button type="button" data-target="manifiesto" data-deg="180" data-desc="Por qué una marca quieta termina desapareciendo."><span>Manifiesto</span><span class="mono">180°</span></button></li>
+        <li class="spoke" style="--a:180deg"><button type="button" data-target="equipo" data-deg="240" data-desc="Daniel y Laura, las caras detrás del giro."><span>Equipo</span><span class="mono">240°</span></button></li>
+        <li class="spoke" style="--a:240deg"><button type="button" data-target="preguntas" data-deg="300" data-desc="Lo que nos preguntan antes de empezar a trabajar."><span>Preguntas</span><span class="mono">300°</span></button></li>
+        <li class="spoke" style="--a:300deg"><button type="button" data-target="contacto" data-deg="360" data-desc="Cuéntanos de tu marca y diseñemos su próximo movimiento."><span>Contacto</span><span class="mono">360°</span></button></li>
+      </ul>
+    </div>
+    <svg class="needle" viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>
+  </div>
+  <div class="ruleta-top">
+    <div class="wrap">
+      <img src="img/logo-blanco.webp" alt="" width="110" height="26" style="filter:brightness(0)">
+      <button class="close" id="closeBtn" type="button"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>Cerrar</button>
+    </div>
+  </div>
+  <div class="ruleta-info" aria-live="polite">
+    <div class="deg-big" id="infoDeg">060°</div>
+    <p id="infoDesc">Contenido, estrategia, pauta, branding, web y redes.</p>
+    <button class="btn btn-ink" id="goBtn" type="button"><span>Ir a <span id="infoName">Servicios</span></span><svg class="ico" aria-hidden="true"><use href="#i-right"/></svg></button>
+    <p class="ruleta-hint mono">Gira la rueda con el mouse, arrastrando o con las flechas.</p>
+  </div>
+</div>
+
+<main id="main">
+  <!-- PORTADA -->
+  <section class="hero" id="inicio" data-sec="0">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 aria-label="Tu marca necesita un giro!">
+          <span class="ln" aria-hidden="true"><span class="w" style="--d:0">Tu</span> <span class="w" style="--d:1">marca</span></span>
+          <span class="ln" aria-hidden="true"><span class="w" style="--d:2">necesita</span></span>
+          <span class="ln" aria-hidden="true"><span class="w" style="--d:3">un</span> <span class="w red" style="--d:4">giro!</span></span>
+        </h1>
+        <p class="hero-sub">Estrategia, contenido y pauta digital para que tu marca deje de pasar desapercibida y empiece a vender.</p>
+        <div class="hero-cta">
+          <a class="btn btn-red" href="#contacto"><span>Hablemos!</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-paper" href="#servicios">Ver servicios</a>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="knob-wrap">
+          <div class="knob-fine" aria-hidden="true"></div>
+          <div class="knob-ticks" aria-hidden="true"></div>
+          <div class="knob" id="perilla" role="slider" tabindex="0" aria-label="Perilla del giro" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" aria-valuetext="De invisible a inolvidable">
+            <svg viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>
+          </div>
+        </div>
+        <div class="phrase in" id="phrase" aria-hidden="true">
+          <span class="from">de <s>invisible</s></span>
+          <span class="to">a inolvidable</span>
+        </div>
+        <p class="knob-hint"><svg class="ico" aria-hidden="true"><use href="#i-rotate"/></svg>Gira la perilla</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="svc" id="servicios" data-sec="1">
+    <div class="wrap svc-head">
+      <h2>Todo lo que tu marca necesita para <span class="bang">moverse!</span></h2>
+    </div>
+    <div class="track-vp">
+      <div class="track" id="track">
+        <article class="panel p-red">
+          <svg class="big-mark" viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>
+          <div class="icon-row"><svg class="ico ico-big" aria-hidden="true"><use href="#i-target"/></svg></div>
+          <div><h3>Estrategia digital</h3><p>Un plan claro: a quién le hablas, dónde y para qué. Todo lo demás parte de aquí.</p></div>
+          <ul class="chips"><li>Diagnóstico de marca</li><li>Público y objetivos</li><li>Plan de canales</li><li>Medición</li></ul>
+        </article>
+        <article class="panel">
+          <div class="icon-row"><svg class="ico ico-big" aria-hidden="true"><use href="#i-video"/></svg></div>
+          <div><h3>Creación de contenido</h3><p>Piezas que detienen el scroll y cuentan quién eres.</p></div>
+          <ul class="chips"><li>Guiones para redes</li><li>Fotografía y video</li><li>Carruseles</li><li>Reels</li></ul>
+        </article>
+        <article class="panel p-ink">
+          <div class="icon-row"><svg class="ico ico-big" aria-hidden="true"><use href="#i-chart"/></svg></div>
+          <div><h3>Pauta digital</h3><p>Publicidad pagada que llega a quien sí te va a comprar.</p></div>
+          <ul class="chips"><li>Instagram y Facebook</li><li>Google</li><li>Segmentación</li><li>Optimización</li></ul>
+        </article>
+        <article class="panel p-hatch">
+          <div class="icon-row"><svg class="ico ico-big" aria-hidden="true"><use href="#i-browser"/></svg></div>
+          <div><h3>Diseño web</h3><p>Páginas rápidas, bonitas y pensadas para vender, publicadas en tu dominio.</p></div>
+          <ul class="chips"><li>Páginas de presentación</li><li>Páginas de campaña</li><li>Adaptadas a celular</li></ul>
+        </article>
+        <article class="panel p-outline">
+          <span class="ghost" aria-hidden="true">P!</span>
+          <div class="icon-row"><svg class="ico ico-big" aria-hidden="true"><use href="#i-sparkle"/></svg></div>
+          <div><h3>Branding</h3><p>Una identidad que se recuerda a la primera.</p></div>
+          <ul class="chips"><li>Nombre y concepto</li><li>Logo e identidad</li><li>Manual de marca</li></ul>
+        </article>
+        <article class="panel p-peach">
+          <div class="icon-row"><svg class="ico ico-big" aria-hidden="true"><use href="#i-chats"/></svg></div>
+          <div><h3>Redes sociales</h3><p>Tu marca activa, constante y conversando con su gente.</p></div>
+          <ul class="chips"><li>Calendario</li><li>Comunidad</li><li>Informe mensual</li></ul>
+        </article>
+      </div>
+    </div>
+    <div class="deck-ctl" id="deckCtl">
+      <button class="deck-btn" id="deckPrev" type="button" aria-label="Servicio anterior"><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg></button>
+      <div class="deck-mid">
+        <p class="deck-name" id="deckName" aria-live="polite">Estrategia digital</p>
+        <span class="deck-bars" id="deckBars" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="mono deck-hint">Desliza la tarjeta</span>
+      </div>
+      <button class="deck-btn" id="deckNext" type="button" aria-label="Siguiente servicio"><svg class="ico" aria-hidden="true"><use href="#i-right"/></svg></button>
+    </div>
+  </section>
+
+  <!-- MÉTODO -->
+  <section class="method" id="metodo" data-sec="2">
+    <div class="wrap method-grid">
+      <div class="m-head">
+        <h2>Cuatro cuartos de vuelta. Un giro <span class="bang">completo!</span></h2>
+        <fieldset class="cases">
+          <legend>¿Dónde está tu marca hoy?</legend>
+          <label class="case"><input type="radio" name="caso" id="caso-a" value="0" checked><span>Nadie me conoce</span></label>
+          <label class="case"><input type="radio" name="caso" id="caso-b" value="1"><span>Tengo seguidores, pero no ventas</span></label>
+          <label class="case"><input type="radio" name="caso" id="caso-c" value="2"><span>Publico sin un plan</span></label>
+        </fieldset>
+      </div>
+      <div class="m-dial">
+        <div class="qdial" id="qdial" style="--deg:90deg" role="slider" tabindex="0" aria-label="Paso del método" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" aria-valuetext="90 grados: Escuchamos">
+          <span class="q q1 on" aria-hidden="true">Escuchar</span>
+          <span class="q q2" aria-hidden="true">Definir</span>
+          <span class="q q3" aria-hidden="true">Crear</span>
+          <span class="q q4" aria-hidden="true">Medir</span>
+          <i class="hand" aria-hidden="true"></i>
+          <span class="hub" id="qdeg" aria-hidden="true">090°</span>
+        </div>
+        <p class="mono dial-hint"><svg class="ico" aria-hidden="true"><use href="#i-rotate"/></svg>Gira el dial o toca un cuarto</p>
+      </div>
+      <div class="m-card">
+        <article class="stepcard" id="stepcard" aria-live="polite">
+          <div class="top"><h3 id="scTitle">Escuchamos</h3><span class="deg" id="scDeg">090°</span></div>
+          <p class="gen" id="scGen">Entendemos tu marca, tu público y dónde estás hoy.</p>
+          <p class="case-line"><b>En tu caso:</b> <span id="scCase">revisamos dónde aparece hoy tu marca y quién debería conocerla.</span></p>
+          <p class="take"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Te llevas <span id="scTake">un diagnóstico claro</span>.</span></p>
+        </article>
+        <div class="step-nav">
+          <button class="btn btn-paper" id="stPrev" type="button" disabled><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg><span>Anterior</span></button>
+          <button class="btn btn-red" id="stNext" type="button"><span>Siguiente cuarto</span><svg class="ico" aria-hidden="true"><use href="#i-rotate"/></svg></button>
+          <a class="btn btn-red" id="stCta" href="#contacto" hidden><span>Hablemos!</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFIESTO -->
+  <section class="manifesto" id="manifiesto" data-sec="3">
+    <div class="wrap">
+      <p id="manifestoText" aria-label="Las marcas que se quedan quietas, desaparecen. Hagamos que la tuya gire!">Las marcas que se quedan quietas, desaparecen. Hagamos que la tuya gire</p>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section class="team" id="equipo" data-sec="4">
+    <div class="wrap">
+      <div class="team-head">
+        <h2>Las caras detrás del <span class="bang">giro!</span></h2>
+        <p class="mono team-hint"><svg class="ico" aria-hidden="true"><use href="#i-rotate"/></svg>Toca cada cromo para darle la vuelta</p>
+      </div>
+      <ul class="cromos">
+        <li class="cromo" style="--tilt:-3deg">
+          <button class="cromo-in" type="button" aria-pressed="false">
+            <span class="face front">
+              <span class="c-strip"><span class="c-brand"><svg viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>Pivot</span><span>Publicista</span></span>
+              <span class="c-pic"><img src="img/daniel.webp" alt="Ilustración de Daniel: barba, gafas y gorra" width="640" height="640" loading="lazy"><span class="foil" aria-hidden="true"></span></span>
+              <span class="c-name"><span class="c-n">Daniel</span><span class="c-flip" aria-hidden="true"><svg class="ico"><use href="#i-rotate"/></svg>Dale la vuelta</span></span>
+            </span>
+            <span class="face back">
+              <svg class="c-mark" viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>
+              <span class="c-bname">Daniel</span>
+              <span class="c-rows">
+                <span class="c-row"><span class="mono">Profesión</span><span>Publicista</span></span>
+                <span class="c-row"><span class="mono">Experiencia</span><span>Más de 10 años en marketing digital</span></span>
+                <span class="c-row"><span class="mono">Lo suyo</span><span>Un gomoso por contar historias</span></span>
+              </span>
+              <span class="c-back-hint" aria-hidden="true"><svg class="ico"><use href="#i-rotate"/></svg>Toca para volver</span>
+            </span>
+          </button>
+        </li>
+        <li class="cromo" style="--tilt:2.5deg">
+          <button class="cromo-in" type="button" aria-pressed="false">
+            <span class="face front">
+              <span class="c-strip"><span class="c-brand"><svg viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>Pivot</span><span>Comunicadora gráfica</span></span>
+              <span class="c-pic"><img src="img/laura.webp" alt="Ilustración de Laura: trenzas, pecas y gorra" width="640" height="640" loading="lazy"><span class="foil" aria-hidden="true"></span></span>
+              <span class="c-name"><span class="c-n">Laura</span><span class="c-flip" aria-hidden="true"><svg class="ico"><use href="#i-rotate"/></svg>Dale la vuelta</span></span>
+            </span>
+            <span class="face back">
+              <svg class="c-mark" viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>
+              <span class="c-bname">Laura</span>
+              <span class="c-rows">
+                <span class="c-row"><span class="mono">Profesión</span><span>Comunicadora gráfica publicitaria</span></span>
+                <span class="c-row"><span class="mono">En Pivot</span><span>La cara tierna del equipo</span></span>
+                <span class="c-row"><span class="mono">Lo suyo</span><span>Crear contenido y pensar para tu marca</span></span>
+              </span>
+              <span class="c-back-hint" aria-hidden="true"><svg class="ico"><use href="#i-rotate"/></svg>Toca para volver</span>
+            </span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PREGUNTAS -->
+  <section class="faq" id="preguntas" data-sec="5">
+    <div class="wrap faq-grid">
+      <h2>Lo que nos preguntan antes de <span class="bang">empezar</span></h2>
+      <div class="faq-list">
+        <details><summary>¿Tengo que contratar todos los servicios?<span class="pm" aria-hidden="true"><svg class="ico"><use href="#i-plus"/></svg></span></summary><p>No. Armamos un plan con lo que tu marca necesita hoy. Puedes empezar por un solo servicio y sumar otros cuando quieras.</p></details>
+        <details><summary>¿Cuánto cuesta trabajar con Pivot?<span class="pm" aria-hidden="true"><svg class="ico"><use href="#i-plus"/></svg></span></summary><p>Depende de lo que necesites. Después de una primera conversación te enviamos una propuesta a la medida, sin compromiso.</p></details>
+        <details><summary>¿Qué es la pauta digital?<span class="pm" aria-hidden="true"><svg class="ico"><use href="#i-plus"/></svg></span></summary><p>Es la publicidad pagada en internet: anuncios en Instagram, Facebook, Google y otras plataformas. Con ella llegas a personas que todavía no te conocen pero que podrían ser tus clientes.</p></details>
+        <details><summary>¿Pueden hacer solo mi página web?<span class="pm" aria-hidden="true"><svg class="ico"><use href="#i-plus"/></svg></span></summary><p>Sí. Diseñamos tu página y te acompañamos para publicarla en tu dominio.</p></details>
+        <details><summary>¿Por dónde empezamos?<span class="pm" aria-hidden="true"><svg class="ico"><use href="#i-plus"/></svg></span></summary><p>Por una conversación. Cuéntanos de tu marca y de lo que quieres lograr, y te proponemos el primer giro.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contact" id="contacto" data-sec="6">
+    <div class="cta">
+      <svg class="mark" id="ctaMark" viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>
+      <div class="cta-grid">
+        <div class="cta-copy">
+          <h2>¿Listo para el <b>giro!</b></h2>
+          <p>Cuéntanos de tu marca y diseñemos juntos su próximo movimiento.</p>
+        </div>
+        <form class="compose" id="compose">
+          <div class="compose-bar"><span><svg viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg>Nuevo mensaje</span></div>
+          <div class="c-row"><span class="lab">Para:</span><span class="val" id="mail">hola@pivotagencia.com</span><button class="copy" type="button" id="copy"><svg class="ico" aria-hidden="true"><use href="#i-copy"/></svg><span id="copyLbl">Copiar</span></button></div>
+          <div class="c-row"><label for="asunto">Asunto:</label><input id="asunto" name="asunto" type="text" value="Quiero darle un giro a mi marca"></div>
+          <div class="c-msg"><label for="mensaje">Mensaje:</label><textarea id="mensaje" name="mensaje" placeholder="Cuéntanos de tu marca: qué vendes, a quién y qué te gustaría lograr."></textarea></div>
+          <div class="c-foot">
+            <p class="note">Se abre tu correo con este mensaje listo para enviar. Si no se abre, escríbenos a la dirección de arriba.</p>
+            <button class="btn btn-red" type="submit"><span>Hablemos!</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <!-- EASTER EGG -->
+  <section class="egg" aria-label="Botón sorpresa">
+    <button class="egg-btn" id="eggBtn" type="button">No oprimas este botón</button>
+    <small>En serio. No lo hagas.</small>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <img class="logo-light" src="img/logo.webp" alt="Pivot" width="101" height="24" loading="lazy">
+    <img class="logo-dark" src="img/logo-blanco.webp" alt="Pivot" width="101" height="24" loading="lazy">
+    <nav aria-label="Pie de página">
+      <a href="#servicios">Servicios</a><a href="#metodo">Método</a><a href="#equipo">Equipo</a><a href="#preguntas">Preguntas</a><a href="#contacto">Contacto</a>
+    </nav>
+    <small>© 2026 Pivot. Agencia de marketing digital en Medellín.</small>
+  </div>
+</footer>
+
+<!-- MINIJUEGO -->
+<div class="game" id="game" role="dialog" aria-modal="true" aria-labelledby="gameTitle" hidden>
+  <button class="close game-close" id="gameClose" type="button"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>Cerrar</button>
+  <div class="game-in">
+    <h2 id="gameTitle">Te dijimos! Ahora detén la perilla</h2>
+    <div id="gamePlay" class="game-in">
+      <p class="game-help">Toca la perilla (o la barra espaciadora) cuando el ! pase por la zona negra. Cada acierto la hace girar más rápido.</p>
+      <div class="hud"><span>Giros: <b id="gScore">0</b></span><span class="lives" id="gLives" aria-label="3 vidas"><svg viewBox="0 0 140 350"><use href="#mark"/></svg><svg viewBox="0 0 140 350"><use href="#mark"/></svg><svg viewBox="0 0 140 350"><use href="#mark"/></svg></span></div>
+      <div class="gdial" id="gDial" role="button" tabindex="0" aria-label="Detener la perilla">
+        <span class="zone" id="gZone"></span>
+        <span class="needle" id="gNeedle"><svg viewBox="0 0 140 350" aria-hidden="true"><use href="#mark"/></svg></span>
+        <span class="core" id="gCore">0</span>
+      </div>
+      <p class="game-msg" id="gMsg" aria-live="polite"></p>
+    </div>
+    <div class="game-end" id="gameEnd" hidden>
+      <p class="big" id="gFinal">0</p>
+      <p class="game-msg" id="gFinalTxt">giros</p>
+      <p class="game-help" id="gBest"></p>
+      <p class="game-help">Imagina lo que hacemos cuando la que gira es tu marca.</p>
+      <div class="game-actions">
+        <button class="btn btn-paper" id="gAgain" type="button"><span>Otra vez</span></button>
+        <a class="btn btn-ink" id="gTalk" href="#contacto"><span>Hablemos!</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var $ = function(s){ return document.querySelector(s); };
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
+  if (hasGsap) gsap.registerPlugin(ScrollTrigger);
+  var pad = function(n){ n = Math.round(n); return (n < 10 ? '00' : n < 100 ? '0' : '') + n; };
+  var norm = function(d){ d = ((d % 360) + 360) % 360; return d > 180 ? d - 360 : d; };
+
+  /* ---------- lectura de sección en la barra ---------- */
+  var DEGS = [0, 60, 120, 180, 240, 300, 360];
+  var rdRoll = $('#rdRoll'), rdDeg = $('#rdDeg'), current = 0;
+  var secs = Array.prototype.slice.call(document.querySelectorAll('[data-sec]'));
+  function setReadout(i){
+    current = i;
+    rdRoll.style.setProperty('--i', i);
+    rdDeg.textContent = pad(DEGS[i]) + '°';
+  }
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(en){ if (en.isIntersecting) setReadout(+en.target.dataset.sec); });
+  }, { rootMargin: '-45% 0px -54% 0px' });
+  secs.forEach(function(s){ io.observe(s); });
+
+  /* ---------- la ruleta ---------- */
+  var ruleta = $('#ruleta'), stage = $('#stage'), wheel = $('#wheel'), menuBtn = $('#menuBtn'), main = $('#main'), bar = $('#bar');
+  var spokes = Array.prototype.slice.call(document.querySelectorAll('.spoke'));
+  var btns = spokes.map(function(s){ return s.querySelector('button'); });
+  var N = spokes.length, active = 0, rot = 0, isOpen = false;
+  var infoDeg = $('#infoDeg'), infoDesc = $('#infoDesc'), infoName = $('#infoName');
+
+  function setActive(i, focus){
+    i = ((i % N) + N) % N;
+    rot += norm(-i * 60 - rot);
+    active = i;
+    wheel.style.setProperty('--rot', rot + 'deg');
+    spokes.forEach(function(s, k){ s.classList.toggle('on', k === i); btns[k].setAttribute('aria-current', k === i ? 'true' : 'false'); });
+    var b = btns[i];
+    infoDeg.textContent = b.dataset.deg + '°';
+    infoDesc.textContent = b.dataset.desc;
+    infoName.textContent = b.firstElementChild.textContent;
+    if (focus) b.focus({ preventScroll: true });
+  }
+  function open(){
+    var r = menuBtn.querySelector('.knob-sm').getBoundingClientRect();
+    ruleta.style.setProperty('--ox', (r.left + r.width / 2) + 'px');
+    ruleta.style.setProperty('--oy', (r.top + r.height / 2) + 'px');
+    isOpen = true;
+    ruleta.classList.add('open');
+    ruleta.setAttribute('aria-hidden', 'false');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    main.inert = true; bar.inert = true;
+    document.documentElement.style.overflow = 'hidden';
+    setActive(Math.max(0, current - 1));
+    setTimeout(function(){ btns[active].focus({ preventScroll: true }); }, reduce ? 0 : 380);
+  }
+  function close(restore){
+    isOpen = false;
+    ruleta.classList.remove('open');
+    ruleta.setAttribute('aria-hidden', 'true');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    main.inert = false; bar.inert = false;
+    document.documentElement.style.overflow = '';
+    if (restore !== false) menuBtn.focus({ preventScroll: true });
+  }
+  function go(i){
+    var id = btns[i].dataset.target, el = document.getElementById(id);
+    close(false);
+    setTimeout(function(){
+      var top = el.getBoundingClientRect().top + scrollY - (id === 'contacto' ? 120 : 0);
+      scrollTo({ top: top, behavior: reduce ? 'auto' : 'smooth' });
+    }, reduce ? 0 : 260);
+  }
+  menuBtn.addEventListener('click', open);
+  $('#closeBtn').addEventListener('click', function(){ close(); });
+  $('#goBtn').addEventListener('click', function(){ go(active); });
+
+  var dragged = false;
+  btns.forEach(function(b, k){
+    b.addEventListener('focus', function(){ if (k !== active) setActive(k); });
+    b.addEventListener('click', function(e){
+      if (dragged) { e.preventDefault(); return; }
+      if (k === active) go(k);
+      else { setActive(k); setTimeout(function(){ go(k); }, reduce ? 0 : 480); }
+    });
+  });
+
+  ruleta.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); setActive(active + 1, true); return; }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); setActive(active - 1, true); return; }
+    if (e.key === 'Tab') {
+      var f = Array.prototype.slice.call(ruleta.querySelectorAll('button'));
+      var idx = f.indexOf(document.activeElement);
+      e.preventDefault();
+      f[(idx + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus({ preventScroll: true });
+    }
+  });
+
+  var acc = 0, lastStep = 0;
+  ruleta.addEventListener('wheel', function(e){
+    e.preventDefault();
+    acc += e.deltaY;
+    var now = Date.now();
+    if (Math.abs(acc) > 40 && now - lastStep > 200) { setActive(active + (acc > 0 ? 1 : -1)); acc = 0; lastStep = now; }
+  }, { passive: false });
+
+  var startY = 0, startRot = 0, down = false;
+  stage.addEventListener('pointerdown', function(e){
+    down = true; dragged = false; startY = e.clientY; startRot = rot;
+  });
+  stage.addEventListener('pointermove', function(e){
+    if (!down) return;
+    var dy = e.clientY - startY;
+    if (!dragged && Math.abs(dy) > 6) { dragged = true; stage.classList.add('drag'); try { stage.setPointerCapture(e.pointerId); } catch(_){} }
+    if (dragged) { rot = startRot + dy * 0.35; wheel.style.setProperty('--rot', rot + 'deg'); }
+  });
+  function endDrag(){
+    if (!down) return;
+    down = false;
+    if (dragged) {
+      stage.classList.remove('drag');
+      setActive(Math.round(-rot / 60), true);
+      setTimeout(function(){ dragged = false; }, 0);
+    }
+  }
+  stage.addEventListener('pointerup', endDrag);
+  stage.addEventListener('pointercancel', endDrag);
+  setActive(0);
+
+  /* ---------- preloader ---------- */
+  (function(){
+    var pl = $('#preloader');
+    if (!document.documentElement.classList.contains('pl')) { pl.remove(); return; }
+    try { sessionStorage.setItem('pivot-pl', '1'); } catch(_){}
+    var knob = $('#plKnob'), deg = $('#plDeg'), t0 = performance.now(), DUR = 1000, ended = false;
+    var ready = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    var fontsOk = false; ready.then(function(){ fontsOk = true; });
+    function finish(){
+      if (ended) return; ended = true;
+      pl.classList.add('done');
+      document.documentElement.classList.add('pl-out');
+      setTimeout(function(){ pl.remove(); document.documentElement.classList.remove('pl', 'pl-out'); }, 750);
+    }
+    pl.addEventListener('click', finish);
+    (function tick(now){
+      if (ended) return;
+      var p = Math.min(1, (now - t0) / DUR), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      knob.style.setProperty('--pl', (e * 360) + 'deg');
+      deg.textContent = pad(e * 360) + '°';
+      if (p < 1) requestAnimationFrame(tick);
+      else if (fontsOk || now - t0 > 2500) setTimeout(finish, 180);
+      else requestAnimationFrame(tick);
+    })(t0);
+  })();
+
+  /* ---------- easter egg: giro de la página + minijuego ---------- */
+  (function(){
+    var btn = $('#eggBtn'), game = $('#game'), dial = $('#gDial'), needle = $('#gNeedle'), zone = $('#gZone');
+    var core = $('#gCore'), scoreEl = $('#gScore'), msg = $('#gMsg'), lives = Array.prototype.slice.call(document.querySelectorAll('#gLives svg'));
+    var play = $('#gamePlay'), end = $('#gameEnd'), foot = document.querySelector('.foot');
+    var a = 0, speed = 120, dir = 1, z0 = 0, zw = 64, score = 0, life = 3, running = false, last = 0, raf = 0, locked = false, endedAt = 0;
+    var BEST = 'pivot-giros';
+    function best(){ try { return +localStorage.getItem(BEST) || 0; } catch(_) { return 0; } }
+    function saveBest(n){ try { localStorage.setItem(BEST, String(n)); } catch(_){} }
+    function newZone(){
+      z0 = (a + 90 + Math.random() * 180) % 360;
+      zone.style.setProperty('--z0', z0 + 'deg'); zone.style.setProperty('--zw', zw + 'deg');
+    }
+    function loop(now){
+      if (!running) return;
+      var dt = Math.min(.05, (now - last) / 1000); last = now;
+      a = (a + dir * speed * dt + 360) % 360;
+      needle.style.setProperty('--a', a + 'deg');
+      raf = requestAnimationFrame(loop);
+    }
+    function start(){
+      a = 0; speed = 120; dir = 1; zw = 64; score = 0; life = 3; locked = false;
+      scoreEl.textContent = '0'; core.textContent = '0'; msg.textContent = '';
+      lives.forEach(function(l){ l.classList.remove('lost'); });
+      play.hidden = false; end.hidden = true;
+      $('#gameTitle').textContent = 'Te dijimos! Ahora detén la perilla';
+      newZone();
+      running = true; last = performance.now(); raf = requestAnimationFrame(loop);
+      setTimeout(function(){ dial.focus({ preventScroll: true }); }, 50);
+    }
+    function pulse(cls){ dial.classList.remove('hit', 'miss'); void dial.offsetWidth; dial.classList.add(cls); }
+    function stop(){
+      if (!running || locked) return;
+      var d = ((a - z0) % 360 + 360) % 360;
+      if (d <= zw) {
+        score++; scoreEl.textContent = score; core.textContent = score;
+        speed = Math.min(520, speed * 1.16 + 8); zw = Math.max(16, zw - 5); dir = -dir;
+        msg.textContent = ['Giro!', 'Eso!', 'Otra vuelta!', 'Imparable!'][score % 4];
+        pulse('hit'); newZone();
+      } else {
+        life--; lives[2 - life] && lives[2 - life].classList.add('lost');
+        msg.textContent = life ? 'Casi. Te quedan ' + life + '.' : 'Se acabó el giro.';
+        pulse('miss');
+        if (!life) { locked = true; setTimeout(over, 700); }
+      }
+    }
+    function over(){
+      running = false; cancelAnimationFrame(raf);
+      var b = best(); if (score > b) { saveBest(score); b = score; }
+      $('#gameTitle').textContent = 'Se acabó el giro';
+      $('#gFinal').textContent = score;
+      $('#gFinalTxt').textContent = score === 1 ? 'giro' : 'giros';
+      $('#gBest').textContent = !b ? 'La perilla es tramposa. Inténtalo otra vez.' : (score >= b ? 'Nuevo récord en este navegador!' : 'Tu récord: ' + b + (b === 1 ? ' giro' : ' giros') + '.');
+      play.hidden = true; end.hidden = false; endedAt = performance.now();
+      $('#gAgain').focus({ preventScroll: true });
+    }
+    function openGame(){
+      game.hidden = false; main.inert = true; bar.inert = true; if (foot) foot.inert = true;
+      document.documentElement.style.overflow = 'hidden';
+      start();
+    }
+    function closeGame(toContact){
+      running = false; cancelAnimationFrame(raf);
+      game.hidden = true; main.inert = false; bar.inert = false; if (foot) foot.inert = false;
+      document.documentElement.style.overflow = '';
+      if (toContact) { var c = document.getElementById('contacto'); scrollTo({ top: c.getBoundingClientRect().top + scrollY - 120, behavior: reduce ? 'auto' : 'smooth' }); }
+      else btn.focus({ preventScroll: true });
+    }
+    btn.addEventListener('click', function(){
+      if (reduce) { openGame(); return; }
+      var origin = '50% ' + (scrollY + innerHeight / 2) + 'px';
+      [main, foot].forEach(function(el){ if (!el) return; el.style.transformOrigin = el === main ? origin : '50% 50%'; el.classList.add('spinning'); });
+      bar.classList.add('spinning');
+      setTimeout(function(){
+        [main, foot, bar].forEach(function(el){ if (el) { el.classList.remove('spinning'); el.style.transformOrigin = ''; } });
+        openGame();
+      }, 1550);
+    });
+    dial.addEventListener('pointerdown', function(e){ e.preventDefault(); stop(); });
+    dial.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); stop(); } });
+    game.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') { e.preventDefault(); closeGame(false); }
+      if (e.key === ' ' && running && e.target !== dial && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A') { e.preventDefault(); stop(); }
+    });
+    $('#gameClose').addEventListener('click', function(){ closeGame(false); });
+    $('#gAgain').addEventListener('click', function(){ if (performance.now() - endedAt > 600) start(); });
+    $('#gTalk').addEventListener('click', function(e){ e.preventDefault(); closeGame(true); });
+  })();
+
+  /* ---------- la perilla de la portada ---------- */
+  var PHRASES = [
+    ['invisible', 'inolvidable'], ['seguidores', 'clientes'], ['likes', 'ventas'],
+    ['improvisar', 'tener estrategia'], ['una más', 'la elegida']
+  ];
+  var knob = $('#perilla'), phrase = $('#phrase'), kRot = 0, kIdx = 0, autoOn = !reduce, heroVisible = true;
+  function renderPhrase(i){
+    var p = PHRASES[i];
+    phrase.classList.remove('in'); void phrase.offsetWidth;
+    phrase.innerHTML = '<span class="from">de <s>' + p[0] + '</s></span><span class="to">a ' + p[1] + '</span>';
+    phrase.classList.add('in');
+    knob.setAttribute('aria-valuenow', i + 1);
+    knob.setAttribute('aria-valuetext', 'De ' + p[0] + ' a ' + p[1]);
+  }
+  function setK(r){
+    kRot = r;
+    knob.style.setProperty('--k', r + 'deg');
+    var i = ((Math.round(r / 72) % 5) + 5) % 5;
+    if (i !== kIdx) { kIdx = i; renderPhrase(i); }
+  }
+  var snapK = function(){ return Math.round(kRot / 72) * 72; };
+  var lastA = 0, kDown = false;
+  function angle(e){
+    var r = knob.getBoundingClientRect();
+    return Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180 / Math.PI;
+  }
+  knob.addEventListener('pointerdown', function(e){
+    autoOn = false; kDown = true; lastA = angle(e);
+    knob.classList.add('drag');
+    try { knob.setPointerCapture(e.pointerId); } catch(_){}
+  });
+  knob.addEventListener('pointermove', function(e){
+    if (!kDown) return;
+    var a = angle(e); setK(kRot + norm(a - lastA)); lastA = a;
+  });
+  function kUp(){ if (!kDown) return; kDown = false; knob.classList.remove('drag'); setK(snapK()); }
+  knob.addEventListener('pointerup', kUp);
+  knob.addEventListener('pointercancel', kUp);
+  knob.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); autoOn = false; setK(snapK() + 72); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); autoOn = false; setK(snapK() - 72); }
+  });
+  new IntersectionObserver(function(es){ heroVisible = es[0].isIntersecting; }).observe(knob);
+  setInterval(function(){ if (autoOn && heroVisible && !document.hidden && !isOpen) setK(snapK() + 72); }, 2800);
+
+  /* ---------- manifiesto palabra por palabra ---------- */
+  var mt = $('#manifestoText');
+  mt.innerHTML = mt.textContent.split(' ').map(function(w){
+    return '<span class="w' + (/desaparecen|gire/.test(w) ? ' r' : '') + '" aria-hidden="true">' + w + '</span>';
+  }).join(' ') + '<span class="spin" aria-hidden="true">!</span>';
+
+  /* ---------- copiar correo ---------- */
+  var copyBtn = $('#copy'), copyLbl = $('#copyLbl');
+  copyBtn.addEventListener('click', function(){
+    function sel(){ var r = document.createRange(); r.selectNodeContents($('#mail')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); copyLbl.textContent = 'Seleccionado'; }
+    try { navigator.clipboard.writeText('hola@pivotagencia.com').then(function(){ copyLbl.textContent = 'Copiado'; }, sel); } catch(_) { sel(); }
+    setTimeout(function(){ copyLbl.textContent = 'Copiar'; }, 2200);
+  });
+
+  /* ---------- enviar el mensaje con el gestor de correo ---------- */
+  $('#compose').addEventListener('submit', function(e){
+    e.preventDefault();
+    location.href = 'mailto:hola@pivotagencia.com?subject=' + encodeURIComponent($('#asunto').value) + '&body=' + encodeURIComponent($('#mensaje').value);
+  });
+
+  /* ---------- servicios en celular: baraja que se desliza ---------- */
+  var track = $('#track'), panels = Array.prototype.slice.call(track.querySelectorAll('.panel'));
+  var deckName = $('#deckName'), deckBars = Array.prototype.slice.call(document.querySelectorAll('#deckBars i'));
+  var NP = panels.length, dI = 0, deckOn = false;
+  function layoutDeck(){
+    panels.forEach(function(p, k){
+      var pos = (k - dI + NP) % NP;
+      p.dataset.pos = pos; p.style.setProperty('--pos', pos); p.inert = pos !== 0;
+    });
+    deckName.textContent = panels[dI].querySelector('h3').textContent;
+    deckBars.forEach(function(b, k){ b.classList.toggle('on', k === dI); });
+  }
+  function deckGo(d){ dI = (dI + d + NP) % NP; layoutDeck(); }
+  function fling(dir){
+    var p = panels[dI];
+    p.classList.remove('dragging');
+    p.style.setProperty('--tx', (dir * 120) + 'vw');
+    p.style.setProperty('--rz', (dir * 22) + 'deg');
+    setTimeout(function(){
+      p.classList.add('dragging');
+      p.style.removeProperty('--tx'); p.style.removeProperty('--rz');
+      deckGo(1);
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ p.classList.remove('dragging'); }); });
+    }, reduce ? 0 : 260);
+  }
+  var mqDeck = matchMedia('(max-width: 899px)');
+  function setDeck(){
+    deckOn = mqDeck.matches;
+    track.classList.toggle('is-deck', deckOn);
+    if (deckOn) { layoutDeck(); return; }
+    panels.forEach(function(p){ p.inert = false; p.removeAttribute('data-pos'); p.style.removeProperty('--pos'); });
+  }
+  mqDeck.addEventListener('change', setDeck); setDeck();
+  $('#deckPrev').addEventListener('click', function(){ deckGo(-1); });
+  $('#deckNext').addEventListener('click', function(){ fling(-1); });
+  var sx = 0, sy = 0, sDown = false, sDrag = false;
+  track.addEventListener('pointerdown', function(e){
+    if (!deckOn || !panels[dI].contains(e.target)) return;
+    sDown = true; sDrag = false; sx = e.clientX; sy = e.clientY;
+  });
+  track.addEventListener('pointermove', function(e){
+    if (!sDown) return;
+    var dx = e.clientX - sx, dy = e.clientY - sy, p = panels[dI];
+    if (!sDrag) {
+      if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) { sDrag = true; p.classList.add('dragging'); try { track.setPointerCapture(e.pointerId); } catch(_){} }
+      else if (Math.abs(dy) > 10) sDown = false;
+      return;
+    }
+    p.style.setProperty('--tx', dx + 'px'); p.style.setProperty('--rz', (dx * .06) + 'deg');
+  });
+  function sEnd(e){
+    if (!sDown) return;
+    sDown = false;
+    if (!sDrag) return;
+    var dx = e.clientX - sx, p = panels[dI];
+    if (Math.abs(dx) > 80) fling(dx > 0 ? 1 : -1);
+    else { p.classList.remove('dragging'); p.style.removeProperty('--tx'); p.style.removeProperty('--rz'); }
+  }
+  track.addEventListener('pointerup', sEnd);
+  track.addEventListener('pointercancel', sEnd);
+
+  /* ---------- método: dial interactivo según el caso ---------- */
+  var STEPS = [
+    { t: 'Escuchamos', g: 'Entendemos tu marca, tu público y dónde estás hoy.', k: 'un diagnóstico claro' },
+    { t: 'Definimos', g: 'Elegimos el giro: objetivos, mensajes y canales.', k: 'tu estrategia por escrito' },
+    { t: 'Creamos', g: 'Diseñamos, producimos y lanzamos contenido, web y campañas.', k: 'piezas listas para salir' },
+    { t: 'Medimos', g: 'Revisamos los números cada mes y ajustamos para crecer.', k: 'un informe mensual con lo que funcionó' }
+  ];
+  var CASES = [
+    ['revisamos dónde aparece hoy tu marca y quién debería conocerla.',
+     'elegimos los canales donde está tu público y el mensaje que te diferencia.',
+     'hacemos contenido constante y pauta para que te vean personas nuevas.',
+     'seguimos cuánta gente nueva te descubre cada mes y ajustamos el rumbo.'],
+    ['miramos qué publicas, quién te sigue y en qué punto se pierde la venta.',
+     'definimos ofertas claras y el camino del seguidor hasta la compra.',
+     'creamos piezas que invitan a comprar, una web que vende y anuncios para quien ya te conoce.',
+     'medimos mensajes, clics y ventas, no solo likes.'],
+    ['revisamos lo que has publicado y qué funcionó mejor.',
+     'armamos un calendario con temas, formatos y fechas.',
+     'producimos las piezas del mes para que no tengas que improvisar.',
+     'cada mes te mostramos qué funcionó y qué vamos a cambiar.']
+  ];
+  var qdial = $('#qdial'), qdeg = $('#qdeg'), card = $('#stepcard');
+  var qs = Array.prototype.slice.call(qdial.querySelectorAll('.q'));
+  var stPrev = $('#stPrev'), stNext = $('#stNext'), stCta = $('#stCta');
+  var mStep = 0, mCase = 0, mDeg = 90;
+  function renderStep(anim){
+    var s = STEPS[mStep];
+    $('#scTitle').textContent = s.t;
+    $('#scDeg').textContent = pad((mStep + 1) * 90) + '°';
+    $('#scGen').textContent = s.g;
+    $('#scCase').textContent = CASES[mCase][mStep];
+    $('#scTake').textContent = s.k;
+    qs.forEach(function(q, k){ q.classList.toggle('on', k <= mStep); });
+    qdial.setAttribute('aria-valuenow', mStep + 1);
+    qdial.setAttribute('aria-valuetext', ((mStep + 1) * 90) + ' grados: ' + s.t);
+    stPrev.disabled = mStep === 0;
+    stNext.hidden = mStep === 3;
+    stCta.hidden = mStep !== 3;
+    if (anim && !reduce) { card.classList.remove('in'); void card.offsetWidth; card.classList.add('in'); }
+  }
+  function setDeg(d){
+    mDeg = Math.max(0, Math.min(360, d));
+    qdial.style.setProperty('--deg', mDeg + 'deg');
+    qdeg.textContent = pad(mDeg) + '°';
+    var st = Math.min(3, Math.max(0, Math.ceil(mDeg / 90) - 1));
+    if (st !== mStep) { mStep = st; renderStep(true); }
+  }
+  function goStep(i){ setDeg((Math.max(0, Math.min(3, i)) + 1) * 90); }
+  stPrev.addEventListener('click', function(){ goStep(mStep - 1); });
+  stNext.addEventListener('click', function(){ goStep(mStep + 1); if (mStep === 3) stCta.focus({ preventScroll: true }); });
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="caso"]'), function(r){
+    r.addEventListener('change', function(){ mCase = +r.value; renderStep(true); });
+  });
+  qdial.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'ArrowUp') { e.preventDefault(); goStep(mStep + 1); }
+    if (k === 'ArrowLeft' || k === 'ArrowDown') { e.preventDefault(); goStep(mStep - 1); }
+    if (k === 'Home') { e.preventDefault(); goStep(0); }
+    if (k === 'End') { e.preventDefault(); goStep(3); }
+  });
+  function dAngle(e){
+    var r = qdial.getBoundingClientRect();
+    var a = Math.atan2(e.clientX - (r.left + r.width / 2), -(e.clientY - (r.top + r.height / 2))) * 180 / Math.PI;
+    return (a + 360) % 360;
+  }
+  var dDown = false, dMoved = false, dLast = 0, dx0 = 0, dy0 = 0;
+  qdial.addEventListener('pointerdown', function(e){
+    dDown = true; dMoved = false; dLast = dAngle(e); dx0 = e.clientX; dy0 = e.clientY;
+    try { qdial.setPointerCapture(e.pointerId); } catch(_){}
+  });
+  qdial.addEventListener('pointermove', function(e){
+    if (!dDown) return;
+    if (!dMoved && Math.hypot(e.clientX - dx0, e.clientY - dy0) < 6) return;
+    if (!dMoved) { dMoved = true; qdial.classList.add('drag'); }
+    var a = dAngle(e); setDeg(mDeg + norm(a - dLast)); dLast = a;
+  });
+  function dEnd(e){
+    if (!dDown) return;
+    dDown = false;
+    if (!dMoved) { goStep(Math.ceil(Math.max(1, dAngle(e)) / 90) - 1); return; }
+    qdial.classList.remove('drag');
+    goStep(mStep);
+  }
+  qdial.addEventListener('pointerup', dEnd);
+  qdial.addEventListener('pointercancel', dEnd);
+
+  /* ---------- equipo: cromos que se giran ---------- */
+  var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  Array.prototype.forEach.call(document.querySelectorAll('.cromo-in'), function(c){
+    function reset(){ c.classList.remove('tilting'); c.style.removeProperty('--rx'); c.style.removeProperty('--ry'); c.style.removeProperty('--fx'); }
+    c.addEventListener('click', function(){
+      reset();
+      c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    });
+    if (!fine || reduce) return;
+    c.addEventListener('pointermove', function(e){
+      var r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+      c.classList.add('tilting');
+      c.style.setProperty('--ry', ((px - .5) * 16) + 'deg');
+      c.style.setProperty('--rx', ((.5 - py) * 12) + 'deg');
+      c.style.setProperty('--fx', (px * 100) + '%');
+    });
+    c.addEventListener('pointerleave', reset);
+  });
+
+  /* ---------- títulos que giran al entrar ---------- */
+  /* la inclinación solo existe fuera de pantalla: en cuanto el título asoma, se endereza */
+  if (!reduce && 'IntersectionObserver' in window) {
+    var heads = Array.prototype.slice.call(document.querySelectorAll('.method h2, .team h2, .faq h2, .cta h2'));
+    var releaseVisible = function(){
+      heads.forEach(function(h){
+        if (h.classList.contains('turn-pre') && h.getBoundingClientRect().top < innerHeight) { h.classList.remove('turn-pre'); tio.unobserve(h); }
+      });
+    };
+    var tio = new IntersectionObserver(releaseVisible);
+    heads.forEach(function(h){
+      h.classList.add('turn');
+      if (h.getBoundingClientRect().top >= innerHeight) { h.classList.add('turn-pre'); tio.observe(h); }
+    });
+    addEventListener('scrollend', releaseVisible, { passive: true });
+    addEventListener('resize', releaseVisible, { passive: true });
+  }
+
+  if (!hasGsap) return;
+
+  var turn = $('#turnKnob');
+  ScrollTrigger.create({ start: 0, end: 'max', onUpdate: function(s){ turn.style.transform = 'rotate(' + (s.progress * 360) + 'deg)'; } });
+
+  var mm = gsap.matchMedia();
+  mm.add('(min-width: 900px) and (min-height: 620px) and (prefers-reduced-motion: no-preference)', function(){
+    var svc = $('#servicios');
+    svc.classList.add('is-pinned');
+    var dist = function(){ return Math.max(0, track.scrollWidth - innerWidth); };
+    gsap.to(track, {
+      x: function(){ return -dist(); }, ease: 'none',
+      scrollTrigger: { trigger: svc, start: 'top top', end: function(){ return '+=' + dist(); }, pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true }
+    });
+    return function(){ svc.classList.remove('is-pinned'); };
+  });
+
+  if (!reduce) {
+    gsap.fromTo('#manifestoText .w', { opacity: .16 }, {
+      opacity: 1, stagger: .12, ease: 'none',
+      scrollTrigger: { trigger: '#manifiesto', start: 'top 70%', end: 'bottom 65%', scrub: true }
+    });
+    gsap.fromTo('#manifestoText .spin', { rotate: -180, opacity: .16 }, {
+      rotate: 0, opacity: 1, ease: 'back.out(2)',
+      scrollTrigger: { trigger: '#manifiesto', start: 'center 65%', end: 'bottom 60%', scrub: true }
+    });
+    gsap.fromTo('#ctaMark', { rotate: -35 }, {
+      rotate: 12, ease: 'none',
+      scrollTrigger: { trigger: '#contacto', start: 'top bottom', end: 'bottom bottom', scrub: true }
+    });
+    ScrollTrigger.batch('.cromo, .faq details', {
+      start: 'top 88%', once: true,
+      onEnter: function(b){ gsap.from(b, { y: 60, rotate: 0, duration: .9, stagger: .1, ease: 'expo.out', clearProps: 'transform' }); }
+    });
+  }
+})();
+</script>
