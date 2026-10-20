@@ -1,0 +1,89 @@
+{
+  "tarea": "Formulario de contacto para la web de Chispazo",
+  "subtitulo": "Un formulario sencillo para que los lectores escriban sin salir de la página.",
+  "cliente": "Chispazo",
+  "fecha": "2026-10-11",
+  "reto": {
+    "titular": "Un formulario simple en una página sin servidor",
+    "pedido": "Que los visitantes puedan escribirle a Chispazo desde la página, sin abrir el correo.",
+    "lectura": "La página no tiene servidor propio, así que el formulario debía funcionar sin instalar nada y sin guardar datos sensibles.",
+    "mision": "Agregar un formulario claro, accesible y seguro, que se vea bien en celular y no rompa nada de lo que ya funciona."
+  },
+  "pasos": [
+    {
+      "titulo": "Plan de trabajo",
+      "agente": "planner",
+      "para_que": "dividir la tarea en pasos y detectar riesgos",
+      "estado": "hecho"
+    },
+    {
+      "titulo": "Formulario y estilos",
+      "agente": "coding-standards",
+      "para_que": "escribir el HTML y el CSS siguiendo buenas prácticas",
+      "estado": "hecho"
+    },
+    {
+      "titulo": "Revisión de calidad",
+      "agente": "code-reviewer",
+      "para_que": "buscar errores y partes confusas",
+      "estado": "hecho"
+    },
+    {
+      "titulo": "Revisión de seguridad",
+      "agente": "security-reviewer",
+      "para_que": "revisar que nadie pueda abusar del formulario",
+      "estado": "hecho"
+    },
+    {
+      "titulo": "Publicar en Hostinger",
+      "agente": "—",
+      "para_que": "lo hace la persona con el .zip",
+      "estado": "pendiente"
+    }
+  ],
+  "equipo": [
+    {
+      "agente": "planner",
+      "tipo": "agente",
+      "rol": "Armó el plan y lo presentó para aprobación."
+    },
+    {
+      "agente": "coding-standards",
+      "tipo": "skill",
+      "rol": "Guió cómo escribir el código."
+    },
+    {
+      "agente": "code-reviewer",
+      "tipo": "agente",
+      "rol": "Revisó la calidad del resultado."
+    },
+    {
+      "agente": "security-reviewer",
+      "tipo": "agente",
+      "rol": "Revisó la seguridad antes de entregar."
+    }
+  ],
+  "hallazgos": [
+    {
+      "agente": "code-reviewer",
+      "hallazgo": "El botón de enviar no se veía con el teclado.",
+      "estado": "corregido"
+    },
+    {
+      "agente": "security-reviewer",
+      "hallazgo": "Faltaba un filtro contra envíos automáticos (spam).",
+      "estado": "corregido"
+    }
+  ],
+  "conclusion": "Todo lo que se construyó pasó por revisión de calidad y de seguridad antes de llegar a ti.",
+  "antes": "Para escribir había que copiar el correo y abrir otra aplicación.",
+  "ahora": "Escribir a Chispazo toma un minuto, desde la misma página.",
+  "cambio_titular": "Escribirle a Chispazo ya no exige salir de la página.",
+  "pendientes": [
+    "Subir el .zip a Hostinger.",
+    "Confirmar a qué correo llegan los mensajes."
+  ],
+  "fuentes": [
+    "Documentación oficial de ECC: github.com/affaan-m/ECC"
+  ]
+}
