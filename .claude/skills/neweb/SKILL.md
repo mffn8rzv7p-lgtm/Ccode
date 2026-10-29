@@ -95,6 +95,8 @@ Archivos en `<cliente>/web/`: `index.html`, `styles.css`, `script.js` e `img/`.
 - Selector de moneda como menú desplegable en la barra superior, con banderas SVG (COP, MXN, ARS, CLP, USD), accesible con teclado y nota de precios debajo de las tarjetas: tasa del día desde `https://open.er-api.com/v6/latest/USD` con caché de 12 h y tasas de respaldo, moneda inicial según `navigator.language`, nota de "precio aproximado". Las banderas en SVG, porque los emojis de banderas no se ven en Windows.
 - Sección de grupo de WhatsApp con botón verde e ícono. Un enlace `chat.whatsapp.com/…` es un **grupo**; `whatsapp.com/channel/…` es un **canal**. Usa la palabra correcta.
 - Frase que se colorea letra por letra al bajar (`#frase` en `script.js`).
+- Carrusel en el inicio (`.hero-slides`): rota cada 7 s, con puntos, flechas, botón de pausa y deslizar con el dedo; se detiene con el mouse encima, con foco o con movimiento reducido, y las diapositivas ocultas quedan `inert`.
+- Enlaces de afiliado: `rel="sponsored noopener"` y la línea de divulgación de Amazon en el pie de página (lo exige el programa de afiliados).
 - Tarjetas para seguir varias cuentas de Instagram (`.social`), con logo de cada submarca.
 - Cinta animada con frases (`.marquee`), preguntas frecuentes con `<details>` y tarjetas de producto con botón de compra.
 
