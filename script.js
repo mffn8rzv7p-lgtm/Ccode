@@ -215,3 +215,71 @@ if (currencyMenu) {
       .catch(() => { /* se quedan las tasas de respaldo */ });
   }
 }
+
+// Carrusel del inicio: rota entre los libros y el grupo de WhatsApp
+const hero = document.getElementById('inicio');
+const heroSlides = hero ? [...hero.querySelectorAll('.hero-slide')] : [];
+if (heroSlides.length > 1) {
+  const dots = [...document.querySelectorAll('#hero-dots button')];
+  const pauseBtn = document.getElementById('hero-pause');
+  const live = document.getElementById('hero-slides');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const DELAY = 7000;
+  let current = 0;
+  let timer = null;
+  let userPaused = reduceMotion; // con movimiento reducido no rota sola
+  let hovering = false;
+  let focusInside = false;
+
+  const show = (i) => {
+    current = (i + heroSlides.length) % heroSlides.length;
+    heroSlides.forEach((slide, k) => {
+      const on = k === current;
+      slide.hidden = false;
+      slide.classList.toggle('is-active', on);
+      slide.inert = !on; // lo que no se ve no recibe clics ni foco
+      slide.setAttribute('aria-hidden', String(!on));
+    });
+    dots.forEach((d, k) => (k === current ? d.setAttribute('aria-current', 'true') : d.removeAttribute('aria-current')));
+  };
+
+  const stop = () => { clearInterval(timer); timer = null; };
+  const sync = () => {
+    const shouldRun = !userPaused && !hovering && !focusInside && !document.hidden;
+    if (shouldRun && !timer) timer = setInterval(() => show(current + 1), DELAY);
+    if (!shouldRun) stop();
+    // Mientras rota sola no se anuncia cada cambio; detenida, sí
+    live.setAttribute('aria-live', shouldRun ? 'off' : 'polite');
+  };
+  const restart = () => { stop(); sync(); }; // reinicia la cuenta tras un cambio manual
+
+  const updatePause = () => {
+    hero.classList.toggle('is-paused', userPaused);
+    pauseBtn.setAttribute('aria-label', userPaused ? 'Reanudar rotación' : 'Pausar rotación');
+  };
+
+  document.getElementById('hero-prev').addEventListener('click', () => { show(current - 1); restart(); });
+  document.getElementById('hero-next').addEventListener('click', () => { show(current + 1); restart(); });
+  dots.forEach((d, k) => d.addEventListener('click', () => { show(k); restart(); }));
+  pauseBtn.addEventListener('click', () => { userPaused = !userPaused; updatePause(); sync(); });
+
+  hero.addEventListener('mouseenter', () => { hovering = true; sync(); });
+  hero.addEventListener('mouseleave', () => { hovering = false; sync(); });
+  hero.addEventListener('focusin', () => { focusInside = true; sync(); });
+  hero.addEventListener('focusout', (e) => { if (!hero.contains(e.relatedTarget)) { focusInside = false; sync(); } });
+  document.addEventListener('visibilitychange', sync);
+
+  // Deslizar con el dedo en el celular
+  let touchX = null;
+  hero.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  hero.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) { show(current + (dx < 0 ? 1 : -1)); restart(); }
+    touchX = null;
+  });
+
+  show(0);
+  updatePause();
+  sync();
+}
