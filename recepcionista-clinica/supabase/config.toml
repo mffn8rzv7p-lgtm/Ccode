@@ -1,0 +1,9 @@
+project_id = "recepcionista-clinica"
+
+# Meta no envía el token de Supabase: la función verifica la firma de Meta (WHATSAPP_APP_SECRET).
+[functions.whatsapp]
+verify_jwt = false
+
+# La llama pg_cron con el encabezado x-cron-secret (CRON_SECRET).
+[functions.resumen-diario]
+verify_jwt = false
