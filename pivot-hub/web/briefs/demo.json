@@ -1,0 +1,124 @@
+{
+ "id": "demo",
+ "cliente": "Café Ejemplo",
+ "proyecto": "Regalos con historia",
+ "estado": "listo",
+ "actualizado_en": "2026-11-10T15:00:00Z",
+ "respuestas": {
+  "notas": "Reunión con Andrés (dueño). Quieren vender más café en grano para regalar en diciembre. Hoy venden casi todo en el local; la tienda online casi no se mueve. Le gustó la auditoría de Instagram.",
+  "servicios": [
+   "Campaña",
+   "Contenido",
+   "Pauta digital"
+  ],
+  "fecha_entrega": "Campaña al aire el 1 de diciembre",
+  "presupuesto": "Producción por definir; pauta unos 2 millones",
+  "contacto_cliente": "Andrés, dueño",
+  "responsable_pivot": "Laura",
+  "negocio": "Tostadores de café de especialidad en Medellín, con local y tienda online.",
+  "situacion": "Diciembre es su mejor mes en el local, pero el café en grano para regalo casi no se vende en línea.",
+  "por_que_ahora": "Temporada de regalos de fin de año.",
+  "objetivo_negocio": "Vender más café en grano para regalo en la tienda online.",
+  "objetivo_comunicacion": "Que el café de la finca se vea como el regalo perfecto.",
+  "como_medimos": "Ventas online de diciembre frente a noviembre.",
+  "publico": "Adultos de 28 a 50 años en Medellín que buscan regalos con historia.",
+  "que_piensa": "Que el café es un regalo genérico.",
+  "que_queremos_que_haga": "Comprar el kit de regalo en la tienda online.",
+  "mensaje": "Regala el café que viene de la finca de don Arturo.",
+  "por_que_creernos": "Tostado propio, trato directo con el caficultor.",
+  "tono": "Cálido y cercano.",
+  "entregables": "6 reels\n4 carruseles\nCampaña de pauta en Meta de 4 semanas",
+  "lineamientos": "Logo y colores actuales del café.",
+  "referencias": "Le gustan las marcas que muestran el origen; no quiere nada muy navideño ni rojo y verde.",
+  "competencia": "Otras tostadoras de Medellín.",
+  "mandatorios": "Mostrar el sello de café de especialidad.",
+  "aprobaciones": "Andrés aprueba; 2 rondas."
+ },
+ "documento": {
+  "resumen": "Café Ejemplo quiere que su café en grano sea el regalo de diciembre y que esas ventas pasen por la tienda online. La campaña cuenta el origen del café (la finca de don Arturo) para que regalar café deje de sentirse genérico, y lleva tráfico con pauta en Meta durante 4 semanas.",
+  "frase_creativa": "Regala una historia que se puede tomar.",
+  "contexto": "Diciembre es el mejor mes del local, pero el café en grano para regalo casi no se vende en línea. Las publicaciones sobre el origen del café son las que más conectan en su Instagram.",
+  "objetivos": {
+   "negocio": "Aumentar las ventas de café en grano para regalo en la tienda online durante diciembre.",
+   "comunicacion": "Que el café de la finca se perciba como un regalo especial y con historia.",
+   "indicadores": [
+    "Ventas online de diciembre frente a noviembre (definir meta con el cliente)",
+    "Clics a la tienda desde la pauta",
+    "Mensajes de WhatsApp preguntando por los kits"
+   ]
+  },
+  "publico": {
+   "descripcion": "Adultos de 28 a 50 años en Medellín que buscan regalos con significado para familia, amigos y clientes.",
+   "insight": "Regalar café se siente fácil pero impersonal; lo que lo vuelve especial es saber de dónde viene.",
+   "accion_esperada": "Comprar el kit de regalo en la tienda online o escribir por WhatsApp."
+  },
+  "mensaje": {
+   "principal": "El café de la finca de don Arturo es un regalo con historia.",
+   "razones_para_creer": [
+    "Tostado propio en el local",
+    "Relación directa con el caficultor",
+    "Sello de café de especialidad"
+   ],
+   "tono": "Cálido, cercano y orgulloso del origen."
+  },
+  "entregables": [
+   {
+    "pieza": "Reels",
+    "cantidad": "6",
+    "formato": "Video vertical 9:16",
+    "canal": "Instagram y TikTok"
+   },
+   {
+    "pieza": "Carruseles",
+    "cantidad": "4",
+    "formato": "1080 × 1350",
+    "canal": "Instagram"
+   },
+   {
+    "pieza": "Campaña de pauta",
+    "cantidad": "4 semanas",
+    "formato": "Reels y carruseles promocionados",
+    "canal": "Meta"
+   }
+  ],
+  "marca": {
+   "lineamientos": "Usar el logo y los colores actuales del café.",
+   "referencias": [
+    "Marcas que muestran el origen del producto",
+    "Evitar estética navideña tradicional (rojo y verde)"
+   ],
+   "competencia": [
+    "Otras tostadoras de Medellín"
+   ]
+  },
+  "mandatorios": [
+   "Mostrar el sello de café de especialidad"
+  ],
+  "restricciones": [
+   "No usar estética navideña tradicional"
+  ],
+  "cronograma": [
+   {
+    "hito": "Aprobación de guiones",
+    "fecha": "Por definir"
+   },
+   {
+    "hito": "Campaña al aire",
+    "fecha": "1 de diciembre"
+   }
+  ],
+  "presupuesto": "Pauta: unos $2.000.000. Producción: por definir.",
+  "aprobaciones": {
+   "quien_aprueba": "Andrés (dueño)",
+   "rondas": "2 rondas de ajustes"
+  },
+  "preguntas_pendientes": [
+   "¿Cuál es la meta de ventas online para diciembre?",
+   "¿Qué trae el kit de regalo y cuál es su precio?",
+   "¿La tienda online acepta pedidos corporativos?"
+  ],
+  "riesgos": [
+   "Si la tienda online no está lista para pedidos de temporada, la pauta pierde ventas: revisar inventario y envíos antes del 1 de diciembre."
+  ]
+ }
+}

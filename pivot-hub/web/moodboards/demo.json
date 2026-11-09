@@ -1,0 +1,127 @@
+{
+ "id": "demo",
+ "cliente": "Café Ejemplo",
+ "nombre": "Regalos con historia",
+ "actualizado_en": "2026-11-10T15:00:00Z",
+ "datos": {
+  "descripcion": "Cálido, artesanal, orgullo del origen; nada navideño tradicional.",
+  "concepto": "La finca llega a la ciudad: tonos de tierra y café recién tostado, luz de mañana y texturas de papel kraft. Un regalo que se siente hecho a mano y con historia.",
+  "palabras_clave": [
+   "Origen",
+   "Calidez",
+   "Artesanal",
+   "Cosecha",
+   "Regalo con historia",
+   "Tierra"
+  ],
+  "colores": [
+   {
+    "nombre": "Tierra tostada",
+    "hex": "#6B3E26",
+    "uso": "Color principal"
+   },
+   {
+    "nombre": "Crema de leche",
+    "hex": "#F3E6D3",
+    "uso": "Fondos"
+   },
+   {
+    "nombre": "Hoja de cafeto",
+    "hex": "#3F5E3A",
+    "uso": "Acento natural"
+   },
+   {
+    "nombre": "Cereza madura",
+    "hex": "#B5332E",
+    "uso": "Llamados a la acción"
+   },
+   {
+    "nombre": "Miel de caña",
+    "hex": "#D9A441",
+    "uso": "Detalles y brillo"
+   },
+   {
+    "nombre": "Noche de finca",
+    "hex": "#1E1B18",
+    "uso": "Textos"
+   }
+  ],
+  "tipografias": [
+   {
+    "familia": "Fraunces",
+    "uso": "Títulos",
+    "por_que": "Serifa cálida con carácter artesanal."
+   },
+   {
+    "familia": "DM Sans",
+    "uso": "Textos",
+    "por_que": "Limpia y legible en pantallas pequeñas."
+   },
+   {
+    "familia": "Caveat",
+    "uso": "Detalles escritos a mano",
+    "por_que": "Aporta el toque personal del regalo."
+   }
+  ],
+  "estilos": [
+   {
+    "nombre": "Fotografía de origen",
+    "descripcion": "Planos reales de la finca y las manos del caficultor, luz natural de mañana."
+   },
+   {
+    "nombre": "Producto en contexto",
+    "descripcion": "El kit sobre madera, kraft y lino; encuadres cenitales con sombras suaves."
+   },
+   {
+    "nombre": "Texturas",
+    "descripcion": "Papel kraft, grano visible y tipografía estampada como sello."
+   },
+   {
+    "nombre": "Color",
+    "descripcion": "Tonos tierra con acentos de cereza; nada de rojo y verde navideño."
+   }
+  ],
+  "imagenes": [
+   {
+    "url": "demo/1.jpg",
+    "origen": "ia",
+    "prompt": "Abstract warm earthy composition"
+   },
+   {
+    "url": "demo/2.jpg",
+    "origen": "subida",
+    "prompt": "Abstract warm earthy composition"
+   },
+   {
+    "url": "demo/3.jpg",
+    "origen": "ia",
+    "prompt": "Abstract warm earthy composition"
+   },
+   {
+    "url": "demo/4.jpg",
+    "origen": "subida",
+    "prompt": "Abstract warm earthy composition"
+   },
+   {
+    "url": "demo/5.jpg",
+    "origen": "ia",
+    "prompt": "Abstract warm earthy composition"
+   },
+   {
+    "url": "demo/6.jpg",
+    "origen": "subida",
+    "prompt": "Abstract warm earthy composition"
+   }
+  ],
+  "prompts_sugeridos": [
+   {
+    "para": "Origen",
+    "prompt": "Close-up of a coffee farmer's hands holding ripe red coffee cherries, soft morning light, earthy tones, film grain"
+   },
+   {
+    "para": "Producto",
+    "prompt": "Overhead shot of a kraft paper coffee gift box on a rustic wooden table with linen, warm soft shadows"
+   }
+  ]
+ }
+}

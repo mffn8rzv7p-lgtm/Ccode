@@ -1,0 +1,228 @@
+[
+ {
+  "id": "demo",
+  "numero": "PIV-2026-001",
+  "creado_en": "2026-11-10T15:00:00Z",
+  "cliente": "Café Ejemplo",
+  "contacto": "Andrés",
+  "proyecto": "De la finca a tu feed",
+  "informe_id": null,
+  "brief": {
+   "servicios": [
+    "Gestión de redes sociales",
+    "Creación de contenido"
+   ],
+   "tarifa_hora": 60000,
+   "margen_minimo": 25,
+   "costos_terceros": 0,
+   "pauta_aparte": true,
+   "rondas_ajustes": 2
+  },
+  "precio": {
+   "fases": [
+    {
+     "fase": "Estrategia y calendario mensual",
+     "horas": 6,
+     "detalle": "Pilares, calendario de 12 piezas y guiones de reels."
+    },
+    {
+     "fase": "Producción de contenido",
+     "horas": 14,
+     "detalle": "Una jornada de grabación en el local y edición de 6 reels."
+    },
+    {
+     "fase": "Diseño de carruseles",
+     "horas": 6,
+     "detalle": "4 carruseles educativos con la identidad del café."
+    },
+    {
+     "fase": "Publicación y comunidad",
+     "horas": 8,
+     "detalle": "Textos, publicación y respuesta a comentarios y mensajes."
+    },
+    {
+     "fase": "Informe mensual",
+     "horas": 2,
+     "detalle": "Resultados con datos y ajustes para el mes siguiente."
+    }
+   ],
+   "mercado": {
+    "minimo": 1800000,
+    "maximo": 3500000,
+    "explicacion": "Estimación con conocimiento general del mercado de agencias en Medellín para gestión mensual de redes con producción de video; no se consultó internet, conviene verificarla."
+   },
+   "valor": {
+    "explicacion": "Pasar de 1,4 a 3 publicaciones por semana con el formato que más funciona puede traer más visitas al local y pedidos por WhatsApp; además le ahorra al dueño unas 30 horas al mes."
+   },
+   "precio_recomendado": 2900000,
+   "razonamiento": "Cubre el piso con margen, queda en la mitad del rango de mercado y entrega la frecuencia y los reels que la auditoría mostró como clave.",
+   "usar_paquetes": true,
+   "paquetes": [
+    {
+     "nombre": "Arranque",
+     "precio": 1900000,
+     "recomendado": false,
+     "incluye": [
+      "8 publicaciones al mes (3 reels)",
+      "Calendario mensual",
+      "Textos y publicación",
+      "Informe mensual"
+     ]
+    },
+    {
+     "nombre": "Del grano al feed",
+     "precio": 2900000,
+     "recomendado": true,
+     "incluye": [
+      "12 publicaciones al mes (6 reels y 4 carruseles)",
+      "Una jornada de grabación al mes",
+      "Respuesta a comentarios y mensajes",
+      "Informe mensual con ajustes"
+     ]
+    },
+    {
+     "nombre": "Giro completo",
+     "precio": 4200000,
+     "recomendado": false,
+     "incluye": [
+      "Todo lo de Del grano al feed",
+      "Gestión de pauta digital (presupuesto de pauta aparte)",
+      "Historias 3 veces por semana",
+      "Reunión mensual de resultados"
+     ]
+    }
+   ],
+   "items": [],
+   "negociacion": {
+    "hasta": 2700000,
+    "a_cambio_de": [
+     "Contrato de 3 meses",
+     "Pago anticipado del primer mes completo",
+     "Bajar a 10 publicaciones al mes"
+    ]
+   },
+   "preguntas": [
+    "¿Puede recibirnos una vez al mes en la finca para grabar?",
+    "¿Quién aprueba el contenido antes de publicar?"
+   ],
+   "horas_total": 36,
+   "costo_trabajo": 2160000,
+   "costo_total": 2160000,
+   "piso": 2700000,
+   "tarifa_hora": 60000,
+   "margen_minimo": 25,
+   "costos_terceros": 0,
+   "alertas": []
+  },
+  "aprobado": {
+   "modo": "paquetes",
+   "paquetes": [
+    {
+     "nombre": "Arranque",
+     "precio": 1900000,
+     "recomendado": false,
+     "incluye": [
+      "8 publicaciones al mes (3 reels)",
+      "Calendario mensual",
+      "Textos y publicación",
+      "Informe mensual"
+     ]
+    },
+    {
+     "nombre": "Del grano al feed",
+     "precio": 2900000,
+     "recomendado": true,
+     "incluye": [
+      "12 publicaciones al mes (6 reels y 4 carruseles)",
+      "Una jornada de grabación al mes",
+      "Respuesta a comentarios y mensajes",
+      "Informe mensual con ajustes"
+     ]
+    },
+    {
+     "nombre": "Giro completo",
+     "precio": 4200000,
+     "recomendado": false,
+     "incluye": [
+      "Todo lo de Del grano al feed",
+      "Gestión de pauta digital (presupuesto de pauta aparte)",
+      "Historias 3 veces por semana",
+      "Reunión mensual de resultados"
+     ]
+    }
+   ]
+  },
+  "carta": {
+   "saludo": "Hola Andrés, gracias por abrirnos las puertas de Café Ejemplo. Después de revisar tu Instagram, preparamos esta propuesta para que la historia de tu café llegue a más gente y se convierta en visitas y pedidos.",
+   "tu_reto": "Tu comunidad reacciona muy bien cuando le muestras el origen del café, pero hoy publicas poco y casi siempre fotos de avisos, que son las que menos funcionan.",
+   "nuestra_propuesta": "Nos encargamos de tus redes de punta a punta: grabamos en el local y la finca, convertimos esa historia en reels y carruseles, y publicamos con constancia y con una forma clara de pedir por WhatsApp.",
+   "que_incluye": [
+    "Estrategia y calendario mensual con 4 pilares de contenido",
+    "12 publicaciones al mes: 6 reels, 4 carruseles y 2 piezas de promoción",
+    "Una jornada de grabación al mes",
+    "Textos, publicación y respuesta a comentarios y mensajes",
+    "Informe mensual con resultados y ajustes"
+   ],
+   "no_incluye": [
+    "Presupuesto de pauta (se paga directo a Meta, si se activa)",
+    "Fotografía de producto en estudio",
+    "Cambios de identidad visual o logo"
+   ],
+   "tiempos": "Arrancamos 5 días hábiles después de la aprobación. La primera semana es de estrategia y grabación, y las publicaciones empiezan en la segunda.",
+   "por_que_pivot": [
+    "Estrategia, producción y publicación en un solo equipo",
+    "Decisiones basadas en datos: ya auditamos tu cuenta",
+    "Reportes mensuales claros, sin letra pequeña"
+   ],
+   "condiciones_extra": [],
+   "cta": "Responde «Aprobado» a este WhatsApp y agendamos la primera grabación esta misma semana.",
+   "mensaje_whatsapp": "Hola Andrés 👋 Te comparto la propuesta de Pivot para Café Ejemplo.\nLa armamos a partir de la auditoría de tu Instagram, para contar la historia de tu café y convertirla en visitas y pedidos.\nVa en el PDF adjunto con tres opciones. Si te late, respóndeme «Aprobado» y agendamos la primera grabación.",
+   "fecha": "10 de noviembre de 2026",
+   "vigencia": "25 de noviembre de 2026",
+   "inversion": {
+    "paquetes": [
+     {
+      "nombre": "Arranque",
+      "precio": 1900000,
+      "recomendado": false,
+      "incluye": [
+       "8 publicaciones al mes (3 reels)",
+       "Calendario mensual",
+       "Textos y publicación",
+       "Informe mensual"
+      ]
+     },
+     {
+      "nombre": "Del grano al feed",
+      "precio": 2900000,
+      "recomendado": true,
+      "incluye": [
+       "12 publicaciones al mes (6 reels y 4 carruseles)",
+       "Una jornada de grabación al mes",
+       "Respuesta a comentarios y mensajes",
+       "Informe mensual con ajustes"
+      ]
+     },
+     {
+      "nombre": "Giro completo",
+      "precio": 4200000,
+      "recomendado": false,
+      "incluye": [
+       "Todo lo de Del grano al feed",
+       "Gestión de pauta digital (presupuesto de pauta aparte)",
+       "Historias 3 veces por semana",
+       "Reunión mensual de resultados"
+      ]
+     }
+    ],
+    "nota": "Valores en pesos colombianos. Pivot no es responsable de IVA. El presupuesto de pauta se paga directamente a la plataforma."
+   },
+   "condiciones": [
+    "50% para iniciar y 50% contra entrega, por transferencia bancaria",
+    "Oferta válida hasta el 25 de noviembre de 2026",
+    "2 rondas de ajustes por entregable"
+   ]
+  },
+  "estado": "listo"
+ }
+]

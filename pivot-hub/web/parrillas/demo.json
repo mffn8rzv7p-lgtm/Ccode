@@ -1,0 +1,341 @@
+{
+ "parrilla": {
+  "id": "demo",
+  "cliente": "Café Ejemplo",
+  "mes": "2026-12-01",
+  "redes": [
+   "instagram",
+   "tiktok"
+  ],
+  "pilares": [
+   "Del grano a la taza",
+   "Regalos con historia",
+   "Aprende a tomar café",
+   "Comunidad"
+  ],
+  "objetivo": "Vender kits de regalo en la tienda online durante diciembre.",
+  "brief_id": null
+ },
+ "publicaciones": [
+  {
+   "id": "demo-0",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-01",
+   "hora": "18:00",
+   "red": "instagram",
+   "formato": "Reel",
+   "pilar": "Regalos con historia",
+   "titulo": "Lanzamiento: el regalo que viene de la finca",
+   "copy": "Lanzamiento: el regalo que viene de la finca. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "publicada",
+   "orden": 0
+  },
+  {
+   "id": "demo-1",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-02",
+   "hora": "12:30",
+   "red": "tiktok",
+   "formato": "Video",
+   "pilar": "Del grano a la taza",
+   "titulo": "Don Arturo abre la cosecha",
+   "copy": "Don Arturo abre la cosecha. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "publicada",
+   "orden": 1
+  },
+  {
+   "id": "demo-2",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-03",
+   "hora": "18:00",
+   "red": "instagram",
+   "formato": "Carrusel",
+   "pilar": "Regalos con historia",
+   "titulo": "5 regalos de café según la persona",
+   "copy": "5 regalos de café según la persona. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "programada",
+   "orden": 2
+  },
+  {
+   "id": "demo-3",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-05",
+   "hora": "10:00",
+   "red": "instagram",
+   "formato": "Reel",
+   "pilar": "Aprende a tomar café",
+   "titulo": "Cómo preparar el café del kit en 60 segundos",
+   "copy": "Cómo preparar el café del kit en 60 segundos. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "programada",
+   "orden": 3
+  },
+  {
+   "id": "demo-4",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-07",
+   "hora": "19:00",
+   "red": "tiktok",
+   "formato": "Video",
+   "pilar": "Comunidad",
+   "titulo": "Le regalamos café a desconocidos",
+   "copy": "Le regalamos café a desconocidos. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "aprobada",
+   "orden": 4
+  },
+  {
+   "id": "demo-5",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-08",
+   "hora": "18:00",
+   "red": "instagram",
+   "formato": "Historia",
+   "pilar": "Regalos con historia",
+   "titulo": "Encuesta: ¿a quién le regalas café?",
+   "copy": "Encuesta: ¿a quién le regalas café?. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "aprobada",
+   "orden": 5
+  },
+  {
+   "id": "demo-6",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-10",
+   "hora": "18:00",
+   "red": "instagram",
+   "formato": "Reel",
+   "pilar": "Del grano a la taza",
+   "titulo": "Del árbol al empaque del kit",
+   "copy": "Del árbol al empaque del kit. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "aprobacion",
+   "orden": 6
+  },
+  {
+   "id": "demo-7",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-12",
+   "hora": "11:00",
+   "red": "instagram",
+   "formato": "Carrusel",
+   "pilar": "Aprende a tomar café",
+   "titulo": "Guía: molienda según tu cafetera",
+   "copy": "Guía: molienda según tu cafetera. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "aprobacion",
+   "orden": 7
+  },
+  {
+   "id": "demo-8",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-14",
+   "hora": "19:00",
+   "red": "tiktok",
+   "formato": "Video",
+   "pilar": "Regalos con historia",
+   "titulo": "Unboxing del kit de regalo",
+   "copy": "Unboxing del kit de regalo. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "diseno",
+   "orden": 8
+  },
+  {
+   "id": "demo-9",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-15",
+   "hora": "18:00",
+   "red": "instagram",
+   "formato": "Reel",
+   "pilar": "Comunidad",
+   "titulo": "Clientes cuentan a quién le regalan",
+   "copy": "Clientes cuentan a quién le regalan. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "diseno",
+   "orden": 9
+  },
+  {
+   "id": "demo-10",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-17",
+   "hora": "18:00",
+   "red": "instagram",
+   "formato": "Foto",
+   "pilar": "Regalos con historia",
+   "titulo": "Último día de envíos antes de Navidad",
+   "copy": "Último día de envíos antes de Navidad. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "idea",
+   "orden": 10
+  },
+  {
+   "id": "demo-11",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-19",
+   "hora": "10:00",
+   "red": "tiktok",
+   "formato": "Video",
+   "pilar": "Aprende a tomar café",
+   "titulo": "3 errores al preparar café en casa",
+   "copy": "3 errores al preparar café en casa. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "idea",
+   "orden": 11
+  },
+  {
+   "id": "demo-12",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-21",
+   "hora": "18:00",
+   "red": "instagram",
+   "formato": "Carrusel",
+   "pilar": "Regalos con historia",
+   "titulo": "Regalos de último minuto (recoge en tienda)",
+   "copy": "Regalos de último minuto (recoge en tienda). ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "idea",
+   "orden": 12
+  },
+  {
+   "id": "demo-13",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-24",
+   "hora": "10:00",
+   "red": "instagram",
+   "formato": "Reel",
+   "pilar": "Comunidad",
+   "titulo": "Feliz Navidad desde la finca",
+   "copy": "Feliz Navidad desde la finca. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "idea",
+   "orden": 13
+  },
+  {
+   "id": "demo-14",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-28",
+   "hora": "18:00",
+   "red": "tiktok",
+   "formato": "Video",
+   "pilar": "Del grano a la taza",
+   "titulo": "Lo que viene para la cosecha 2027",
+   "copy": "Lo que viene para la cosecha 2027. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "idea",
+   "orden": 14
+  },
+  {
+   "id": "demo-15",
+   "parrilla_id": "demo",
+   "fecha": "2026-12-30",
+   "hora": "18:00",
+   "red": "instagram",
+   "formato": "Carrusel",
+   "pilar": "Comunidad",
+   "titulo": "Gracias 2026: lo mejor del año",
+   "copy": "Gracias 2026: lo mejor del año. ☕\n\nPide tu kit de regalo en la tienda online o escríbenos por WhatsApp.",
+   "hashtags": [
+    "#cafedeespecialidad",
+    "#regalosmedellin",
+    "#cafecolombiano"
+   ],
+   "idea_visual": "Planos cálidos del producto y de la finca, luz natural.",
+   "arte_url": null,
+   "estado": "idea",
+   "orden": 15
+  }
+ ]
+}

@@ -1,0 +1,1068 @@
+{
+ "id": "demo",
+ "cuenta": "cafe.ejemplo",
+ "competidores": [
+  "tostadora.ejemplo",
+  "barra.ejemplo"
+ ],
+ "estado": "listo",
+ "creado_en": "2026-11-09T15:00:00Z",
+ "contexto": {
+  "negocio": "Cafetería de especialidad (ejemplo ficticio)"
+ },
+ "capturas": [],
+ "datos": {
+  "fuente": "meta",
+  "obtenido_en": "2026-11-09T15:00:00.000Z",
+  "cuenta": {
+   "usuario": "cafe.ejemplo",
+   "disponible": true,
+   "metricas": {
+    "cuenta": "cafe.ejemplo",
+    "nombre": "Café Ejemplo · Tostadores",
+    "biografia": "Café de especialidad en Medellín ☕\nLunes a sábado 7 a. m. – 7 p. m.",
+    "web": "",
+    "foto": null,
+    "seguidores": 4820,
+    "seguidos": 610,
+    "publicaciones_total": 214,
+    "muestra": 12,
+    "periodo": {
+     "desde": "2026-09-13T19:00:00.000Z",
+     "hasta": "2026-11-07T17:00:00.000Z"
+    },
+    "me_gusta_ocultos": false,
+    "interaccion": {
+     "promedio": 3.98,
+     "mediana": 2.42,
+     "minimo": 1.6,
+     "maximo": 9.34
+    },
+    "promedio_me_gusta": 179.08,
+    "promedio_comentarios": 12.67,
+    "publicaciones_por_semana": 1.4,
+    "dias_desde_ultima": 1,
+    "por_formato": [
+     {
+      "formato": "Foto",
+      "publicaciones": 7,
+      "interaccion_promedio": 2.01
+     },
+     {
+      "formato": "Reel",
+      "publicaciones": 3,
+      "interaccion_promedio": 7.97
+     },
+     {
+      "formato": "Carrusel",
+      "publicaciones": 2,
+      "interaccion_promedio": 4.87
+     }
+    ],
+    "por_dia": [
+     {
+      "dia": "domingo",
+      "publicaciones": 2,
+      "interaccion_promedio": 5.05
+     },
+     {
+      "dia": "lunes",
+      "publicaciones": 2,
+      "interaccion_promedio": 2.15
+     },
+     {
+      "dia": "martes",
+      "publicaciones": 1,
+      "interaccion_promedio": 2.61
+     },
+     {
+      "dia": "miércoles",
+      "publicaciones": 2,
+      "interaccion_promedio": 5.87
+     },
+     {
+      "dia": "jueves",
+      "publicaciones": 1,
+      "interaccion_promedio": 1.6
+     },
+     {
+      "dia": "viernes",
+      "publicaciones": 2,
+      "interaccion_promedio": 1.8
+     },
+     {
+      "dia": "sábado",
+      "publicaciones": 2,
+      "interaccion_promedio": 6.9
+     }
+    ],
+    "hashtags_top": [
+     {
+      "hashtag": "#cafedeespecialidad",
+      "veces": 3
+     },
+     {
+      "hashtag": "#medellin",
+      "veces": 2
+     },
+     {
+      "hashtag": "#baristas",
+      "veces": 2
+     },
+     {
+      "hashtag": "#cafecolombiano",
+      "veces": 1
+     }
+    ],
+    "largo_texto_promedio": 39,
+    "mejores": [
+     {
+      "fecha": "2026-11-07T17:00:00.000Z",
+      "formato": "Reel",
+      "me_gusta": 412,
+      "comentarios": 38,
+      "interaccion": 9.34,
+      "texto": "Así tostamos el café que llega a tu taza ☕ #cafedeespecialidad #medellin",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-10-18T18:00:00.000Z",
+      "formato": "Reel",
+      "me_gusta": 361,
+      "comentarios": 29,
+      "interaccion": 8.09,
+      "texto": "Un día en la finca con don Arturo #cafecolombiano #medellin",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-09-23T17:00:00.000Z",
+      "formato": "Reel",
+      "me_gusta": 290,
+      "comentarios": 22,
+      "interaccion": 6.47,
+      "texto": "Latte art en 15 segundos #baristas",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-10-28T19:00:00.000Z",
+      "formato": "Carrusel",
+      "me_gusta": 233,
+      "comentarios": 21,
+      "interaccion": 5.27,
+      "texto": "5 métodos para preparar café en casa (guárdalo) #cafedeespecialidad #baristas",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-10-03T18:00:00.000Z",
+      "formato": "Carrusel",
+      "me_gusta": 198,
+      "comentarios": 17,
+      "interaccion": 4.46,
+      "texto": "¿Qué significa 'notas de cata'? Te explicamos #cafedeespecialidad",
+      "enlace": "https://www.instagram.com/"
+     }
+    ],
+    "peores": [
+     {
+      "fecha": "2026-10-08T17:00:00.000Z",
+      "formato": "Foto",
+      "me_gusta": 75,
+      "comentarios": 2,
+      "interaccion": 1.6,
+      "texto": "Nuestro local",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-09-18T18:00:00.000Z",
+      "formato": "Foto",
+      "me_gusta": 81,
+      "comentarios": 1,
+      "interaccion": 1.7,
+      "texto": "Abiertos el festivo",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-10-23T17:00:00.000Z",
+      "formato": "Foto",
+      "me_gusta": 88,
+      "comentarios": 3,
+      "interaccion": 1.89,
+      "texto": "Feliz lunes",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-09-13T19:00:00.000Z",
+      "formato": "Foto",
+      "me_gusta": 93,
+      "comentarios": 4,
+      "interaccion": 2.01,
+      "texto": "Café + pandebono, el combo de siempre",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-11-02T18:00:00.000Z",
+      "formato": "Foto",
+      "me_gusta": 96,
+      "comentarios": 4,
+      "interaccion": 2.07,
+      "texto": "Nuevo horario de diciembre",
+      "enlace": "https://www.instagram.com/"
+     }
+    ],
+    "publicaciones": [
+     {
+      "fecha": "2026-11-07T17:00:00.000Z",
+      "formato": "Reel",
+      "me_gusta": 412,
+      "comentarios": 38,
+      "interaccion": 9.34,
+      "texto": "Así tostamos el café que llega a tu taza ☕ #cafedeespecialidad #medellin",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-11-02T18:00:00.000Z",
+      "formato": "Foto",
+      "me_gusta": 96,
+      "comentarios": 4,
+      "interaccion": 2.07,
+      "texto": "Nuevo horario de diciembre",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-10-28T19:00:00.000Z",
+      "formato": "Carrusel",
+      "me_gusta": 233,
+      "comentarios": 21,
+      "interaccion": 5.27,
+      "texto": "5 métodos para preparar café en casa (guárdalo) #cafedeespecialidad #baristas",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-10-23T17:00:00.000Z",
+      "formato": "Foto",
+      "me_gusta": 88,
+      "comentarios": 3,
+      "interaccion": 1.89,
+      "texto": "Feliz lunes",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-10-18T18:00:00.000Z",
+      "formato": "Reel",
+      "me_gusta": 361,
+      "comentarios": 29,
+      "interaccion": 8.09,
+      "texto": "Un día en la finca con don Arturo #cafecolombiano #medellin",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-10-13T19:00:00.000Z",
+      "formato": "Foto",
+      "me_gusta": 120,
+      "comentarios": 6,
+      "interaccion": 2.61,
+      "texto": "Promo 2x1 en capuchinos este jueves",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-10-08T17:00:00.000Z",
+      "formato": "Foto",
+      "me_gusta": 75,
+      "comentarios": 2,
+      "interaccion": 1.6,
+      "texto": "Nuestro local",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-10-03T18:00:00.000Z",
+      "formato": "Carrusel",
+      "me_gusta": 198,
+      "comentarios": 17,
+      "interaccion": 4.46,
+      "texto": "¿Qué significa 'notas de cata'? Te explicamos #cafedeespecialidad",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-09-28T19:00:00.000Z",
+      "formato": "Foto",
+      "me_gusta": 102,
+      "comentarios": 5,
+      "interaccion": 2.22,
+      "texto": "Postre del mes",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-09-23T17:00:00.000Z",
+      "formato": "Reel",
+      "me_gusta": 290,
+      "comentarios": 22,
+      "interaccion": 6.47,
+      "texto": "Latte art en 15 segundos #baristas",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-09-18T18:00:00.000Z",
+      "formato": "Foto",
+      "me_gusta": 81,
+      "comentarios": 1,
+      "interaccion": 1.7,
+      "texto": "Abiertos el festivo",
+      "enlace": "https://www.instagram.com/"
+     },
+     {
+      "fecha": "2026-09-13T19:00:00.000Z",
+      "formato": "Foto",
+      "me_gusta": 93,
+      "comentarios": 4,
+      "interaccion": 2.01,
+      "texto": "Café + pandebono, el combo de siempre",
+      "enlace": "https://www.instagram.com/"
+     }
+    ]
+   }
+  },
+  "competidores": [
+   {
+    "usuario": "tostadora.ejemplo",
+    "disponible": true,
+    "metricas": {
+     "cuenta": "tostadora.ejemplo",
+     "nombre": null,
+     "biografia": null,
+     "web": null,
+     "foto": null,
+     "seguidores": 9300,
+     "seguidos": 400,
+     "publicaciones_total": 300,
+     "muestra": 16,
+     "periodo": {
+      "desde": "2026-09-24T17:00:00.000Z",
+      "hasta": "2026-11-08T17:00:00.000Z"
+     },
+     "me_gusta_ocultos": false,
+     "interaccion": {
+      "promedio": 5.43,
+      "mediana": 6.63,
+      "minimo": 3.44,
+      "maximo": 6.63
+     },
+     "promedio_me_gusta": 483.63,
+     "promedio_comentarios": 22,
+     "publicaciones_por_semana": 2.4,
+     "dias_desde_ultima": 0,
+     "por_formato": [
+      {
+       "formato": "Reel",
+       "publicaciones": 10,
+       "interaccion_promedio": 6.63
+      },
+      {
+       "formato": "Foto",
+       "publicaciones": 6,
+       "interaccion_promedio": 3.44
+      }
+     ],
+     "por_dia": [
+      {
+       "dia": "domingo",
+       "publicaciones": 3,
+       "interaccion_promedio": 5.57
+      },
+      {
+       "dia": "lunes",
+       "publicaciones": 2,
+       "interaccion_promedio": 6.63
+      },
+      {
+       "dia": "martes",
+       "publicaciones": 2,
+       "interaccion_promedio": 5.04
+      },
+      {
+       "dia": "miércoles",
+       "publicaciones": 2,
+       "interaccion_promedio": 5.04
+      },
+      {
+       "dia": "jueves",
+       "publicaciones": 3,
+       "interaccion_promedio": 5.57
+      },
+      {
+       "dia": "viernes",
+       "publicaciones": 2,
+       "interaccion_promedio": 5.04
+      },
+      {
+       "dia": "sábado",
+       "publicaciones": 2,
+       "interaccion_promedio": 5.04
+      }
+     ],
+     "hashtags_top": [],
+     "largo_texto_promedio": 0,
+     "mejores": [
+      {
+       "fecha": "2026-11-08T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-11-05T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-11-02T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-30T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-27T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      }
+     ],
+     "peores": [
+      {
+       "fecha": "2026-09-24T17:00:00.000Z",
+       "formato": "Foto",
+       "me_gusta": 298,
+       "comentarios": 22,
+       "interaccion": 3.44,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-09-27T17:00:00.000Z",
+       "formato": "Foto",
+       "me_gusta": 298,
+       "comentarios": 22,
+       "interaccion": 3.44,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-09-30T17:00:00.000Z",
+       "formato": "Foto",
+       "me_gusta": 298,
+       "comentarios": 22,
+       "interaccion": 3.44,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-03T17:00:00.000Z",
+       "formato": "Foto",
+       "me_gusta": 298,
+       "comentarios": 22,
+       "interaccion": 3.44,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-06T17:00:00.000Z",
+       "formato": "Foto",
+       "me_gusta": 298,
+       "comentarios": 22,
+       "interaccion": 3.44,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      }
+     ],
+     "publicaciones": [
+      {
+       "fecha": "2026-11-08T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-11-05T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-11-02T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-30T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-27T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-24T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-21T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-18T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-15T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-12T17:00:00.000Z",
+       "formato": "Reel",
+       "me_gusta": 595,
+       "comentarios": 22,
+       "interaccion": 6.63,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-09T17:00:00.000Z",
+       "formato": "Foto",
+       "me_gusta": 298,
+       "comentarios": 22,
+       "interaccion": 3.44,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-06T17:00:00.000Z",
+       "formato": "Foto",
+       "me_gusta": 298,
+       "comentarios": 22,
+       "interaccion": 3.44,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-10-03T17:00:00.000Z",
+       "formato": "Foto",
+       "me_gusta": 298,
+       "comentarios": 22,
+       "interaccion": 3.44,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-09-30T17:00:00.000Z",
+       "formato": "Foto",
+       "me_gusta": 298,
+       "comentarios": 22,
+       "interaccion": 3.44,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-09-27T17:00:00.000Z",
+       "formato": "Foto",
+       "me_gusta": 298,
+       "comentarios": 22,
+       "interaccion": 3.44,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      },
+      {
+       "fecha": "2026-09-24T17:00:00.000Z",
+       "formato": "Foto",
+       "me_gusta": 298,
+       "comentarios": 22,
+       "interaccion": 3.44,
+       "texto": "",
+       "enlace": "https://www.instagram.com/"
+      }
+     ]
+    }
+   },
+   {
+    "usuario": "barra.ejemplo",
+    "disponible": false,
+    "motivo": "Meta no devolvió datos (cuenta personal)."
+   }
+  ]
+ },
+ "auditoria": {
+  "resumen": "Café Ejemplo tiene una comunidad fiel de 4.820 seguidores que reacciona muy bien cuando le muestras el origen del café, pero publica poco (1,4 veces por semana) y la mayoría de sus publicaciones son fotos que casi no generan conversación. Los reels y carruseles educativos funcionan hasta 4 veces mejor que las fotos, y hoy son solo 5 de las últimas 12 publicaciones. Hay una oportunidad clara: contar más historias del café y menos avisos.",
+  "accion_principal": "Cambiar fotos de avisos (horarios, promociones, \"feliz lunes\") por 2 reels a la semana sobre el origen y la preparación del café, que es lo que tu comunidad ya demostró que quiere ver.",
+  "salud": {
+   "comunidad": "4.820 seguidores y 214 publicaciones en total. Para un café de barrio es una base sólida para vender más en el local.",
+   "interaccion": "En promedio, de cada 100 seguidores reaccionan casi 4 (3,98 %); la mitad de tus publicaciones está por debajo de 2,42 %. Hay mucha distancia entre lo que funciona y lo que no.",
+   "constancia": "Publicas 1,4 veces por semana. Con esa frecuencia el algoritmo te muestra poco y tu comunidad se olvida entre una publicación y otra.",
+   "formatos": "Los reels promedian 7,97 % de interacción y los carruseles 4,87 %, frente a 2,01 % de las fotos. Aun así, 7 de 12 publicaciones fueron fotos."
+  },
+  "puntuaciones": [
+   {
+    "area": "Perfil",
+    "nota": 6,
+    "porque": "Se entiende qué vendes y dónde, pero no hay enlace ni una invitación clara a comprar o escribir."
+   },
+   {
+    "area": "Constancia",
+    "nota": 4,
+    "porque": "1,4 publicaciones por semana, con semanas sin publicar."
+   },
+   {
+    "area": "Ganchos",
+    "nota": 6,
+    "porque": "Los reels abren bien con el proceso; las fotos no tienen gancho."
+   },
+   {
+    "area": "Variedad de formatos",
+    "nota": 5,
+    "porque": "Predominan las fotos (7 de 12), que son el formato que menos rinde."
+   },
+   {
+    "area": "Conversación con la comunidad",
+    "nota": 5,
+    "porque": "Buen nivel de comentarios en reels (hasta 38), casi nulo en fotos (1 a 6)."
+   },
+   {
+    "area": "Llamado a la venta",
+    "nota": 4,
+    "porque": "Las promociones aparecen como foto suelta, sin decir cómo pedir o reservar."
+   }
+  ],
+  "que_funciona": [
+   {
+    "titulo": "Mostrar el origen del café",
+    "detalle": "Los videos del tostado y de la finca son tus publicaciones más fuertes: la gente quiere conocer de dónde viene lo que toma.",
+    "evidencia": "Reel del tostado: 412 me gusta y 38 comentarios (9,34 %)."
+   },
+   {
+    "titulo": "Enseñar a preparar café",
+    "detalle": "Los carruseles educativos se guardan y comentan; posicionan a la marca como experta.",
+    "evidencia": "Carrusel \"5 métodos para preparar café en casa\": 233 me gusta y 21 comentarios (5,27 %)."
+   },
+   {
+    "titulo": "Publicar los sábados y miércoles",
+    "detalle": "Son tus días con mejor respuesta.",
+    "evidencia": "Sábado 6,9 % y miércoles 5,87 % de interacción promedio, frente a 1,6 % los jueves."
+   }
+  ],
+  "que_no_funciona": [
+   {
+    "titulo": "Fotos de avisos sin historia",
+    "detalle": "Horarios, festivos y saludos no invitan a reaccionar ni a compartir.",
+    "evidencia": "\"Abiertos el festivo\": 81 me gusta y 1 comentario (1,7 %)."
+   },
+   {
+    "titulo": "Promociones sin llamado a la acción",
+    "detalle": "La promo 2x1 no dice cómo reservar ni hasta cuándo aplica, y se pierde entre las demás fotos.",
+    "evidencia": "Promo 2x1: 120 me gusta y 6 comentarios (2,61 %)."
+   },
+   {
+    "titulo": "Pocas publicaciones",
+    "detalle": "Con menos de 2 publicaciones por semana, lo que funciona no alcanza a sostener el crecimiento.",
+    "evidencia": "12 publicaciones en unas 8 semanas."
+   }
+  ],
+  "perfil": {
+   "diagnostico": "El nombre incluye \"Tostadores\", lo que ayuda a que te encuentren. La biografía dice qué vendes y el horario, pero no tienes enlace ni una forma directa de pedir, y no sabemos si las historias destacadas están organizadas (no se ven en los datos públicos).",
+   "biografias_propuestas": [
+    "Café de especialidad tostado en Medellín ☕\nDe la finca a tu taza, sin intermediarios\nPide para llevar por WhatsApp 👇",
+    "Tostamos café colombiano de especialidad ☕\nLun a sáb · 7 a. m. – 7 p. m. · Medellín\nReserva tu mesa o pide aquí 👇"
+   ],
+   "recomendaciones": [
+    "Agrega un enlace a WhatsApp o a un menú para que el interés se convierta en pedidos.",
+    "Crea 4 historias destacadas: Menú, Nuestro café, Cómo llegar y Opiniones.",
+    "Fija en tu perfil los 3 reels del proceso del café."
+   ]
+  },
+  "competencia": [
+   {
+    "cuenta": "@tostadora.ejemplo",
+    "que_les_funciona": "Publican 2,4 veces por semana y 10 de sus últimas 16 publicaciones son reels, con 6,63 % de interacción promedio en ese formato.",
+    "oportunidad": "Ellos muestran producto; tú tienes la historia de la finca y del tostado, que es lo que más engancha en tu cuenta. Contar más esa historia te diferencia."
+   },
+   {
+    "cuenta": "@barra.ejemplo",
+    "que_les_funciona": "No hay datos públicos: es una cuenta personal y la API no la muestra.",
+    "oportunidad": "Si quieres incluirla, sube capturas de su perfil y sus publicaciones."
+   }
+  ],
+  "acciones_prioritarias": [
+   {
+    "accion": "Publica 2 reels por semana sobre el origen y la preparación del café.",
+    "porque": "Es tu formato más fuerte: 7,97 % de interacción promedio."
+   },
+   {
+    "accion": "Convierte cada promoción en un reel o carrusel con un llamado claro a pedir por WhatsApp.",
+    "porque": "Hoy las promociones son fotos con 2,6 % de interacción y sin forma de comprar."
+   },
+   {
+    "accion": "Concentra las publicaciones en miércoles y sábado.",
+    "porque": "Son tus días con mejor respuesta (5,87 % y 6,9 %)."
+   }
+  ],
+  "limites": [
+   "Los datos públicos no muestran alcance, guardados, compartidos, visitas al perfil ni datos del público.",
+   "No se analizaron historias ni historias destacadas.",
+   "Las reproducciones de los reels no están disponibles en la API pública."
+  ]
+ },
+ "estrategia": {
+  "titulo": "De la finca a tu feed",
+  "la_oportunidad": "Tu comunidad ya demostró que quiere ver de dónde viene el café y cómo prepararlo, pero hoy eso es menos de la mitad de lo que publicas. Tu competencia principal publica más, pero muestra producto; nadie está contando la historia de la finca como tú puedes contarla.",
+  "objetivo": "En 90 días, pasar de 1,4 a 3 publicaciones por semana y subir la interacción promedio de 3,98 % a 5 %, con al menos un llamado a pedir por WhatsApp cada semana.",
+  "pilares": [
+   {
+    "nombre": "Del grano a la taza",
+    "porcentaje": 40,
+    "descripcion": "Origen, finca, tostado y personas detrás del café. Es lo que más conecta."
+   },
+   {
+    "nombre": "Aprende a tomar café",
+    "porcentaje": 30,
+    "descripcion": "Métodos, notas de cata y trucos para preparar en casa. Te posiciona como experto."
+   },
+   {
+    "nombre": "Ven a vivirlo",
+    "porcentaje": 20,
+    "descripcion": "El local, el menú y las promociones, siempre con una forma clara de pedir."
+   },
+   {
+    "nombre": "Tu comunidad",
+    "porcentaje": 10,
+    "descripcion": "Clientes, opiniones y preguntas respondidas en video."
+   }
+  ],
+  "ideas": [
+   {
+    "titulo": "El viaje de un grano",
+    "formato": "Reel",
+    "pilar": "Del grano a la taza",
+    "objetivo": "Alcance",
+    "gancho": "Este grano recorrió 87 km antes de llegar a tu taza",
+    "desarrollo": [
+     "Plano del grano en la mata, en la finca.",
+     "Recolección y secado, en cortes rápidos.",
+     "Tostado en el local con el sonido del tostador.",
+     "Cierre: la taza servida en la barra."
+    ],
+    "llamado_a_la_accion": "Guárdalo y ven a probarlo esta semana.",
+    "texto_publicacion": "Del árbol a tu mesa, sin intermediarios. Así llega el café que te tomas cada mañana ☕\n\n¿Quieres probarlo? Escríbenos por WhatsApp y te lo tenemos listo.",
+    "hashtags": [
+     "#cafedeespecialidad",
+     "#cafecolombiano",
+     "#medellin",
+     "#tostadoresdecafe"
+    ],
+    "por_que": "Los reels del proceso son tus publicaciones con más interacción (hasta 9,34 %).",
+    "dificultad": "Media"
+   },
+   {
+    "titulo": "3 errores al preparar café",
+    "formato": "Carrusel",
+    "pilar": "Aprende a tomar café",
+    "objetivo": "Confianza",
+    "gancho": "Estás arruinando tu café con estos 3 errores",
+    "desarrollo": [
+     "Portada con el gancho.",
+     "Error 1: agua hirviendo.",
+     "Error 2: café molido hace semanas.",
+     "Error 3: medir a ojo.",
+     "Cierre: cómo hacerlo bien y llamado a guardar."
+    ],
+    "llamado_a_la_accion": "Guárdalo para tu próximo café.",
+    "texto_publicacion": "El café bueno se puede dañar en casa. Te contamos los 3 errores más comunes y cómo evitarlos 👇",
+    "hashtags": [
+     "#cafedeespecialidad",
+     "#baristas",
+     "#metodosdecafe"
+    ],
+    "por_que": "Tus carruseles educativos promedian 4,87 %, más del doble que las fotos.",
+    "dificultad": "Fácil"
+   },
+   {
+    "titulo": "Don Arturo responde",
+    "formato": "Reel",
+    "pilar": "Del grano a la taza",
+    "objetivo": "Confianza",
+    "gancho": "Le preguntamos a don Arturo por qué su café sabe distinto",
+    "desarrollo": [
+     "Pregunta en pantalla.",
+     "Respuesta de don Arturo en la finca.",
+     "Planos de las matas y del secado.",
+     "Cierre con la taza en el local."
+    ],
+    "llamado_a_la_accion": "Comenta qué le preguntarías tú.",
+    "texto_publicacion": "Las mejores respuestas sobre café las tiene quien lo cultiva. Escucha a don Arturo 👨‍🌾☕",
+    "hashtags": [
+     "#cafecolombiano",
+     "#caficultores",
+     "#medellin"
+    ],
+    "por_que": "El reel de la finca con don Arturo tuvo 8,09 % de interacción.",
+    "dificultad": "Media"
+   },
+   {
+    "titulo": "Promo con historia",
+    "formato": "Reel",
+    "pilar": "Ven a vivirlo",
+    "objetivo": "Venta",
+    "gancho": "Este jueves tu capuchino viene acompañado",
+    "desarrollo": [
+     "Barista preparando dos capuchinos con latte art.",
+     "Texto en pantalla: 2x1 solo este jueves.",
+     "Dos amigos brindando con las tazas.",
+     "Cierre con el número de WhatsApp en pantalla."
+    ],
+    "llamado_a_la_accion": "Escríbenos \"2x1\" por WhatsApp y te guardamos la mesa.",
+    "texto_publicacion": "Este jueves, capuchino 2x1 de 3 a 6 p. m. ☕☕ Trae a alguien que se lo merezca.\n\nEscríbenos \"2x1\" por WhatsApp y te guardamos la mesa.",
+    "hashtags": [
+     "#cafemedellin",
+     "#planesmedellin",
+     "#cafedeespecialidad"
+    ],
+    "por_que": "La promo como foto tuvo 2,61 %; en reel, el formato que mejor te funciona, y con forma de pedir, puede convertir más.",
+    "dificultad": "Fácil"
+   },
+   {
+    "titulo": "Notas de cata sin enredos",
+    "formato": "Carrusel",
+    "pilar": "Aprende a tomar café",
+    "objetivo": "Confianza",
+    "gancho": "¿Chocolate, frutos rojos… en un café? Te explicamos",
+    "desarrollo": [
+     "Portada con la pregunta.",
+     "Qué son las notas de cata.",
+     "Las 3 notas de nuestro café de la casa.",
+     "Cómo notarlas al tomarlo.",
+     "Invitación a una cata en el local."
+    ],
+    "llamado_a_la_accion": "Guárdalo y cuéntanos qué nota sentiste.",
+    "texto_publicacion": "No es magia, es el origen. Así puedes reconocer las notas de cata en tu próximo café 👃☕",
+    "hashtags": [
+     "#notasdecata",
+     "#cafedeespecialidad",
+     "#baristas"
+    ],
+    "por_que": "Tu carrusel sobre notas de cata ya tuvo 4,46 %; aquí lo hacemos más práctico.",
+    "dificultad": "Fácil"
+   },
+   {
+    "titulo": "Latte art en cámara lenta",
+    "formato": "Reel",
+    "pilar": "Ven a vivirlo",
+    "objetivo": "Alcance",
+    "gancho": "Espera el final…",
+    "desarrollo": [
+     "Plano cenital de la taza.",
+     "Vertido en cámara lenta.",
+     "Revelado del dibujo.",
+     "Reacción del cliente."
+    ],
+    "llamado_a_la_accion": "Etiqueta a quien te debe un café.",
+    "texto_publicacion": "15 segundos de pura paciencia ☕✨ ¿A quién le debes un café?",
+    "hashtags": [
+     "#latteart",
+     "#baristas",
+     "#cafemedellin"
+    ],
+    "por_que": "Tu reel de latte art tuvo 6,47 %; es fácil de grabar y repetir.",
+    "dificultad": "Fácil"
+   },
+   {
+    "titulo": "Tus preguntas, en 30 segundos",
+    "formato": "Reel",
+    "pilar": "Tu comunidad",
+    "objetivo": "Confianza",
+    "gancho": "Nos preguntaron si el café oscuro es más fuerte",
+    "desarrollo": [
+     "Pregunta real de un cliente en pantalla.",
+     "Respuesta corta del barista.",
+     "Demostración con dos tazas.",
+     "Cierre invitando a dejar más preguntas."
+    ],
+    "llamado_a_la_accion": "Deja tu pregunta en comentarios.",
+    "texto_publicacion": "Spoiler: no siempre 😉 Te explicamos por qué en 30 segundos.",
+    "hashtags": [
+     "#cafedeespecialidad",
+     "#mitosdelcafe",
+     "#medellin"
+    ],
+    "por_que": "Los comentarios se concentran en reels (hasta 38); responder preguntas genera más conversación.",
+    "dificultad": "Fácil"
+   },
+   {
+    "titulo": "Un día en Café Ejemplo",
+    "formato": "Historia",
+    "pilar": "Ven a vivirlo",
+    "objetivo": "Venta",
+    "gancho": "7:00 a. m. Abrimos",
+    "desarrollo": [
+     "Apertura del local.",
+     "Primer tueste del día.",
+     "Cliente frecuente pidiendo lo de siempre.",
+     "Encuesta: ¿qué pides tú?",
+     "Sticker de enlace a WhatsApp."
+    ],
+    "llamado_a_la_accion": "Responde la encuesta o pide por WhatsApp.",
+    "texto_publicacion": "Serie de historias para el sábado en la mañana.",
+    "hashtags": [],
+    "por_que": "Suposición: las historias no se ven en los datos públicos, pero mantienen a la comunidad cerca entre publicaciones.",
+    "dificultad": "Fácil"
+   }
+  ],
+  "calendario": [
+   {
+    "semana": 1,
+    "dia": "Miércoles",
+    "formato": "Carrusel",
+    "idea": "3 errores al preparar café"
+   },
+   {
+    "semana": 1,
+    "dia": "Viernes",
+    "formato": "Reel",
+    "idea": "Latte art en cámara lenta"
+   },
+   {
+    "semana": 1,
+    "dia": "Sábado",
+    "formato": "Reel",
+    "idea": "El viaje de un grano"
+   },
+   {
+    "semana": 2,
+    "dia": "Martes",
+    "formato": "Reel",
+    "idea": "Promo con historia"
+   },
+   {
+    "semana": 2,
+    "dia": "Miércoles",
+    "formato": "Carrusel",
+    "idea": "Notas de cata sin enredos"
+   },
+   {
+    "semana": 2,
+    "dia": "Sábado",
+    "formato": "Reel",
+    "idea": "Don Arturo responde"
+   }
+  ],
+  "servicios_recomendados": [
+   {
+    "servicio": "Gestión de redes sociales",
+    "que_incluye": [
+     "Calendario mensual con los 4 pilares",
+     "Textos y publicación de 12 piezas al mes",
+     "Respuesta a comentarios y mensajes",
+     "Informe mensual de resultados"
+    ],
+    "por_que": "Resuelve la falta de constancia (1,4 publicaciones por semana)."
+   },
+   {
+    "servicio": "Producción de contenido",
+    "que_incluye": [
+     "Una jornada de grabación al mes en el local y la finca",
+     "Edición de 6 reels",
+     "Diseño de 4 carruseles"
+    ],
+    "por_que": "Los reels y carruseles son tus formatos más fuertes y requieren producción."
+   },
+   {
+    "servicio": "Pauta digital",
+    "que_incluye": [
+     "Promoción de los 2 mejores reels del mes",
+     "Público de 3 km alrededor del local",
+     "Campaña de mensajes a WhatsApp"
+    ],
+    "por_que": "Lleva tu mejor contenido a gente que vive o trabaja cerca y puede visitarte."
+   }
+  ],
+  "indicadores": [
+   {
+    "indicador": "Publicaciones por semana",
+    "hoy": "1,4",
+    "meta_90_dias": "3"
+   },
+   {
+    "indicador": "Interacción promedio por publicación",
+    "hoy": "3,98 %",
+    "meta_90_dias": "5 %"
+   },
+   {
+    "indicador": "Reels por mes",
+    "hoy": "Cerca de 1,5",
+    "meta_90_dias": "8"
+   },
+   {
+    "indicador": "Seguidores",
+    "hoy": "4.820",
+    "meta_90_dias": "5.500"
+   }
+  ],
+  "siguiente_paso": "Agendemos una llamada de 20 minutos esta semana para revisar este plan contigo y enviarte la cotización a la medida."
+ }
+}
