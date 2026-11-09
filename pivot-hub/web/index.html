@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Pivot Hub</title>
+  <link rel="icon" href="assets/pivot-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/pivot.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module">
+    import { APPS, MODO_DEMO, barraSuperior, el, enviarEnlace, sb, sesionActual } from "./assets/hub.js";
+
+    const app = document.getElementById("app");
+
+    function vistaLogin(mensaje) {
+      const estado = el("div", { role: "status", "aria-live": "polite" }, mensaje ?? null);
+      const correo = el("input", { id: "correo", type: "email", autocomplete: "email", required: true, placeholder: "tu@correo.com" });
+      const boton = el("button", { class: "boton boton--rojo", type: "submit" }, "Enviarme el enlace");
+      const form = el("form", { class: "rejilla", onsubmit: async (e) => {
+        e.preventDefault();
+        boton.disabled = true;
+        estado.replaceChildren();
+        try {
+          await enviarEnlace(correo.value.trim());
+          estado.replaceChildren(el("p", { class: "mensaje mensaje--ok" },
+            "Listo. Revisa tu correo y abre el enlace para entrar."));
+        } catch (_err) {
+          estado.replaceChildren(el("p", { class: "mensaje mensaje--error" },
+            "No pudimos enviar el enlace. Revisa que el correo sea el del equipo de Pivot."));
+        } finally {
+          boton.disabled = false;
+        }
+      } },
+        el("div", { class: "campo" }, el("label", { for: "correo" }, "Correo del equipo"), correo),
+        boton,
+      );
+      app.replaceChildren(
+        barraSuperior(),
+        el("main", { class: "contenedor--angosto login" },
+          el("p", { class: "etiqueta" }, "Herramientas internas"),
+          el("h1", { class: "titulo-xl" }, "Pivot Hub", el("span", { class: "excl" }, "!")),
+          el("p", { class: "parrafo-grande secundario" },
+            "Entra con tu correo: te enviamos un enlace de acceso, sin contraseñas."),
+          el("div", { class: "tarjeta" }, form, estado),
+        ),
+      );
+    }
+
+    function vistaHub(email) {
+      app.replaceChildren(
+        barraSuperior({ email }),
+        el("main", { class: "contenedor" },
+          el("section", { class: "hero-hub" },
+            el("p", { class: "etiqueta" }, "Pivot Hub"),
+            el("h1", { class: "titulo-xl" }, "Herramientas para el giro", el("span", { class: "excl" }, "!")),
+          ),
+          el("div", { class: "rejilla rejilla--3" },
+            APPS.map((a) => el("a", { class: "tarjeta app-tarjeta", href: a.ruta },
+              el("span", { class: "etiqueta" }, a.etiqueta),
+              el("h2", { class: "titulo-m" }, a.nombre),
+              el("p", { class: "secundario", style: { margin: 0 } }, a.descripcion),
+              el("span", { style: { fontWeight: 700 } }, "Abrir →"),
+            )),
+            el("div", { class: "tarjeta app-tarjeta app-tarjeta--pronto" },
+              el("span", { class: "etiqueta", style: { color: "var(--piedra)" } }, "Próximamente"),
+              el("h2", { class: "titulo-m" }, "Tu próxima herramienta"),
+              el("p", { style: { margin: 0 } }, "Aquí aparecerán las nuevas apps del hub."),
+            ),
+          ),
+        ),
+      );
+    }
+
+    async function iniciar() {
+      const sesion = await sesionActual();
+      if (sesion) vistaHub(sesion.user.email);
+      else vistaLogin();
+    }
+
+    if (!MODO_DEMO) {
+      sb.auth.onAuthStateChange((evento) => {
+        if (evento === "SIGNED_IN" || evento === "SIGNED_OUT") iniciar();
+      });
+    }
+    iniciar();
+  </script>
+</body>
+</html>
