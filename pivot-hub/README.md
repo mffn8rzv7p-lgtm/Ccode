@@ -1,42 +1,23 @@
 # Bong v2
 
-Plataforma de herramientas internas de Pivot Agencia. **Bong v2** es el inicio estilo iPad con todas las apps; el gestor de tareas que hoy se llama Bong pasa a ser la app **Gestor**. Se instala en el mismo proyecto de Supabase y el mismo despliegue que Bong, así que comparte cuentas, inicio de sesión y datos.
+Plataforma de herramientas internas de Pivot Agencia. **Bong v2** es un inicio estilo iPad con todas las apps del equipo; el gestor de tareas que hasta ahora se llamaba Bong pasa a ser la app **Gestor**. Se instala en el mismo proyecto de Supabase y en el mismo hosting de Bong, así que comparte cuentas, inicio de sesión, datos y notificaciones.
 
-(La carpeta del repositorio todavía se llama `pivot-hub/`; se renombra al unirla con el código de Bong.)
-Herramientas incluidas:
+Solo entran correos **@pivotagencia.com** (también se verifica en la base de datos).
 
-- **Auditoría de Instagram:** escribes una cuenta (y hasta 3 competidores) y la app genera una auditoría con datos públicos y una propuesta estratégica de 90 días, lista para mostrar al cliente o descargar en PDF.
-- **Cotizador:** del brief al precio ideal (piso, mercado y valor, con 3 paquetes), que el equipo aprueba o ajusta, y a la carta de cotización en PDF con su número PIV-AAAA-NNN y el mensaje para WhatsApp. Desde una auditoría, el botón **Cotizar a este cliente** llena el brief solo.
+| App | Qué hace |
+|---|---|
+| **Gestor** | El Bong de siempre: tareas, tableros, clientes, calendario, notificaciones. Vive en `/gestor/`. |
+| **Auditoría** | Escribes una cuenta de Instagram y genera una auditoría con datos públicos y una propuesta estratégica de 90 días, en PDF. |
+| **Cotizador** | Del brief al precio ideal (piso, mercado y valor, 3 paquetes) que el equipo aprueba, y a la carta PIV-AAAA-NNN en PDF con su mensaje de WhatsApp. |
+| **Briefs** | Notas o transcripción de la reunión + secciones → la IA lo pule en un brief profesional con preguntas pendientes y riesgos. Desde ahí se cotiza, se crea el moodboard o la parrilla. |
+| **Parrillas** | La parrilla del mes en un calendario: una card por publicación, se arrastra entre días, se edita en un panel, avanza de idea a publicada y se puede llenar con IA. Reemplaza el Excel. |
+| **Moodboards** | Tablero con módulos fijos (concepto, palabras clave, colores, tipografías, estilos gráficos, imágenes). Imágenes por arrastre o desde el computador, y un botón mágico que lo llena con IA (incluidas imágenes generadas). |
 
-El inicio tiene forma de iPad: pantalla de bloqueo para entrar, widgets con la actividad reciente, íconos de cada app y un dock. Solo entran correos **@pivotagencia.com** (igual que Bong), con Google o con un enlace al correo.
-
-Apps: Gestor (el Bong de siempre, por mover aquí), Auditoría y Cotizador (listas); Briefs, Moodboards y Parrillas (en construcción). El registro de apps está en `web/assets/hub.js` y sus íconos en `web/assets/iconos.js`.
-
-## Cómo funciona
-
-```
-apps.pivotagencia.com  (páginas estáticas: carpeta web/)
-        │  inicio de sesión, historial y capturas
-        ▼
-Supabase  ── base de datos + almacenamiento + función "informe"
-        │                         │
-        ▼                         ▼
-API oficial de Instagram      API de Claude
-(datos públicos de cuentas    (escribe la auditoría y la
- de empresa o creador)         propuesta en la voz de Pivot)
-```
-
-Cada informe pasa por 3 etapas, que la página ejecuta en orden y muestra en pantalla:
-
-1. **Datos:** lee el perfil y las últimas publicaciones con la API de Meta y calcula las métricas en código (interacción, frecuencia, formatos, días, hashtags). Así los números son exactos y no los inventa la IA.
-2. **Auditoría:** Claude analiza esos datos (y las capturas, si las hay) y escribe el diagnóstico.
-3. **Propuesta:** Claude arma pilares, 8 ideas con guion y texto, calendario de 2 semanas, servicios de Pivot recomendados (sin precios) e indicadores.
-
-Si una cuenta es personal o privada, Meta no la entrega: en ese caso se suben capturas de pantalla y la auditoría se hace con ellas.
+El registro de apps está en `web/assets/hub.js` y sus íconos en `web/assets/iconos.js`.
 
 ## Ver la demostración
 
-Mientras `web/config.js` tenga los valores de ejemplo, el hub abre en **modo demostración** con un informe ficticio (`@cafe.ejemplo`). Para verlo en tu computador:
+Mientras `web/config.js` tenga los valores de ejemplo, todo abre en **modo demostración** con datos ficticios (Café Ejemplo):
 
 ```bash
 cd pivot-hub/web
@@ -44,82 +25,73 @@ python3 -m http.server 8000
 # abre http://localhost:8000
 ```
 
-## Puesta en marcha (una sola vez)
+## Instalación (una sola vez)
 
-Necesitas: una cuenta de Supabase, una clave de la API de Claude y la cuenta profesional de Instagram de Pivot.
+Se usa **el proyecto de Supabase que ya tiene Bong**. Todo lo nuevo lleva el prefijo `hub_` (tablas, funciones, almacenamientos `hub-capturas` y `hub-moodboards`, funciones del servidor `hub-*`), así que no toca nada del Gestor.
 
-### 1. Supabase
+### 1. Base de datos
 
-1. Usa **el mismo proyecto de Supabase de Bong**: así el hub y Bong comparten las cuentas y el inicio de sesión. Todo lo del hub lleva el prefijo `hub_` (tablas, funciones, almacenamiento `hub-capturas` y funciones `hub-informe` / `hub-cotizacion`), así que no toca nada de Bong.
-2. En **SQL Editor**, pega y ejecuta:
-   - `supabase/instalar.sql` (une todas las migraciones en un solo archivo)
-   Si ya llevan cotizaciones este año, al final del segundo archivo está cómo fijar el último número usado.
-3. En **Authentication → Sign In / Providers**, activa **Google** con el Client ID y el Client Secret de un cliente OAuth de Google Cloud (tipo "Aplicación web", con la URL de callback que muestra Supabase). Si la cuenta de Google Workspace de Pivot es "interna", solo los correos @pivotagencia.com podrán elegirse.
-4. En **Authentication → URL Configuration**, pon la dirección del hub como Site URL y agrégala con `/**` en Redirect URLs.
-5. El acceso a los datos ya está limitado a @pivotagencia.com en la base de datos. Para una persona externa, agrégala a la tabla `hub_miembros` (al final del primer archivo SQL está el ejemplo).
+En Supabase → **SQL Editor**, pega todo `supabase/instalar.sql` y presiona **Run** una vez.
+Si ya llevan cotizaciones este año, al final del bloque del cotizador está cómo fijar el último número usado.
 
-### 2. Clave de Claude
+### 2. Claves y funciones del servidor
 
-Crea una clave en [platform.claude.com](https://platform.claude.com) → API Keys. La app usa el modelo Claude Opus 5.5.
-
-### 3. Conexión con Instagram (Business Discovery)
-
-Business Discovery es la función oficial de Meta que permite que una cuenta profesional consulte los datos públicos de otras cuentas de empresa o creador.
-
-1. La cuenta de Instagram de Pivot debe ser **profesional** y estar conectada a la página de Facebook de Pivot.
-2. En [developers.facebook.com](https://developers.facebook.com), crea una app de tipo empresa y agrega el producto de Instagram con inicio de sesión de Facebook.
-3. Genera una clave de acceso de larga duración con los permisos que pide la documentación vigente de Business Discovery (normalmente `instagram_basic`, `pages_show_list` y `pages_read_engagement`).
-4. Anota el **ID de la cuenta de Instagram de Pivot** (el `instagram_business_account` de la página).
-
-Si todavía no tienes esto listo, la app funciona igual con capturas de pantalla.
-
-### 4. Subir la función y guardar las claves
-
-Con la [CLI de Supabase](https://supabase.com/docs/guides/cli) instalada, desde la carpeta `pivot-hub/`:
+Con la [CLI de Supabase](https://supabase.com/docs/guides/cli), desde la carpeta `pivot-hub/`:
 
 ```bash
 supabase login
-supabase link --project-ref TU-PROJECT-REF
-supabase secrets set ANTHROPIC_API_KEY=... \
-  META_ACCESS_TOKEN=... \
-  META_IG_USER_ID=... \
-  ORIGENES_PERMITIDOS=https://apps.pivotagencia.com
+supabase link --project-ref EL-PROJECT-REF-DE-BONG
+supabase secrets set ANTHROPIC_API_KEY=... ORIGENES_PERMITIDOS=https://LA-DIRECCION-DE-BONG
+# Opcionales:
+supabase secrets set META_ACCESS_TOKEN=... META_IG_USER_ID=...   # auditoría automática (si no, con capturas)
+supabase secrets set OPENAI_API_KEY=...                          # imágenes con IA en el moodboard
 supabase functions deploy hub-informe
 supabase functions deploy hub-cotizacion
+supabase functions deploy hub-ia
 ```
 
-Opcional: `META_GRAPH_VERSION` (por defecto `v23.0`; usa la versión vigente de la Graph API).
+- **Claude** (textos de todas las apps): clave en platform.claude.com → API Keys. Modelo: Claude Opus 5.5.
+- **Imágenes del moodboard:** por defecto usa OpenAI (`gpt-image-1`). Sin esa clave, el botón mágico llena colores, tipografías, estilos y deja las ideas de imágenes listas para generar cuando se configure.
+- **Instagram (Business Discovery):** cuenta de Instagram de Pivot profesional y conectada a su página de Facebook, una app en developers.facebook.com y una clave de larga duración (permisos según la documentación vigente: normalmente `instagram_basic`, `pages_show_list`, `pages_read_engagement`). Opcional: `META_GRAPH_VERSION` (por defecto `v23.0`).
 
-Las claves quedan como secretos en Supabase: nunca van en el código ni en las páginas.
+### 3. Inicio de sesión
 
-### 5. Publicar las páginas en apps.pivotagencia.com
+Google ya está configurado para Bong. Solo agrega en **Authentication → URL Configuration → Redirect URLs** la dirección de Bong con `/**` (cubre el inicio y `/gestor/`).
 
-1. En `web/config.js`, pega la **Project URL** y la **anon key** de Supabase (Project Settings → API). La anon key es pública por diseño; la seguridad la ponen las reglas de la base de datos.
-2. Sube el **contenido** de la carpeta `web/` a cualquier hosting estático:
-   - **Hostinger** (donde está el sitio): crea el subdominio `apps` y sube los archivos a su carpeta con el Administrador de archivos.
-   - **Netlify** o **Vercel**: arrastra la carpeta `web/` y conecta el dominio `apps.pivotagencia.com`.
+### 4. Publicar en el hosting de Bong (Hostinger)
 
-## Agregar una nueva herramienta al hub
+1. En `web/config.js` pega la **Project URL** y la **anon key** (las mismas que usa Bong).
+2. En `web/gestor/config.js` pega el contenido del `config.js` que hoy está en el servidor de Bong.
+3. **Antes de subir, descarga una copia de seguridad** de la carpeta actual de Bong en Hostinger.
+4. Sube el **contenido** de `web/` a la carpeta de Bong. Conserva en el servidor `manifest.webmanifest`, la carpeta `icons/` y cualquier `.htaccess`: Bong v2 los sigue usando desde la raíz. Puedes borrar `app-202610150016.*` de la raíz (ahora están en `/gestor/`).
 
-1. Crea una carpeta en `web/` (por ejemplo `web/cotizador/`) con su `index.html`, usando `../assets/pivot.css` y `../assets/hub.js`.
-2. Súmala a la lista `APPS` en `web/assets/hub.js`.
-3. Si necesita base de datos o IA, agrega su tabla con su propia migración y su función en `supabase/functions/`.
+### Cómo se mueve Bong al Gestor sin perder nada
+
+- **Datos:** el Gestor usa las mismas tablas y el mismo proyecto; nada se migra.
+- **Notificaciones push:** el nuevo `sw.js` de la raíz reemplaza al de Bong en la misma ruta, así los celulares conservan su suscripción. Las notificaciones (`#/tarea/…`) se abren dentro de `/gestor/`.
+- **Enlaces viejos:** cualquier enlace o acceso directo a `…/#/algo` se redirige solo al Gestor.
+- **App instalada en el celular:** abre el inicio de Bong v2; el Gestor está en el dock.
+
+El código del Gestor es la versión compilada 1.4.1 de Bong (`web/gestor/`), con un solo cambio: el registro del service worker apunta a la raíz. El código fuente original de Bong no está en este repositorio.
 
 ## Costos aproximados
 
-- **Supabase:** el plan gratuito alcanza para dos usuarias y decenas de informes al mes. Si la generación se corta por tiempo (cada etapa puede tardar 1 a 3 minutos), el plan Pro amplía el tiempo máximo de las funciones.
-- **Claude:** cada informe usa dos generaciones y cada cotización otras dos; calcula unos pocos centavos de dólar a menos de un dólar por informe según el tamaño. Revisa el consumo real en la consola de Claude después de los primeros informes.
-- **Meta:** la API es gratuita, con límites de consultas por hora.
+- **Supabase:** el plan actual de Bong. Si alguna generación con IA se corta por tiempo (1 a 3 minutos por etapa), el plan Pro amplía el tiempo de las funciones.
+- **Claude:** unos centavos de dólar por brief, parrilla o moodboard, y menos de un dólar por auditoría o cotización. Revisa el consumo real en la consola después de los primeros usos.
+- **Imágenes con IA:** se cobran por imagen en el proveedor (6 por botón mágico).
+- **Meta:** gratis, con límites de consultas por hora.
 
 ## Archivos
 
 | Ruta | Qué es |
 |---|---|
-| `web/index.html` | Inicio del hub e inicio de sesión |
-| `web/auditoria/` | App de auditoría: formulario, avance, informe y PDF (`demo.json` es el ejemplo ficticio) |
-| `web/assets/` | Estilos, logo y utilidades compartidas |
-| `supabase/migrations/` | Tablas, reglas de acceso y almacenamiento de capturas |
-| `web/cotizador/` | Cotizador: brief, aprobación de precios, carta y PDF (`demo.json` es el ejemplo ficticio) |
-| `supabase/functions/hub-informe/` | Auditoría: lectura de Meta, cálculo de métricas y generación con Claude |
-| `supabase/functions/hub-cotizacion/` | Cotizador: piso y redondeo en código, propuesta de precio y carta con Claude |
-| `supabase/functions/_shared/` | Llamada a Claude y verificación de acceso, compartidas |
+| `web/index.html`, `web/sw.js` | Inicio estilo iPad, pantalla de entrada y service worker compartido |
+| `web/assets/` | Estilos, íconos, logo y utilidades compartidas |
+| `web/gestor/` | El Bong de siempre (compilado) |
+| `web/auditoria/`, `web/cotizador/`, `web/briefs/`, `web/parrillas/`, `web/moodboards/` | Cada app, con su `demo.json` ficticio |
+| `supabase/instalar.sql` | Todas las migraciones en un solo archivo |
+| `supabase/migrations/` | Tablas, reglas de acceso y almacenamiento, por app |
+| `supabase/functions/hub-informe/` | Auditoría: Meta, métricas en código y Claude |
+| `supabase/functions/hub-cotizacion/` | Cotizador: piso y redondeo en código, precio y carta con Claude |
+| `supabase/functions/hub-ia/` | Briefs, parrillas y moodboards (incluye imágenes) |
+| `supabase/functions/_shared/` | Llamada a Claude y verificación de acceso |

@@ -17,9 +17,9 @@ export const APPS = [
   { id: "gestor", nombre: "Gestor", descripcion: "Las tareas del equipo (el Bong de siempre).", ruta: "gestor/", estado: "lista", dock: true },
   { id: "auditoria", nombre: "Auditoría", descripcion: "Auditoría de Instagram con datos públicos y propuesta estratégica.", ruta: "auditoria/", estado: "lista", dock: true },
   { id: "cotizador", nombre: "Cotizador", descripcion: "Del brief al precio ideal y a la carta en PDF para WhatsApp.", ruta: "cotizador/", estado: "lista", dock: true },
-  { id: "briefs", nombre: "Briefs", descripcion: "Crea el brief de un proyecto a partir de una conversación con el cliente.", ruta: "briefs/", estado: "pronto" },
-  { id: "moodboards", nombre: "Moodboards", descripcion: "Arma moodboards de referencia visual para cada marca.", ruta: "moodboards/", estado: "pronto" },
-  { id: "parrillas", nombre: "Parrillas", descripcion: "Escribe la parrilla de contenido del mes, lista para producir.", ruta: "parrillas/", estado: "pronto", dock: true },
+  { id: "briefs", nombre: "Briefs", descripcion: "Crea el brief de un proyecto a partir de una conversación con el cliente.", ruta: "briefs/", estado: "lista" },
+  { id: "moodboards", nombre: "Moodboards", descripcion: "Arma moodboards de referencia visual para cada marca.", ruta: "moodboards/", estado: "lista" },
+  { id: "parrillas", nombre: "Parrillas", descripcion: "Escribe la parrilla de contenido del mes, lista para producir.", ruta: "parrillas/", estado: "lista", dock: true },
 ];
 
 /** Crea un elemento de forma segura (el texto nunca se interpreta como HTML). */
