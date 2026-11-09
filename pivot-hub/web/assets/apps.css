@@ -19,6 +19,7 @@
 .filtros { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
 .filtro { min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--crema-3); background: var(--blanco); font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
 .filtro[aria-pressed="true"] { background: var(--tinta); color: var(--crema); border-color: var(--tinta); }
+.filtro[aria-pressed="true"] .punto-red { box-shadow: 0 0 0 2px var(--crema); }
 .punto-red { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
 
 .calendario { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
@@ -37,10 +38,10 @@
 .pub:active { cursor: grabbing; }
 .pub--arrastrando { opacity: .35; }
 .pub__fila { display: flex; align-items: center; gap: 6px; min-width: 0; }
-.pub__red { font: 700 10px/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--piedra-oscura); white-space: nowrap; }
+.pub__red { font: 700 10px/1.2 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--piedra-oscura); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .pub__titulo { font-size: 13px; font-weight: 700; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .pub__arte { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 6px; }
-.estado-chip { font: 700 10px/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; padding: 3px 6px; border-radius: 999px; background: var(--blanco); white-space: nowrap; margin-left: auto; }
+.estado-chip { display: inline-flex; align-items: center; gap: 4px; font: 600 11px/1.2 var(--texto); color: var(--piedra-oscura); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; margin-left: auto; }
 
 /* Agenda (celular) */
 .agenda { display: none; }

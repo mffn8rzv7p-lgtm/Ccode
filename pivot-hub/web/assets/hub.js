@@ -29,7 +29,12 @@ export function el(tag, attrs = {}, ...hijos) {
     if (v === null || v === undefined || v === false) continue;
     if (k === "class") n.className = v;
     else if (k.startsWith("on") && typeof v === "function") n.addEventListener(k.slice(2), v);
-    else if (k === "style" && typeof v === "object") Object.assign(n.style, v);
+    else if (k === "style" && typeof v === "object") {
+      for (const [prop, valor] of Object.entries(v)) {
+        if (prop.startsWith("--")) n.style.setProperty(prop, valor);
+        else n.style[prop] = valor;
+      }
+    }
     else n.setAttribute(k, v === true ? "" : v);
   }
   for (const h of hijos.flat(Infinity)) {
