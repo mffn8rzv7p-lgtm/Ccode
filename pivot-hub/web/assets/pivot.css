@@ -228,3 +228,51 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: 14.5px; }
   a { text-decoration: none; }
   .tabla-envoltura { overflow: visible; }
 }
+
+/* ---------- Cotizador ---------- */
+.precio-capas { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+.capa__valor { font: 800 26px/1.1 var(--display); letter-spacing: -.02em; font-variant-numeric: tabular-nums; margin: 6px 0; }
+.paquete-editor { display: grid; gap: 10px; }
+.paquete-editor--recomendado { border: 2px solid var(--rojo); }
+.campo-precio { display: flex; align-items: center; gap: 6px; }
+.campo-precio span { font-weight: 700; }
+.alerta { color: var(--rojo-hondo); font-size: 14px; font-weight: 700; }
+.casilla { display: flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 500; }
+.casilla input { width: 20px; height: 20px; accent-color: var(--rojo); }
+.casillas { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.whatsapp { background: #E7F5EC; border-radius: var(--radio-sm); padding: 16px; white-space: pre-line; font-size: 15px; }
+
+.carta { background: var(--crema); max-width: 794px; margin: 0 auto; padding: 32px clamp(16px, 4vw, 48px) 40px; border-radius: var(--radio); box-shadow: 0 1px 0 var(--crema-3), 0 20px 60px -30px rgba(18,16,16,.35); border-top: 4px solid var(--rojo); }
+.carta__cabeza { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 44px; }
+.carta__cabeza img { height: 28px; width: auto; }
+.carta__meta { text-align: right; font: 400 11.5px/1.5 var(--mono); color: var(--piedra); text-transform: uppercase; }
+.carta__meta strong { color: var(--rojo); font-weight: 700; font-size: 13px; }
+.carta__hero { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; margin-bottom: 32px; }
+.carta__marca { font: 800 140px/0.8 var(--display); color: var(--rojo); transform: rotate(12deg); padding-right: 8px; }
+.carta__saludo { font-size: 17px; line-height: 1.6; margin: 0 0 8px; }
+.carta__seccion { margin-top: 22px; break-inside: avoid; }
+.carta__seccion .etiqueta { display: block; margin-bottom: 6px; }
+.carta__seccion p { margin: 0; }
+.carta__inversion { background: var(--tinta); color: var(--blanco); border-radius: var(--radio); padding: 20px; margin-top: 26px; break-inside: avoid; }
+.carta__paquetes { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); }
+.carta__paquete { background: var(--crema); color: var(--tinta); border-radius: 12px; padding: 14px 14px 16px; display: grid; gap: 6px; align-content: start; }
+.carta__paquete--rec { background: var(--rojo); color: var(--blanco); }
+.carta__paquete-nombre { font: 700 17px/1.2 var(--display); }
+.carta__paquete-precio { font: 800 24px/1.1 var(--display); color: var(--rojo); font-variant-numeric: tabular-nums; }
+.carta__paquete--rec .carta__paquete-precio { color: var(--blanco); }
+.carta__paquete ul { margin: 0; padding-left: 16px; font-size: 13.5px; display: grid; gap: 3px; }
+.carta__tabla { width: 100%; border-collapse: collapse; }
+.carta__tabla td { padding: 9px 0; border-bottom: 1px solid #3A3433; }
+.carta__tabla td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.carta__tabla tr.total td { border-bottom: 0; border-top: 1px solid var(--rojo); font: 800 20px var(--display); padding-top: 12px; }
+.carta__tabla tr.total td:last-child { color: var(--rojo); font-size: 26px; }
+.carta__nota { font-size: 12px; color: #B5ADA5; margin: 12px 0 0; }
+.carta__cierre { background: var(--rojo); color: var(--blanco); border-radius: var(--radio); padding: 22px 22px 24px; margin-top: 26px; display: grid; gap: 8px; break-inside: avoid; }
+.carta__cierre h2 { font: 800 30px/1.05 var(--display); margin: 0; letter-spacing: -.02em; }
+.carta__cierre p { margin: 0; font-size: 16px; }
+.carta__firma { margin-top: 20px; line-height: 1.5; }
+@media (max-width: 520px) { .carta__marca { font-size: 90px; } }
+@media print {
+  .carta { box-shadow: none; border-radius: 0; padding: 0; max-width: none; border-top: 0; }
+  .carta__cabeza { margin-bottom: 30px; }
+}

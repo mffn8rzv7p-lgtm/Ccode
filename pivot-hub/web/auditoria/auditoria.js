@@ -295,6 +295,7 @@ async function vistaInforme(id) {
       el("div", { class: "informe__acciones no-print" },
         el("a", { href: "#/", class: "boton boton--texto", style: { paddingLeft: 0 } }, "← Lista"),
         el("button", { class: "boton boton--rojo", type: "button", onclick: () => descargarPdf(fila) }, "Descargar PDF"),
+        el("a", { class: "boton", href: `../cotizador/#/nueva?informe=${fila.id}` }, "Cotizar a este cliente"),
         regenerar,
       ),
       renderInforme(fila),

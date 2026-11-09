@@ -1,39 +1,13 @@
 // Función "informe": genera un informe por etapas.
 //   POST { informe_id, etapa: "datos" | "auditoria" | "estrategia" }
 // Cada etapa guarda su resultado en la tabla `informes`; la página las llama en orden.
-import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2.45.4";
+import type { SupabaseClient } from "npm:@supabase/supabase-js@2.45.4";
 import { encodeBase64 } from "jsr:@std/encoding@1.0.5/base64";
+import { clienteDelEquipo, responder } from "../_shared/http.ts";
+import { ErrorGeneracion, generar, type Imagen } from "../_shared/claude.ts";
 import { leerCuentaPublica, metaConfigurada } from "./meta.ts";
 import { calcularMetricas, type Metricas } from "./metricas.ts";
-import {
-  ErrorGeneracion,
-  ESQUEMA_AUDITORIA,
-  ESQUEMA_ESTRATEGIA,
-  generar,
-  type Imagen,
-  promptAuditoria,
-  promptEstrategia,
-} from "./claude.ts";
-
-const ORIGENES = (Deno.env.get("ORIGENES_PERMITIDOS") ?? "*").split(",").map((s) => s.trim());
-
-function cors(req: Request): HeadersInit {
-  const origen = req.headers.get("Origin") ?? "";
-  const permitido = ORIGENES.includes("*") ? "*" : (ORIGENES.includes(origen) ? origen : ORIGENES[0]);
-  return {
-    "Access-Control-Allow-Origin": permitido,
-    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Vary": "Origin",
-  };
-}
-
-function responder(req: Request, cuerpo: unknown, estado = 200): Response {
-  return new Response(JSON.stringify(cuerpo), {
-    status: estado,
-    headers: { ...cors(req), "Content-Type": "application/json" },
-  });
-}
+import { ESQUEMA_AUDITORIA, ESQUEMA_ESTRATEGIA, promptAuditoria, promptEstrategia, SISTEMA } from "./prompts.ts";
 
 type Fila = {
   id: string;
@@ -101,20 +75,9 @@ function resumirDatos(datos: Record<string, unknown> | null) {
 }
 
 Deno.serve(async (req) => {
-  if (req.method === "OPTIONS") return new Response("ok", { headers: cors(req) });
-  if (req.method !== "POST") return responder(req, { error: "Método no permitido" }, 405);
-
-  const auth = req.headers.get("Authorization");
-  if (!auth) return responder(req, { error: "Inicia sesión para continuar." }, 401);
-
-  // Cliente con la sesión de quien llama: las reglas de la base de datos deciden qué puede ver.
-  const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, {
-    global: { headers: { Authorization: auth } },
-    auth: { persistSession: false },
-  });
-
-  const { data: miembro } = await db.rpc("es_miembro");
-  if (miembro !== true) return responder(req, { error: "Tu cuenta no tiene acceso a Pivot Hub." }, 403);
+  const acceso = await clienteDelEquipo(req);
+  if ("respuesta" in acceso) return acceso.respuesta;
+  const { db } = acceso;
 
   let cuerpo: { informe_id?: string; etapa?: string };
   try {
@@ -148,6 +111,7 @@ Deno.serve(async (req) => {
       if (!fila.datos) throw new ErrorGeneracion("Primero hay que leer los datos de la cuenta.");
       const imagenes = await leerCapturas(db, fila.capturas);
       const auditoria = await generar(
+        SISTEMA,
         promptAuditoria(fila.contexto, fila.datos, imagenes.length > 0),
         ESQUEMA_AUDITORIA,
         imagenes,
@@ -159,6 +123,7 @@ Deno.serve(async (req) => {
     // estrategia
     if (!fila.auditoria) throw new ErrorGeneracion("Primero hay que generar la auditoría.");
     const estrategia = await generar(
+      SISTEMA,
       promptEstrategia(fila.contexto, resumirDatos(fila.datos), fila.auditoria),
       ESQUEMA_ESTRATEGIA,
     );

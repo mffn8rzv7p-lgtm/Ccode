@@ -17,6 +17,12 @@ export const APPS = [
     ruta: "auditoria/",
     etiqueta: "Comercial",
   },
+  {
+    nombre: "Cotizador",
+    descripcion: "Del brief al precio ideal (piso, mercado y valor) y a la carta en PDF lista para enviar por WhatsApp.",
+    ruta: "cotizador/",
+    etiqueta: "Comercial",
+  },
 ];
 
 /** Crea un elemento de forma segura (el texto nunca se interpreta como HTML). */

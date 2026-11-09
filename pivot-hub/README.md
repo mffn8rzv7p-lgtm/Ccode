@@ -1,7 +1,10 @@
 # Pivot Hub
 
 Hub de herramientas internas de Pivot Agencia, pensado para vivir en **apps.pivotagencia.com**.
-La primera app es la **Auditoría de Instagram**: escribes una cuenta (y hasta 3 competidores), y la app genera una auditoría con datos públicos y una propuesta estratégica de 90 días, lista para mostrar al cliente o descargar en PDF antes de cotizar.
+Herramientas incluidas:
+
+- **Auditoría de Instagram:** escribes una cuenta (y hasta 3 competidores) y la app genera una auditoría con datos públicos y una propuesta estratégica de 90 días, lista para mostrar al cliente o descargar en PDF.
+- **Cotizador:** del brief al precio ideal (piso, mercado y valor, con 3 paquetes), que el equipo aprueba o ajusta, y a la carta de cotización en PDF con su número PIV-AAAA-NNN y el mensaje para WhatsApp. Desde una auditoría, el botón **Cotizar a este cliente** llena el brief solo.
 
 Solo entran las personas del equipo (por ejemplo, Laura y tú), con un enlace que llega al correo, sin contraseñas.
 
@@ -44,7 +47,10 @@ Necesitas: una cuenta de Supabase, una clave de la API de Claude y la cuenta pro
 ### 1. Supabase
 
 1. Crea un proyecto en [supabase.com](https://supabase.com) (región: São Paulo es la más cercana).
-2. En **SQL Editor**, pega y ejecuta `supabase/migrations/20261109000000_auditoria_instagram.sql`.
+2. En **SQL Editor**, pega y ejecuta, en este orden:
+   - `supabase/migrations/20261109000000_auditoria_instagram.sql`
+   - `supabase/migrations/20261110000000_cotizador.sql`
+   Si ya llevan cotizaciones este año, al final del segundo archivo está cómo fijar el último número usado.
 3. Agrega los correos del equipo, en el mismo SQL Editor:
    ```sql
    insert into public.miembros (email, nombre) values
@@ -82,6 +88,7 @@ supabase secrets set ANTHROPIC_API_KEY=... \
   META_IG_USER_ID=... \
   ORIGENES_PERMITIDOS=https://apps.pivotagencia.com
 supabase functions deploy informe
+supabase functions deploy cotizacion
 ```
 
 Opcional: `META_GRAPH_VERSION` (por defecto `v23.0`; usa la versión vigente de la Graph API).
@@ -104,7 +111,7 @@ Las claves quedan como secretos en Supabase: nunca van en el código ni en las p
 ## Costos aproximados
 
 - **Supabase:** el plan gratuito alcanza para dos usuarias y decenas de informes al mes. Si la generación se corta por tiempo (cada etapa puede tardar 1 a 3 minutos), el plan Pro amplía el tiempo máximo de las funciones.
-- **Claude:** cada informe usa dos generaciones; calcula unos pocos centavos de dólar a menos de un dólar por informe según el tamaño. Revisa el consumo real en la consola de Claude después de los primeros informes.
+- **Claude:** cada informe usa dos generaciones y cada cotización otras dos; calcula unos pocos centavos de dólar a menos de un dólar por informe según el tamaño. Revisa el consumo real en la consola de Claude después de los primeros informes.
 - **Meta:** la API es gratuita, con límites de consultas por hora.
 
 ## Archivos
@@ -115,4 +122,7 @@ Las claves quedan como secretos en Supabase: nunca van en el código ni en las p
 | `web/auditoria/` | App de auditoría: formulario, avance, informe y PDF (`demo.json` es el ejemplo ficticio) |
 | `web/assets/` | Estilos, logo y utilidades compartidas |
 | `supabase/migrations/` | Tablas, reglas de acceso y almacenamiento de capturas |
-| `supabase/functions/informe/` | Lectura de Meta, cálculo de métricas y generación con Claude |
+| `web/cotizador/` | Cotizador: brief, aprobación de precios, carta y PDF (`demo.json` es el ejemplo ficticio) |
+| `supabase/functions/informe/` | Auditoría: lectura de Meta, cálculo de métricas y generación con Claude |
+| `supabase/functions/cotizacion/` | Cotizador: piso y redondeo en código, propuesta de precio y carta con Claude |
+| `supabase/functions/_shared/` | Llamada a Claude y verificación de acceso, compartidas |

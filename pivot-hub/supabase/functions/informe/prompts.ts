@@ -1,26 +1,7 @@
-// Generación de la auditoría y la propuesta estratégica con la API de Claude.
-import Anthropic from "npm:@anthropic-ai/sdk@1.6.0";
-
-export const MODELO = "claude-opus-5-5";
-
-export interface Imagen {
-  media_type: "image/jpeg" | "image/png" | "image/webp";
-  data: string; // base64
-}
+// Instrucciones y formato de salida de la auditoría de Instagram.
+import { listaTextos, objeto, texto } from "../_shared/claude.ts";
 
 // ---------- Formatos de salida (JSON Schema) ----------
-
-const texto = { type: "string" } as const;
-const listaTextos = { type: "array", items: texto } as const;
-
-function objeto(propiedades: Record<string, unknown>) {
-  return {
-    type: "object",
-    properties: propiedades,
-    required: Object.keys(propiedades),
-    additionalProperties: false,
-  };
-}
 
 const hallazgo = objeto({ titulo: texto, detalle: texto, evidencia: texto });
 
@@ -91,7 +72,7 @@ export const ESQUEMA_ESTRATEGIA = objeto({
 
 // ---------- Instrucciones ----------
 
-const SISTEMA = `Eres el estratega senior de redes sociales de Pivot Agencia (Medellín, Colombia). Pivot hace marketing digital, pauta digital, creación de contenido, redes sociales, branding y diseño web. Su voz es cercana, segura y directa: "tu marca necesita moverse", "el giro".
+export const SISTEMA = `Eres el estratega senior de redes sociales de Pivot Agencia (Medellín, Colombia). Pivot hace marketing digital, pauta digital, creación de contenido, redes sociales, branding y diseño web. Su voz es cercana, segura y directa: "tu marca necesita moverse", "el giro".
 
 Preparas informes que el equipo comercial de Pivot muestra a un cliente potencial antes de cotizar. Deben demostrar que entendimos su cuenta y dejarle ganas de trabajar con Pivot.
 
@@ -147,50 +128,3 @@ Escribe la propuesta estratégica de Pivot para los próximos 90 días:
 - siguiente_paso: invitación concreta a cotizar con Pivot.`;
 }
 
-// ---------- Llamada ----------
-
-export class ErrorGeneracion extends Error {}
-
-export async function generar(
-  prompt: string,
-  esquema: Record<string, unknown>,
-  imagenes: Imagen[] = [],
-): Promise<unknown> {
-  const client = new Anthropic(); // lee ANTHROPIC_API_KEY
-
-  const contenido: Anthropic.Beta.BetaContentBlockParam[] = [
-    ...imagenes.map((img) => ({
-      type: "image" as const,
-      source: { type: "base64" as const, media_type: img.media_type, data: img.data },
-    })),
-    { type: "text", text: prompt },
-  ];
-
-  const stream = client.beta.messages.stream({
-    model: MODELO,
-    max_tokens: 32000,
-    betas: ["server-side-fallback-2026-07-01"],
-    fallbacks: "default",
-    output_config: { effort: "medium", format: { type: "json_schema", schema: esquema } },
-    system: SISTEMA,
-    messages: [{ role: "user", content: contenido }],
-  });
-  const respuesta = await stream.finalMessage();
-
-  if (respuesta.stop_reason === "refusal") {
-    throw new ErrorGeneracion("El modelo no pudo generar este informe. Revisa el contexto e inténtalo de nuevo.");
-  }
-  if (respuesta.stop_reason === "max_tokens") {
-    throw new ErrorGeneracion("El informe quedó incompleto por su longitud. Inténtalo de nuevo.");
-  }
-
-  const json = respuesta.content
-    .filter((b) => b.type === "text")
-    .map((b) => (b as { text: string }).text)
-    .join("");
-  try {
-    return JSON.parse(json);
-  } catch (_e) {
-    throw new ErrorGeneracion("La respuesta del modelo no llegó en el formato esperado. Inténtalo de nuevo.");
-  }
-}
