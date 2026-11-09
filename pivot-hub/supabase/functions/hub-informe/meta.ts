@@ -59,17 +59,23 @@ export async function leerCuentaPublica(usuario: string, limite = 50): Promise<R
   const cuerpo = await resp.json().catch(() => ({}));
   if (!resp.ok || !cuerpo.business_discovery) {
     const codigo = cuerpo?.error?.code;
+    const sub = cuerpo?.error?.error_subcode;
+    // El mensaje de Meta no contiene claves: se registra y se muestra para poder diagnosticar.
+    const detalle = cuerpo?.error?.message
+      ? ` (Meta dice: ${String(cuerpo.error.message).slice(0, 220)} · código ${codigo}${sub ? "/" + sub : ""})`
+      : ` (respuesta ${resp.status} sin datos de business_discovery)`;
+    console.error("meta business_discovery", usuario, resp.status, codigo, sub, cuerpo?.error?.message);
     if (codigo === 190) {
-      return { ok: false, motivo: "La clave de acceso de Meta venció o no es válida. Hay que renovarla." };
+      return { ok: false, motivo: "La clave de acceso de Meta venció o no es válida. Hay que renovarla." + detalle };
     }
     if (codigo === 4 || codigo === 17 || codigo === 32 || codigo === 613) {
-      return { ok: false, motivo: "Meta limitó temporalmente las consultas. Espera unos minutos." };
+      return { ok: false, motivo: "Meta limitó temporalmente las consultas. Espera unos minutos." + detalle };
     }
     return {
       ok: false,
       motivo:
         "Meta no devolvió datos de @" + usuario +
-        ". Puede que la cuenta no exista, sea personal o privada. Sube capturas de pantalla para analizarla.",
+        ". Puede que la cuenta no exista, sea personal o privada." + detalle,
     };
   }
   return { ok: true, perfil: cuerpo.business_discovery as PerfilMeta };
