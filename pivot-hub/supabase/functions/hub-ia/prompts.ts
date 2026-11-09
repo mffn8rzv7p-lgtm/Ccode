@@ -28,12 +28,13 @@ export const ESQUEMA_BRIEF = objeto({
   riesgos: listaTextos,
 });
 
-export function promptBrief(fila: { cliente: string; proyecto: string; respuestas: unknown }): string {
+export function promptBrief(fila: { cliente: string; proyecto: string; respuestas: Record<string, unknown> }): string {
+  const { cuestionario: _ids, ...datos } = fila.respuestas ?? {};
   return `Cliente: ${fila.cliente}
 Proyecto: ${fila.proyecto}
 
-Lo que escribió el equipo (puede estar incompleto, desordenado o venir de notas o de la transcripción de una reunión):
-${JSON.stringify(fila.respuestas, null, 2)}
+Información disponible. "respuestas_del_cliente" es lo que el cliente respondió en el Brief de marca de Pivot (con sus palabras); "respuestas_del_equipo", "notas" e "internos" son lo que anotó el equipo de Pivot (puede venir de una reunión). Si se contradicen, prioriza al cliente y menciónalo en preguntas_pendientes:
+${JSON.stringify(datos, null, 2)}
 
 Convierte esto en un brief profesional y accionable para el equipo creativo y de medios:
 - resumen: 3-4 frases que cualquiera del equipo entienda en 30 segundos.

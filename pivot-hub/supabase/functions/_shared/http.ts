@@ -1,5 +1,5 @@
 // CORS, respuestas JSON y verificación de que quien llama es del equipo.
-import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2.45.4";
+import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2.118.0";
 
 const ORIGENES = (Deno.env.get("ORIGENES_PERMITIDOS") ?? "*").split(",").map((s) => s.trim());
 
@@ -32,7 +32,7 @@ export async function clienteDelEquipo(req: Request): Promise<{ db: SupabaseClie
   const auth = req.headers.get("Authorization");
   if (!auth) return { respuesta: responder(req, { error: "Inicia sesión para continuar." }, 401) };
 
-  const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, {
+  const db = createClient(Deno.env.get("SUPABASE_URL")!, (Deno.env.get("SUPABASE_ANON_KEY") ?? Deno.env.get("SUPABASE_PUBLISHABLE_KEY"))!, {
     global: { headers: { Authorization: auth } },
     auth: { persistSession: false },
   });

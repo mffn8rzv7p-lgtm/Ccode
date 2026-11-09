@@ -1,7 +1,7 @@
 // Función "hub-informe": genera un informe por etapas.
 //   POST { informe_id, etapa: "datos" | "auditoria" | "estrategia" }
 // Cada etapa guarda su resultado en la tabla `informes`; la página las llama en orden.
-import type { SupabaseClient } from "npm:@supabase/supabase-js@2.45.4";
+import type { SupabaseClient } from "npm:@supabase/supabase-js@2.118.0";
 import { encodeBase64 } from "jsr:@std/encoding@1.0.5/base64";
 import { clienteDelEquipo, responder } from "../_shared/http.ts";
 import { ErrorGeneracion, generar, type Imagen } from "../_shared/claude.ts";

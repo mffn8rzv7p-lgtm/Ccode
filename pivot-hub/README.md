@@ -9,7 +9,7 @@ Solo entran correos **@pivotagencia.com** (también se verifica en la base de da
 | **Gestor** | El Bong de siempre: tareas, tableros, clientes, calendario, notificaciones. Vive en `/gestor/`. |
 | **Auditoría** | Escribes una cuenta de Instagram y genera una auditoría con datos públicos y una propuesta estratégica de 90 días, en PDF. |
 | **Cotizador** | Del brief al precio ideal (piso, mercado y valor, 3 paquetes) que el equipo aprueba, y a la carta PIV-AAAA-NNN en PDF con su mensaje de WhatsApp. |
-| **Briefs** | Notas o transcripción de la reunión + secciones → la IA lo pule en un brief profesional con preguntas pendientes y riesgos. Desde ahí se cotiza, se crea el moodboard o la parrilla. |
+| **Briefs** | El Brief de marca de Pivot (versión mejorada: 6 bloques, 26 preguntas) se envía al cliente con un enlace (`/brief/?t=…`) que llena desde el celular, sin cuenta y con guardado automático; o lo llena el equipo. La IA lo pule en un brief interno con preguntas pendientes y riesgos. Desde ahí se cotiza, se crea el moodboard o la parrilla. |
 | **Parrillas** | La parrilla del mes en un calendario: una card por publicación, se arrastra entre días, se edita en un panel, avanza de idea a publicada y se puede llenar con IA. Reemplaza el Excel. |
 | **Moodboards** | Tablero con módulos fijos (concepto, palabras clave, colores, tipografías, estilos gráficos, imágenes). Imágenes por arrastre, desde el computador o buscando fotos gratis en Pexels, y un botón mágico que lo llena con IA (incluidas imágenes generadas con Cloudflare). |
 
@@ -40,8 +40,8 @@ Con la [CLI de Supabase](https://supabase.com/docs/guides/cli), desde la carpeta
 
 ```bash
 supabase login
-supabase link --project-ref EL-PROJECT-REF-DE-BONG
-supabase secrets set ANTHROPIC_API_KEY=... ORIGENES_PERMITIDOS=https://LA-DIRECCION-DE-BONG
+supabase link --project-ref mwqjwktuoytvqprhvpvp
+supabase secrets set ANTHROPIC_API_KEY=... ORIGENES_PERMITIDOS=https://bong.pivotagencia.com
 # Opcionales:
 supabase secrets set META_ACCESS_TOKEN=... META_IG_USER_ID=...   # auditoría automática (si no, con capturas)
 supabase secrets set CLOUDFLARE_ACCOUNT_ID=... CLOUDFLARE_API_TOKEN=...   # imágenes con IA (cupo diario gratis)
@@ -59,14 +59,17 @@ supabase functions deploy hub-ia
 
 ### 3. Inicio de sesión
 
-Google ya está configurado para Bong. Solo agrega en **Authentication → URL Configuration → Redirect URLs** la dirección de Bong con `/**` (cubre el inicio y `/gestor/`).
+Google ya está configurado para Bong. En **Authentication → URL Configuration → Redirect URLs** confirma que esté `https://bong.pivotagencia.com/**` (con `/**` cubre el inicio y `/gestor/`).
 
-### 4. Publicar en el hosting de Bong (Hostinger)
+### 4. Publicar en bong.pivotagencia.com (Hostinger)
 
-1. En `web/config.js` pega la **Project URL** y la **anon key** (las mismas que usa Bong).
-2. En `web/gestor/config.js` pega el contenido del `config.js` que hoy está en el servidor de Bong.
-3. **Antes de subir, descarga una copia de seguridad** de la carpeta actual de Bong en Hostinger.
-4. Sube el **contenido** de `web/` a la carpeta de Bong. Conserva en el servidor `manifest.webmanifest`, la carpeta `icons/` y cualquier `.htaccess`: Bong v2 los sigue usando desde la raíz. Puedes borrar `app-202610150016.*` de la raíz (ahora están en `/gestor/`).
+1. Arma el paquete con la configuración de producción (`despliegue/`):
+   ```bash
+   bash scripts/empaquetar-hostinger.sh   # → entregas/bong-v2-hostinger.zip
+   ```
+2. En Hostinger → Administrador de archivos → carpeta de `bong.pivotagencia.com`: **descarga primero una copia de seguridad** de todo.
+3. Sube y descomprime `bong-v2-hostinger.zip` en esa carpeta (reemplaza `index.html`, `sw.js` y `config.js`).
+4. Conserva `manifest.webmanifest`, la carpeta `icons/` y cualquier `.htaccess`. Puedes borrar `app-202610150016.*` y `version.json` de la raíz (ahora están en `/gestor/`).
 
 ### Cómo se mueve Bong al Gestor sin perder nada
 
@@ -93,6 +96,8 @@ El código del Gestor es la versión compilada 1.4.1 de Bong (`web/gestor/`), co
 | `web/gestor/` | El Bong de siempre (compilado) |
 | `web/auditoria/`, `web/cotizador/`, `web/briefs/`, `web/parrillas/`, `web/moodboards/` | Cada app, con su `demo.json` ficticio |
 | `supabase/instalar.sql` | Todas las migraciones en un solo archivo |
+| `web/brief/` | Página pública donde el cliente llena el brief (marca Pivot, sin cuenta) |
+| `despliegue/`, `scripts/empaquetar-hostinger.sh`, `entregas/` | Configuración de producción y el .zip para Hostinger |
 | `supabase/migrations/` | Tablas, reglas de acceso y almacenamiento, por app |
 | `supabase/functions/hub-informe/` | Auditoría: Meta, métricas en código y Claude |
 | `supabase/functions/hub-cotizacion/` | Cotizador: piso y redondeo en código, precio y carta con Claude |

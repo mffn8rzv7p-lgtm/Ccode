@@ -6,7 +6,7 @@ export const MODO_DEMO = SUPABASE_URL.includes("TU-PROYECTO") || SUPABASE_ANON_K
 // La librería de Supabase solo se carga cuando hay un proyecto configurado.
 export const sb = MODO_DEMO
   ? null
-  : (await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm"))
+  : (await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/+esm"))
       .createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 export const DOMINIO = "pivotagencia.com";

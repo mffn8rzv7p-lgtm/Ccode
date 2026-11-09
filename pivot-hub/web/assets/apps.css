@@ -130,3 +130,30 @@ dialog.panel::backdrop { background: rgba(18, 16, 16, .3); }
 .foto-resultado--agregada::after { content: "✓ Agregada"; position: absolute; top: 8px; left: 8px; padding: 4px 8px; border-radius: 999px; background: var(--rojo); color: #fff; font: 700 12px var(--texto); }
 .imagen-mood__credito { position: absolute; left: 0; right: 0; bottom: 0; padding: 16px 8px 6px; font-size: 11px; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.55)); }
 .imagen-mood__credito a { color: #fff; }
+
+/* ---------- Brief que llena el cliente ---------- */
+.brief-publico { width: min(720px, 100% - 32px); margin: 0 auto; padding: 18px 0 48px; }
+.brief-cabeza { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 0 18px; }
+.brief-logo { height: 28px; width: auto; }
+.brief-guardado { font-size: 13px; color: var(--piedra-oscura); text-align: right; }
+.brief-tarjeta { background: var(--blanco); border: 1px solid var(--crema-3); border-radius: var(--radio); padding: 22px; display: grid; gap: 10px; }
+.brief-hero { padding: clamp(22px, 5vw, 40px); gap: 16px; }
+.brief-hero .parrafo-grande { margin: 0; }
+.brief-pasos-lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.brief-pasos-lista li { display: flex; gap: 12px; align-items: baseline; font-weight: 700; }
+.brief-pasos-lista span { font: 700 12px var(--mono); color: var(--rojo); }
+.brief-progreso { height: 8px; border-radius: 99px; background: var(--crema-2); overflow: hidden; }
+.brief-progreso div { height: 100%; background: var(--rojo); border-radius: 99px; transition: width .3s ease; }
+.brief-pregunta__titulo { font: 800 19px/1.25 var(--display); letter-spacing: -.01em; }
+.brief-pregunta textarea, .brief-pregunta input { width: 100%; min-height: 48px; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--crema-3); background: var(--crema); font-size: 16px; }
+.brief-pregunta textarea { resize: vertical; field-sizing: content; min-height: 96px; }
+.brief-pregunta textarea:focus-visible, .brief-pregunta input:focus-visible { outline: 3px solid var(--rojo); outline-offset: 1px; background: var(--blanco); }
+.opciones-brief { display: flex; flex-wrap: wrap; gap: 8px; }
+.opcion-brief { min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--crema-3); background: var(--blanco); font-weight: 700; cursor: pointer; }
+.opcion-brief[aria-pressed="true"] { background: var(--tinta); border-color: var(--tinta); color: var(--crema); }
+.brief-navegacion { display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
+.brief-pie { margin-top: 36px; text-align: center; font: 700 11px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--piedra-oscura); }
+
+.respuesta-brief { padding: 10px 0; border-bottom: 1px solid var(--crema-3); }
+.respuesta-brief:last-child { border-bottom: 0; }
+.respuesta-brief p { margin: 4px 0 0; white-space: pre-line; }

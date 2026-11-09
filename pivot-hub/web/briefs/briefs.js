@@ -1,5 +1,6 @@
 // App: Briefs
 import { MODO_DEMO, demo, el, formatoFecha, invocar, paginaApp, sb, sesionActual } from "../assets/hub.js";
+import { REDES_BRIEF, SECCIONES_BRIEF, avanceBrief, cuestionarioLegible } from "../assets/preguntas-brief.js";
 
 const app = document.getElementById("app");
 let email = "";
@@ -7,59 +8,40 @@ const pagina = (...c) => paginaApp(app, "Briefs", email, ...c);
 
 const SERVICIOS = ["Gestión de redes", "Contenido", "Pauta digital", "Branding", "Diseño web", "Estrategia", "Campaña"];
 
-// Secciones del formulario: cada campo es [clave, etiqueta, ayuda, filas]
-const SECCIONES = [
-  ["El proyecto", [
-    ["fecha_entrega", "Fecha clave o de entrega", "Cuándo debe estar listo o salir al aire.", 1],
-    ["presupuesto", "Presupuesto", "Lo que el cliente mencionó (de producción y de pauta, si aplica).", 1],
-    ["contacto_cliente", "Contacto del cliente", "Nombre y cargo de quien aprueba.", 1],
-    ["responsable_pivot", "Responsable en Pivot", "", 1],
-  ]],
-  ["Negocio y contexto", [
-    ["negocio", "¿Qué hace el negocio y cómo vende?", "", 3],
-    ["situacion", "¿Qué está pasando hoy?", "El problema u oportunidad que origina el proyecto.", 3],
-    ["por_que_ahora", "¿Por qué ahora?", "Temporada, lanzamiento, competencia, caída en ventas…", 2],
-  ]],
-  ["Objetivos", [
-    ["objetivo_negocio", "Objetivo de negocio", "Lo que el cliente quiere lograr en su negocio (ventas, clientes, citas…).", 2],
-    ["objetivo_comunicacion", "Objetivo de comunicación", "Lo que la gente debe pensar, sentir o hacer.", 2],
-    ["como_medimos", "¿Cómo sabremos que funcionó?", "Indicadores y metas, si las hay.", 2],
-  ]],
-  ["Público", [
-    ["publico", "¿A quién le hablamos?", "Edad, ciudad, estilo de vida, qué les importa.", 3],
-    ["que_piensa", "¿Qué piensa o siente hoy sobre la marca o la categoría?", "", 2],
-    ["que_queremos_que_haga", "¿Qué queremos que haga después de ver la campaña?", "", 2],
-  ]],
-  ["Mensaje", [
-    ["mensaje", "Lo más importante que debemos decir", "", 2],
-    ["por_que_creernos", "¿Por qué creerle a la marca?", "Pruebas, diferenciales, trayectoria.", 2],
-    ["tono", "Tono de voz", "Ej.: cercano y divertido, experto y sobrio…", 1],
-  ]],
-  ["Entregables", [
-    ["entregables", "¿Qué piezas hay que hacer?", "Una por línea, con cantidad y canal. Ej.: 8 reels para Instagram.", 4],
-  ]],
-  ["Marca y referencias", [
-    ["lineamientos", "Lineamientos de marca", "Manual, colores, tipografías, lo que ya existe.", 2],
-    ["referencias", "Referencias que le gustan (y que no)", "Enlaces o descripciones.", 3],
-    ["competencia", "Competencia", "Marcas con las que lo comparan.", 2],
-  ]],
-  ["Mandatorios y aprobaciones", [
-    ["mandatorios", "Mandatorios y restricciones", "Logos, legales, lo que no se puede decir o mostrar.", 3],
-    ["aprobaciones", "¿Quién aprueba y cuántas rondas de ajustes?", "", 2],
-  ]],
+// Datos internos de Pivot (no los ve el cliente): [clave, etiqueta, ayuda, filas]
+const INTERNOS = [
+  ["fecha_entrega", "Fecha clave o de entrega", "Cuándo debe estar listo o salir al aire.", 1],
+  ["presupuesto", "Presupuesto", "Lo que el cliente mencionó (de producción y de pauta).", 1],
+  ["entregables", "Entregables", "Una pieza por línea, con cantidad y canal. Ej.: 8 reels para Instagram.", 3],
+  ["responsable_pivot", "Responsable en Pivot", "", 1],
 ];
+
+const enlaceCliente = (token) => new URL(`../brief/?t=${token}`, location.href).href;
 
 // ---------- Datos ----------
 
+// En la demostración: un brief ya pulido y otro esperando respuestas del cliente.
+function demoEspera(d) {
+  return { ...d, id: "demo-espera", proyecto: "Estrategia digital 2027", estado: "enviado", documento: null, respondido_en: null,
+    token_cliente: "00000000-0000-4000-8000-000000000000", respuestas: {},
+    respuestas_cliente: {
+      a_que_se_dedica: "Somos tostadores de café de especialidad en Medellín. Tenemos un local y tienda online.",
+      por_que_nacio: "Queríamos que la gente conociera el café de la finca de nuestra familia.",
+      quienes_compran: "Personas de 28 a 50 años que valoran el buen café y les gusta saber de dónde viene.",
+      convence: { elegidas: ["Calidad", "Confianza", "Recomendación"], comentario: "" },
+      redes: { instagram: "@cafe.ejemplo", whatsapp: "+57 300 000 0000" },
+    } };
+}
+
 async function listar() {
-  if (MODO_DEMO) return [await demo()];
+  if (MODO_DEMO) { const d = await demo(); return [d, demoEspera(d)]; }
   const { data, error } = await sb.from("hub_briefs").select("id, cliente, proyecto, estado, actualizado_en").order("actualizado_en", { ascending: false }).limit(60);
   if (error) throw error;
   return data;
 }
 
 async function leer(id) {
-  if (MODO_DEMO) return demo();
+  if (MODO_DEMO) { const d = await demo(); return id === "demo-espera" ? demoEspera(d) : d; }
   const { data, error } = await sb.from("hub_briefs").select("*").eq("id", id).single();
   if (error) throw error;
   return data;
@@ -73,7 +55,7 @@ async function vistaLista() {
     el("section", { class: "hero-hub" },
       el("p", { class: "etiqueta" }, "Estrategia"),
       el("h1", { class: "titulo-xl" }, "Briefs", el("span", { class: "excl" }, "!")),
-      el("p", { class: "parrafo-grande secundario" }, "Pega las notas de la reunión o responde por secciones: la IA lo convierte en un brief claro, con lo que falta preguntar."),
+      el("p", { class: "parrafo-grande secundario" }, "Envíale al cliente el brief de marca de Pivot para que lo llene desde su celular, o llénalo con el equipo. La IA lo convierte en un brief claro, con lo que falta preguntar."),
       el("a", { class: "boton boton--rojo", href: "#/nuevo" }, "Nuevo brief"),
     ),
     el("section", {}, el("h2", { class: "titulo-m", style: { marginBottom: "8px" } }, "Briefs recientes"), lista),
@@ -83,7 +65,7 @@ async function vistaLista() {
     lista.replaceChildren(...(filas.length ? filas.map((b) => el("a", { class: "fila-informe", href: `#/brief/${b.id}` },
       el("span", { class: "fila-informe__cuenta" }, b.cliente),
       el("span", { class: "secundario pequeno" }, b.proyecto),
-      b.estado === "listo" ? el("span", { class: "pildora pildora--ok" }, "Listo") : el("span", { class: "pildora" }, "Borrador"),
+      ({ listo: el("span", { class: "pildora pildora--ok" }, "Listo"), respondido: el("span", { class: "pildora pildora--aviso" }, "Cliente respondió"), enviado: el("span", { class: "pildora" }, "Esperando al cliente") })[b.estado] ?? el("span", { class: "pildora" }, "Borrador"),
       el("span", { class: "fila-informe__fecha" }, formatoFecha(b.actualizado_en, { day: "numeric", month: "short", year: "numeric" })),
     )) : [el("p", { class: "secundario" }, "Todavía no hay briefs.")]));
   } catch (_e) {
@@ -91,39 +73,82 @@ async function vistaLista() {
   }
 }
 
+// Controles del cuestionario (los mismos que ve el cliente, en versión compacta)
+function controlPregunta(p, valores) {
+  const id = `q-${p.id}`;
+  if (p.tipo === "opciones") {
+    const v = valores[p.id] ??= { elegidas: [], comentario: "" };
+    const c = el("input", { id, value: v.comentario ?? "", placeholder: "Comentario" });
+    c.addEventListener("input", () => { v.comentario = c.value; });
+    return el("div", { class: "rejilla", style: { gap: "8px" } },
+      el("div", { class: "casillas" }, p.opciones.map((o) => {
+        const x = el("input", { type: "checkbox", checked: v.elegidas.includes(o) || null });
+        x.addEventListener("change", () => { v.elegidas = x.checked ? [...v.elegidas, o] : v.elegidas.filter((y) => y !== o); });
+        return el("label", { class: "casilla" }, x, o);
+      })), c);
+  }
+  if (p.tipo === "rango") {
+    return el("select", { id, onchange: (e) => { valores[p.id] = e.target.value; } },
+      el("option", { value: "" }, "—"), p.opciones.map((o) => el("option", { value: o, selected: valores[p.id] === o || null }, o)));
+  }
+  if (p.tipo === "redes") {
+    const v = valores[p.id] ??= {};
+    return el("div", { class: "rejilla rejilla--2", style: { gap: "8px" } }, REDES_BRIEF.map(([k, n]) => {
+      const i = el("input", { value: v[k] ?? "", placeholder: n, "aria-label": n });
+      i.addEventListener("input", () => { v[k] = i.value.trim(); });
+      return i;
+    }));
+  }
+  const t = el("textarea", { id, rows: "2" });
+  t.value = valores[p.id] ?? "";
+  t.addEventListener("input", () => { valores[p.id] = t.value; });
+  return t;
+}
+
 function vistaFormulario(fila = null) {
   const r = fila?.respuestas ?? {};
+  const valores = structuredClone(r.cuestionario ?? {});
+  const internos = structuredClone(r.internos ?? {});
   const estado = el("div", { role: "status", "aria-live": "polite" });
-  const cliente = el("input", { id: "cliente", value: fila?.cliente ?? "", required: true, placeholder: "Nombre del cliente" });
-  const proyecto = el("input", { id: "proyecto", value: fila?.proyecto ?? "", required: true, placeholder: "Ej.: Lanzamiento colección de verano" });
-  const notas = el("textarea", { id: "notas", rows: "7", placeholder: "Pega aquí las notas o la transcripción de la reunión. Puedes dejar las secciones de abajo vacías: la IA las completa con lo que encuentre aquí." });
+  const avisar = (clase, t) => estado.replaceChildren(el("p", { class: `mensaje mensaje--${clase}` }, t));
+  const cliente = el("input", { id: "cliente", value: fila?.cliente ?? "", required: true, placeholder: "Nombre del cliente o la marca" });
+  const proyecto = el("input", { id: "proyecto", value: fila?.proyecto ?? "", required: true, placeholder: "Ej.: Estrategia digital 2027" });
+  const notas = el("textarea", { id: "notas", rows: "6", placeholder: "Notas o transcripción de la reunión. La IA las usa junto con las respuestas." });
   notas.value = r.notas ?? "";
   const servicios = SERVICIOS.map((s) => el("label", { class: "casilla" },
     el("input", { type: "checkbox", value: s, checked: (r.servicios ?? []).includes(s) || null }), s));
 
-  const controles = {};
-  const secciones = SECCIONES.map(([titulo, campos], i) => el("details", { class: "tarjeta seccion-brief", open: i < 2 || null },
-    el("summary", {}, el("span", { class: "etiqueta" }, String(i + 1).padStart(2, "0")), " ", titulo),
-    el("div", { class: "rejilla", style: { marginTop: "12px" } }, campos.map(([k, etiqueta, ayuda, filas]) => {
-      const c = filas > 1 ? el("textarea", { id: k, rows: String(filas) }) : el("input", { id: k });
-      c.value = r[k] ?? "";
-      controles[k] = c;
-      return el("div", { class: "campo" }, el("label", { for: k }, etiqueta), c, ayuda ? el("span", { class: "ayuda" }, ayuda) : null);
-    })),
-  ));
+  const ctrlInternos = {};
+  const seccionInterna = el("details", { class: "tarjeta seccion-brief", open: true },
+    el("summary", {}, el("span", { class: "etiqueta" }, "PIVOT"), " Solo para el equipo"),
+    el("div", { class: "rejilla", style: { marginTop: "12px" } },
+      el("div", { class: "campo" }, el("label", { for: "notas" }, "Notas de la reunión"), notas),
+      INTERNOS.map(([k, etiqueta, ayuda, filas]) => {
+        const c = filas > 1 ? el("textarea", { id: k, rows: String(filas) }) : el("input", { id: k });
+        c.value = internos[k] ?? "";
+        ctrlInternos[k] = c;
+        return el("div", { class: "campo" }, el("label", { for: k }, etiqueta), c, ayuda ? el("span", { class: "ayuda" }, ayuda) : null);
+      })));
 
-  const leerFormulario = () => ({
+  const secciones = SECCIONES_BRIEF.map((s, i) => el("details", { class: "tarjeta seccion-brief", open: i === 0 || null },
+    el("summary", {}, el("span", { class: "etiqueta" }, String(i + 1).padStart(2, "0")), " ", s.titulo),
+    el("div", { class: "rejilla", style: { marginTop: "12px" } }, s.preguntas.map((p) =>
+      el("div", { class: "campo" }, el("label", { for: `q-${p.id}` }, p.pregunta), controlPregunta(p, valores))))));
+
+  const leer = () => ({
     cliente: cliente.value.trim(),
     proyecto: proyecto.value.trim(),
     respuestas: {
+      ...r,
       notas: notas.value.trim(),
       servicios: servicios.map((l) => l.querySelector("input")).filter((x) => x.checked).map((x) => x.value),
-      ...Object.fromEntries(Object.entries(controles).map(([k, c]) => [k, c.value.trim()])),
+      internos: Object.fromEntries(Object.entries(ctrlInternos).map(([k, c]) => [k, c.value.trim()])),
+      cuestionario: valores,
     },
   });
 
-  async function guardar() {
-    const d = leerFormulario();
+  async function guardar(extra = {}) {
+    const d = { ...leer(), ...extra };
     if (!d.cliente || !d.proyecto) throw new Error("Escribe el cliente y el nombre del proyecto.");
     if (MODO_DEMO) throw new Error("Estás en modo demostración: conecta Supabase para guardar.");
     if (fila?.id) {
@@ -136,47 +161,119 @@ function vistaFormulario(fila = null) {
     return data.id;
   }
 
+  const botonEnviar = fila?.token_cliente ? null : el("button", { class: "boton boton--rojo", type: "button", onclick: async () => {
+    try {
+      const id = await guardar({ token_cliente: crypto.randomUUID(), enviado_en: new Date().toISOString(), estado: "enviado" });
+      location.hash = `#/brief/${id}`;
+    } catch (e) { avisar("error", e.message); }
+  } }, "Enviar al cliente para que lo llene");
+
   const botonGuardar = el("button", { class: "boton boton--borde", type: "button", onclick: async () => {
     try {
       const id = await guardar();
-      estado.replaceChildren(el("p", { class: "mensaje mensaje--ok" }, "Borrador guardado."));
+      avisar("ok", "Guardado.");
       if (!fila?.id) location.hash = `#/editar/${id}`;
-    } catch (e) { estado.replaceChildren(el("p", { class: "mensaje mensaje--error" }, e.message)); }
-  } }, "Guardar borrador");
+    } catch (e) { avisar("error", e.message); }
+  } }, "Guardar");
 
-  const botonIA = el("button", { class: "boton boton--rojo", type: "button", onclick: async () => {
+  const botonIA = el("button", { class: "boton", type: "button", onclick: async () => {
     botonIA.disabled = true;
-    estado.replaceChildren(el("p", { class: "mensaje mensaje--info" }, "✨ Puliendo el brief… (1 a 2 minutos)"));
+    avisar("info", "✨ Puliendo el brief… (1 a 2 minutos)");
     try {
       const id = await guardar();
-      await invocar("hub-ia", { accion: "brief_mejorar", brief_id: id });
+      await pulir(id);
       location.hash = `#/brief/${id}`;
-    } catch (e) {
-      estado.replaceChildren(el("p", { class: "mensaje mensaje--error" }, e.message));
-      botonIA.disabled = false;
-    }
+    } catch (e) { avisar("error", e.message); botonIA.disabled = false; }
   } }, "✨ Pulir con IA");
 
   pagina(el("section", { class: "contenedor--angosto", style: { padding: "32px 0 64px" } },
     el("a", { href: fila?.id ? `#/brief/${fila.id}` : "#/", class: "boton boton--texto", style: { paddingLeft: 0 } }, "← Volver"),
     el("p", { class: "etiqueta" }, fila?.id ? "Editar brief" : "Nuevo brief"),
-    el("h1", { class: "titulo-l", style: { marginBottom: "20px" } }, "Cuéntanos el proyecto", el("span", { class: "excl" }, "!")),
+    el("h1", { class: "titulo-l", style: { marginBottom: "20px" } }, "Brief de marca", el("span", { class: "excl" }, "!")),
     el("div", { class: "rejilla" },
       el("div", { class: "tarjeta rejilla" },
         el("div", { class: "rejilla rejilla--2" },
           el("div", { class: "campo" }, el("label", { for: "cliente" }, "Cliente"), cliente),
           el("div", { class: "campo" }, el("label", { for: "proyecto" }, "Proyecto"), proyecto)),
         el("fieldset", { style: { border: 0, padding: 0, margin: 0 } },
-          el("legend", { style: { fontWeight: 700, marginBottom: "6px" } }, "Tipo de proyecto"),
+          el("legend", { style: { fontWeight: 700, marginBottom: "6px" } }, "Servicios que le interesan"),
           el("div", { class: "casillas" }, servicios)),
-        el("div", { class: "campo" }, el("label", { for: "notas" }, "Notas o transcripción de la reunión"), notas),
+        botonEnviar ? el("div", { class: "mensaje mensaje--info" },
+          el("p", { style: { margin: "0 0 10px" } }, "Lo más fácil: envíale al cliente un enlace para que responda desde su celular. Sus respuestas llegan aquí solas."),
+          botonEnviar) : null,
       ),
+      el("h2", { class: "titulo-m", style: { margin: "8px 0 0" } }, fila?.token_cliente ? "Complementar con lo que sabemos" : "O llenarlo nosotros"),
+      seccionInterna,
       secciones,
-      el("div", { class: "informe__acciones" }, botonIA, botonGuardar),
+      el("div", { class: "informe__acciones" }, botonGuardar, botonIA),
       estado,
     ),
   ));
   cliente.focus();
+}
+
+/** Prepara las respuestas legibles (cliente y equipo) y le pide a la IA el brief. */
+async function pulir(id) {
+  const { data: f, error } = await sb.from("hub_briefs").select("respuestas, respuestas_cliente").eq("id", id).single();
+  if (error) throw new Error("No se pudo leer el brief.");
+  const respuestas = {
+    ...f.respuestas,
+    respuestas_del_cliente: cuestionarioLegible(f.respuestas_cliente ?? {}),
+    respuestas_del_equipo: cuestionarioLegible(f.respuestas?.cuestionario ?? {}),
+  };
+  await sb.from("hub_briefs").update({ respuestas }).eq("id", id);
+  await invocar("hub-ia", { accion: "brief_mejorar", brief_id: id });
+}
+
+// Respuestas en formato pregunta → respuesta
+function listaRespuestas(valores) {
+  const l = cuestionarioLegible(valores);
+  if (!l.length) return el("p", { class: "secundario" }, "Todavía no hay respuestas.");
+  let seccion = "";
+  return el("div", { class: "respuestas-brief" }, l.flatMap((x) => {
+    const cabeza = x.seccion !== seccion ? el("p", { class: "etiqueta", style: { margin: "14px 0 4px" } }, (seccion = x.seccion)) : null;
+    return [cabeza, el("div", { class: "respuesta-brief" }, el("strong", {}, x.pregunta), el("p", {}, x.respuesta))];
+  }));
+}
+
+function vistaEspera(fila) {
+  const respondido = Boolean(fila.respondido_en);
+  const { respondidas, total } = avanceBrief(fila.respuestas_cliente ?? {});
+  const internas = cuestionarioLegible(fila.respuestas?.cuestionario ?? {}).length;
+  const enlace = fila.token_cliente ? enlaceCliente(fila.token_cliente) : null;
+  const estado = el("div", { role: "status", "aria-live": "polite" });
+  const mensajeWA = enlace ? `Hola 👋 Para preparar la estrategia de ${fila.cliente} queremos conocer tu marca desde tu experiencia. Respondes desde el celular, a tu ritmo, y se guarda solo:\n${enlace}` : "";
+  const botonIA = el("button", { class: "boton boton--rojo", type: "button", disabled: (respondidas + internas === 0) || null, onclick: async () => {
+    botonIA.disabled = true;
+    estado.replaceChildren(el("p", { class: "mensaje mensaje--info" }, "✨ Puliendo el brief… (1 a 2 minutos)"));
+    try { await pulir(fila.id); router(); } catch (e) { estado.replaceChildren(el("p", { class: "mensaje mensaje--error" }, e.message)); botonIA.disabled = false; }
+  } }, "✨ Pulir con IA");
+
+  pagina(el("section", { class: "contenedor--angosto", style: { padding: "32px 0 64px" } },
+    el("a", { href: "#/", class: "boton boton--texto", style: { paddingLeft: 0 } }, "← Briefs"),
+    el("p", { class: "etiqueta" }, fila.cliente),
+    el("h1", { class: "titulo-l", style: { marginBottom: "16px" } }, fila.proyecto, el("span", { class: "excl" }, "!")),
+    enlace ? el("div", { class: "tarjeta rejilla" },
+      el("div", { class: "fila-informe", style: { border: 0, padding: 0 } },
+        respondido ? el("span", { class: "pildora pildora--ok" }, "Respondido") : el("span", { class: "pildora pildora--aviso" }, "Esperando al cliente"),
+        el("span", { class: "secundario pequeno" }, `${respondidas} de ${total} preguntas respondidas${respondido ? ` · enviado el ${formatoFecha(fila.respondido_en, { day: "numeric", month: "long" })}` : ""}`)),
+      el("div", { class: "brief-progreso" }, el("div", { style: { width: `${(respondidas / total) * 100}%` } })),
+      el("div", { class: "campo" }, el("label", { for: "enlace" }, "Enlace para el cliente"),
+        el("input", { id: "enlace", value: enlace, readonly: true, onclick: (e) => e.target.select() })),
+      el("div", { class: "informe__acciones", style: { margin: 0 } },
+        el("button", { class: "boton boton--borde", type: "button", onclick: async () => {
+          try { await navigator.clipboard.writeText(enlace); estado.replaceChildren(el("p", { class: "mensaje mensaje--ok" }, "Enlace copiado.")); } catch (_e) { /* el campo se puede copiar a mano */ }
+        } }, "Copiar enlace"),
+        el("a", { class: "boton boton--borde", href: `https://wa.me/?text=${encodeURIComponent(mensajeWA)}`, target: "_blank", rel: "noopener" }, "Enviar por WhatsApp"),
+        el("a", { class: "boton boton--borde", href: enlace, target: "_blank", rel: "noopener" }, "Ver como el cliente")),
+    ) : null,
+    el("div", { class: "informe__acciones", style: { marginTop: "16px" } },
+      botonIA,
+      MODO_DEMO ? null : el("a", { class: "boton boton--borde", href: `#/editar/${fila.id}` }, enlace ? "Complementar nosotros" : "Editar respuestas")),
+    estado,
+    enlace ? el("section", { class: "tarjeta", style: { marginTop: "16px" } }, el("h2", { class: "titulo-m", style: { marginTop: 0 } }, "Lo que respondió el cliente"), listaRespuestas(fila.respuestas_cliente ?? {})) : null,
+    internas ? el("section", { class: "tarjeta", style: { marginTop: "16px" } }, el("h2", { class: "titulo-m", style: { marginTop: 0 } }, "Lo que anotó el equipo"), listaRespuestas(fila.respuestas?.cuestionario ?? {})) : null,
+  ));
 }
 
 // ---------- Documento ----------
@@ -234,7 +331,7 @@ async function vistaBrief(id) {
   try { fila = await leer(id); } catch (_e) {
     return pagina(el("p", { class: "mensaje mensaje--error", style: { margin: "40px 0" } }, "No encontramos ese brief."));
   }
-  if (!fila.documento) return vistaFormulario(fila);
+  if (!fila.documento) return vistaEspera(fila);
   const crear = (ruta) => `../${ruta}?brief=${fila.id}`;
   pagina(el("div", { class: "informe" },
     el("div", { class: "informe__acciones no-print" },
