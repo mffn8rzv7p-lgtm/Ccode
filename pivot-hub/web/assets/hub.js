@@ -9,20 +9,17 @@ export const sb = MODO_DEMO
   : (await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm"))
       .createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Apps del hub. Para agregar una nueva, crea su carpeta y súmala aquí.
+export const DOMINIO = "pivotagencia.com";
+
+// Apps del hub. Para agregar una nueva: crea su carpeta, dibuja su ícono en iconos.js y súmala aquí.
+// estado: "lista" (abre), "pronto" (en construcción) o "por-instalar" (existe, falta conectarla).
 export const APPS = [
-  {
-    nombre: "Auditoría de Instagram",
-    descripcion: "Escribe cualquier cuenta y recibe una auditoría con datos y una propuesta estratégica lista para mostrar al cliente.",
-    ruta: "auditoria/",
-    etiqueta: "Comercial",
-  },
-  {
-    nombre: "Cotizador",
-    descripcion: "Del brief al precio ideal (piso, mercado y valor) y a la carta en PDF lista para enviar por WhatsApp.",
-    ruta: "cotizador/",
-    etiqueta: "Comercial",
-  },
+  { id: "bong", nombre: "Bong", descripcion: "Gestor de tareas del equipo.", ruta: "bong/", estado: "por-instalar", dock: true },
+  { id: "auditoria", nombre: "Auditoría", descripcion: "Auditoría de Instagram con datos públicos y propuesta estratégica.", ruta: "auditoria/", estado: "lista", dock: true },
+  { id: "cotizador", nombre: "Cotizador", descripcion: "Del brief al precio ideal y a la carta en PDF para WhatsApp.", ruta: "cotizador/", estado: "lista", dock: true },
+  { id: "briefs", nombre: "Briefs", descripcion: "Crea el brief de un proyecto a partir de una conversación con el cliente.", ruta: "briefs/", estado: "pronto" },
+  { id: "moodboards", nombre: "Moodboards", descripcion: "Arma moodboards de referencia visual para cada marca.", ruta: "moodboards/", estado: "pronto" },
+  { id: "parrillas", nombre: "Parrillas", descripcion: "Escribe la parrilla de contenido del mes, lista para producir.", ruta: "parrillas/", estado: "pronto", dock: true },
 ];
 
 /** Crea un elemento de forma segura (el texto nunca se interpreta como HTML). */
@@ -52,19 +49,51 @@ export function formatoFecha(iso, opciones = { day: "numeric", month: "long", ye
   return new Date(iso).toLocaleDateString("es-CO", { timeZone: "America/Bogota", ...opciones });
 }
 
-/** Sesión actual (o null). En modo demo devuelve una sesión ficticia. */
+export const esCorreoPivot = (email) => String(email ?? "").toLowerCase().trim().endsWith(`@${DOMINIO}`);
+
+/**
+ * Sesión actual (o null). Si alguien entra con un correo sin acceso, se cierra su sesión
+ * y queda `accesoNegado` en true para mostrar el aviso.
+ */
+export let accesoNegado = false;
 export async function sesionActual() {
-  if (MODO_DEMO) return { user: { email: "demo@pivotagencia.com" } };
+  if (MODO_DEMO) return { user: { email: `daniel@${DOMINIO}`, user_metadata: { full_name: "Daniel" } } };
   const { data } = await sb.auth.getSession();
-  return data.session;
+  const sesion = data.session;
+  if (!sesion) return null;
+  const { data: permitido } = await sb.rpc("es_miembro");
+  if (permitido !== true) {
+    accesoNegado = true;
+    await sb.auth.signOut();
+    return null;
+  }
+  return sesion;
 }
 
-/** Envía un enlace de acceso al correo. Solo funciona para usuarios ya creados en Supabase. */
+/** Nombre corto para saludar: el de Google o la parte antes de la @. */
+export function nombreCorto(sesion) {
+  const completo = sesion?.user?.user_metadata?.full_name || sesion?.user?.user_metadata?.name;
+  if (completo) return completo.split(" ")[0];
+  const local = String(sesion?.user?.email ?? "").split("@")[0].split(/[._-]/)[0];
+  return local ? local[0].toUpperCase() + local.slice(1) : "";
+}
+
+const urlDelHub = () => new URL(".", location.href).href;
+
+/** Entrar con la cuenta de Google del dominio de Pivot. */
+export async function entrarConGoogle() {
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: "google",
+    options: { redirectTo: urlDelHub(), queryParams: { hd: DOMINIO, prompt: "select_account" } },
+  });
+  if (error) throw error;
+}
+
+/** Envía un enlace de acceso al correo (solo correos de Pivot pueden crear cuenta). */
 export async function enviarEnlace(email) {
-  const destino = new URL(".", location.href).href;
   const { error } = await sb.auth.signInWithOtp({
     email,
-    options: { shouldCreateUser: false, emailRedirectTo: destino },
+    options: { shouldCreateUser: esCorreoPivot(email), emailRedirectTo: urlDelHub() },
   });
   if (error) throw error;
 }

@@ -6,7 +6,9 @@ Herramientas incluidas:
 - **Auditoría de Instagram:** escribes una cuenta (y hasta 3 competidores) y la app genera una auditoría con datos públicos y una propuesta estratégica de 90 días, lista para mostrar al cliente o descargar en PDF.
 - **Cotizador:** del brief al precio ideal (piso, mercado y valor, con 3 paquetes), que el equipo aprueba o ajusta, y a la carta de cotización en PDF con su número PIV-AAAA-NNN y el mensaje para WhatsApp. Desde una auditoría, el botón **Cotizar a este cliente** llena el brief solo.
 
-Solo entran las personas del equipo (por ejemplo, Laura y tú), con un enlace que llega al correo, sin contraseñas.
+El inicio tiene forma de iPad: pantalla de bloqueo para entrar, widgets con la actividad reciente, íconos de cada app y un dock. Solo entran correos **@pivotagencia.com** (igual que Bong), con Google o con un enlace al correo.
+
+Apps: Bong (por instalar), Auditoría y Cotizador (listas); Briefs, Moodboards y Parrillas (en construcción). El registro de apps está en `web/assets/hub.js` y sus íconos en `web/assets/iconos.js`.
 
 ## Cómo funciona
 
@@ -47,19 +49,12 @@ Necesitas: una cuenta de Supabase, una clave de la API de Claude y la cuenta pro
 ### 1. Supabase
 
 1. Crea un proyecto en [supabase.com](https://supabase.com) (región: São Paulo es la más cercana).
-2. En **SQL Editor**, pega y ejecuta, en este orden:
-   - `supabase/migrations/20261109000000_auditoria_instagram.sql`
-   - `supabase/migrations/20261110000000_cotizador.sql`
+2. En **SQL Editor**, pega y ejecuta:
+   - `supabase/instalar.sql` (une todas las migraciones en un solo archivo)
    Si ya llevan cotizaciones este año, al final del segundo archivo está cómo fijar el último número usado.
-3. Agrega los correos del equipo, en el mismo SQL Editor:
-   ```sql
-   insert into public.miembros (email, nombre) values
-     ('tu-correo@pivotagencia.com', 'Tu nombre'),
-     ('correo-de-laura@pivotagencia.com', 'Laura');
-   ```
-4. En **Authentication → Users → Invite user**, invita esos mismos dos correos.
-5. En **Authentication → Sign In / Providers**, desactiva **Allow new users to sign up** (nadie más puede crear cuenta).
-6. En **Authentication → URL Configuration**, pon `https://apps.pivotagencia.com` como Site URL y agrega `https://apps.pivotagencia.com/**` en Redirect URLs.
+3. En **Authentication → Sign In / Providers**, activa **Google** con el Client ID y el Client Secret de un cliente OAuth de Google Cloud (tipo "Aplicación web", con la URL de callback que muestra Supabase). Si la cuenta de Google Workspace de Pivot es "interna", solo los correos @pivotagencia.com podrán elegirse.
+4. En **Authentication → URL Configuration**, pon la dirección del hub como Site URL y agrégala con `/**` en Redirect URLs.
+5. El acceso a los datos ya está limitado a @pivotagencia.com en la base de datos. Para una persona externa, agrégala a la tabla `miembros` (al final del primer archivo SQL está el ejemplo).
 
 ### 2. Clave de Claude
 

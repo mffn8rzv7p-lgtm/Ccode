@@ -2,85 +2,264 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#F5F0E8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Pivot Hub">
   <title>Pivot Hub</title>
   <link rel="icon" href="assets/pivot-logo.png">
+  <link rel="apple-touch-icon" href="assets/pivot-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/pivot.css">
+  <link rel="stylesheet" href="assets/inicio.css">
 </head>
 <body>
   <div id="app"></div>
+  <dialog class="hoja-app" id="hoja-app" aria-labelledby="hoja-app-titulo"></dialog>
   <script type="module">
-    import { APPS, MODO_DEMO, barraSuperior, el, enviarEnlace, sb, sesionActual } from "./assets/hub.js";
+    import {
+      APPS, DOMINIO, MODO_DEMO, accesoNegado, el, entrarConGoogle, enviarEnlace,
+      esCorreoPivot, nombreCorto, sb, sesionActual,
+    } from "./assets/hub.js";
+    import { icono } from "./assets/iconos.js";
 
     const app = document.getElementById("app");
+    const hoja = document.getElementById("hoja-app");
+    const reduceMovimiento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let relojes = [];
 
-    function vistaLogin(mensaje) {
-      const estado = el("div", { role: "status", "aria-live": "polite" }, mensaje ?? null);
-      const correo = el("input", { id: "correo", type: "email", autocomplete: "email", required: true, placeholder: "tu@correo.com" });
-      const boton = el("button", { class: "boton boton--rojo", type: "submit" }, "Enviarme el enlace");
-      const form = el("form", { class: "rejilla", onsubmit: async (e) => {
-        e.preventDefault();
-        boton.disabled = true;
-        estado.replaceChildren();
-        try {
-          await enviarEnlace(correo.value.trim());
-          estado.replaceChildren(el("p", { class: "mensaje mensaje--ok" },
-            "Listo. Revisa tu correo y abre el enlace para entrar."));
-        } catch (_err) {
-          estado.replaceChildren(el("p", { class: "mensaje mensaje--error" },
-            "No pudimos enviar el enlace. Revisa que el correo sea el del equipo de Pivot."));
-        } finally {
-          boton.disabled = false;
-        }
-      } },
-        el("div", { class: "campo" }, el("label", { for: "correo" }, "Correo del equipo"), correo),
-        boton,
-      );
-      app.replaceChildren(
-        barraSuperior(),
-        el("main", { class: "contenedor--angosto login" },
-          el("p", { class: "etiqueta" }, "Herramientas internas"),
-          el("h1", { class: "titulo-xl" }, "Pivot Hub", el("span", { class: "excl" }, "!")),
-          el("p", { class: "parrafo-grande secundario" },
-            "Entra con tu correo: te enviamos un enlace de acceso, sin contraseñas."),
-          el("div", { class: "tarjeta" }, form, estado),
-        ),
-      );
+    // ---------- Tiempo ----------
+    const zona = { timeZone: "America/Bogota" };
+    const hora = () => new Date().toLocaleTimeString("es-CO", { ...zona, hour: "numeric", minute: "2-digit", hour12: false });
+    const mayuscula = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+    const fechaLarga = () => mayuscula(new Date().toLocaleDateString("es-CO", { ...zona, weekday: "long", day: "numeric", month: "long" }));
+    function relojVivo(nodo, fn) {
+      nodo.textContent = fn();
+      relojes.push(setInterval(() => (nodo.textContent = fn()), 10_000));
+      return nodo;
+    }
+    function hace(iso) {
+      const min = Math.round((Date.now() - Date.parse(iso)) / 60000);
+      if (min < 1) return "ahora";
+      if (min < 60) return `hace ${min} min`;
+      const h = Math.round(min / 60);
+      if (h < 24) return `hace ${h} h`;
+      if (h < 48) return "ayer";
+      return new Date(iso).toLocaleDateString("es-CO", { ...zona, day: "numeric", month: "short" });
     }
 
-    function vistaHub(email) {
-      app.replaceChildren(
-        barraSuperior({ email }),
-        el("main", { class: "contenedor" },
-          el("section", { class: "hero-hub" },
-            el("p", { class: "etiqueta" }, "Pivot Hub"),
-            el("h1", { class: "titulo-xl" }, "Herramientas para el giro", el("span", { class: "excl" }, "!")),
-          ),
-          el("div", { class: "rejilla rejilla--3" },
-            APPS.map((a) => el("a", { class: "tarjeta app-tarjeta", href: a.ruta },
-              el("span", { class: "etiqueta" }, a.etiqueta),
-              el("h2", { class: "titulo-m" }, a.nombre),
-              el("p", { class: "secundario", style: { margin: 0 } }, a.descripcion),
-              el("span", { style: { fontWeight: 700 } }, "Abrir →"),
-            )),
-            el("div", { class: "tarjeta app-tarjeta app-tarjeta--pronto" },
-              el("span", { class: "etiqueta", style: { color: "var(--piedra)" } }, "Próximamente"),
-              el("h2", { class: "titulo-m" }, "Tu próxima herramienta"),
-              el("p", { style: { margin: 0 } }, "Aquí aparecerán las nuevas apps del hub."),
+    // ---------- Pantalla de bloqueo (inicio de sesión) ----------
+    const LOGO_G = `<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>`;
+
+    function vistaBloqueo({ alEntrarDemo } = {}) {
+      const estado = el("div", { role: "status", "aria-live": "polite" },
+        accesoNegado ? el("p", { class: "mensaje mensaje--error", style: { margin: 0 } },
+          `Esa cuenta no tiene acceso. Entra con tu correo @${DOMINIO}.`) : null);
+      const aviso = (clase, texto) => estado.replaceChildren(el("p", { class: `mensaje mensaje--${clase}`, style: { margin: 0 } }, texto));
+
+      const google = el("button", { class: "boton boton-google", type: "button" });
+      if (!MODO_DEMO) google.insertAdjacentHTML("afterbegin", LOGO_G);
+      google.append(MODO_DEMO ? "Entrar a la demostración" : "Continuar con Google");
+      google.addEventListener("click", async () => {
+        if (MODO_DEMO) return alEntrarDemo();
+        try { await entrarConGoogle(); } catch (_e) { aviso("error", "No se pudo abrir el inicio de sesión de Google. Inténtalo de nuevo."); }
+      });
+
+      const correo = el("input", { id: "correo", type: "email", autocomplete: "email", placeholder: `tu-nombre@${DOMINIO}`, "aria-label": `Correo @${DOMINIO}` });
+      const enviar = el("button", { class: "boton", type: "submit" }, "Enviarme un enlace");
+      const form = el("form", { class: "rejilla", style: { gap: "10px" }, onsubmit: async (e) => {
+        e.preventDefault();
+        const valor = correo.value.trim();
+        if (!esCorreoPivot(valor)) return aviso("error", `Usa tu correo @${DOMINIO}.`);
+        if (MODO_DEMO) return aviso("info", "En la demostración no se envían correos: usa el botón de arriba.");
+        enviar.disabled = true;
+        try {
+          await enviarEnlace(valor);
+          aviso("ok", "Listo: revisa tu correo y abre el enlace para entrar.");
+        } catch (_e) {
+          aviso("error", "No pudimos enviar el enlace. Inténtalo de nuevo en un minuto.");
+        } finally { enviar.disabled = false; }
+      } }, correo, enviar);
+
+      app.replaceChildren(el("main", { class: "escritorio bloqueo" },
+        relojVivo(el("div", { class: "bloqueo__reloj", "aria-hidden": "true" }), hora),
+        relojVivo(el("p", { class: "bloqueo__fecha" }), fechaLarga),
+        el("section", { class: "bloqueo__panel vidrio", "aria-labelledby": "titulo-entrar" },
+          el("div", { class: "bloqueo__marca" },
+            el("img", { src: "assets/pivot-logo.png", alt: "Pivot", width: "104", height: "26" }),
+            el("span", { class: "etiqueta" }, "Hub")),
+          el("h1", { id: "titulo-entrar", class: "sr-only" }, "Entrar a Pivot Hub"),
+          google,
+          el("div", { class: "separador-o" }, "o con un enlace al correo"),
+          form,
+          estado,
+        ),
+        el("p", { class: "bloqueo__pie" }, `Solo para el equipo · @${DOMINIO}`),
+      ));
+    }
+
+    // ---------- Datos de los widgets ----------
+    async function actividad() {
+      if (MODO_DEMO) {
+        const [inf, cots] = await Promise.all([
+          fetch("auditoria/demo.json").then((r) => r.json()),
+          fetch("cotizador/demo.json").then((r) => r.json()),
+        ]);
+        const c = cots[0];
+        return {
+          items: [
+            { app: "cotizador", titulo: `${c.numero} · ${c.cliente}`, detalle: "Carta lista", cuando: new Date(Date.now() - 2 * 3600e3).toISOString(), href: `cotizador/#/cotizacion/${c.id}` },
+            { app: "auditoria", titulo: `@${inf.cuenta}`, detalle: "Auditoría lista", cuando: new Date(Date.now() - 26 * 3600e3).toISOString(), href: `auditoria/#/informe/${inf.id}` },
+            { app: "cotizador", titulo: "PIV-2026-002 · Café Ejemplo", detalle: "Esperando aprobación de precio", cuando: new Date(Date.now() - 50 * 3600e3).toISOString(), href: "cotizador/#/cotizacion/demo-precio" },
+          ],
+          porAprobar: 1,
+          enProceso: 0,
+        };
+      }
+      const [inf, cots] = await Promise.all([
+        sb.from("informes").select("id, cuenta, estado, actualizado_en").order("actualizado_en", { ascending: false }).limit(5),
+        sb.from("cotizaciones").select("id, numero, cliente, estado, actualizado_en").order("actualizado_en", { ascending: false }).limit(5),
+      ]);
+      const estadoInf = { listo: "Auditoría lista", error: "Auditoría con error" };
+      const estadoCot = { listo: "Carta lista", precio: "Esperando aprobación de precio", error: "Cotización con error" };
+      const items = [
+        ...(inf.data ?? []).map((i) => ({ app: "auditoria", titulo: `@${i.cuenta}`, detalle: estadoInf[i.estado] ?? "Auditoría en proceso", cuando: i.actualizado_en, href: `auditoria/#/informe/${i.id}` })),
+        ...(cots.data ?? []).map((c) => ({ app: "cotizador", titulo: `${c.numero} · ${c.cliente}`, detalle: estadoCot[c.estado] ?? "Cotización en proceso", cuando: c.actualizado_en, href: `cotizador/#/cotizacion/${c.id}` })),
+      ].sort((a, b) => Date.parse(b.cuando) - Date.parse(a.cuando)).slice(0, 4);
+      return {
+        items,
+        porAprobar: (cots.data ?? []).filter((c) => c.estado === "precio").length,
+        enProceso: (inf.data ?? []).filter((i) => !["listo", "error"].includes(i.estado)).length,
+      };
+    }
+
+    // ---------- Apps ----------
+    function abrirHoja(a) {
+      const mensajes = {
+        pronto: "Estamos construyendo esta herramienta. Muy pronto aparecerá aquí.",
+        "por-instalar": "Bong se conecta al hub durante la instalación: mismo inicio de sesión y mismas cuentas.",
+      };
+      hoja.replaceChildren(el("div", { class: "hoja-app__cuerpo" },
+        icono(a.id),
+        el("h2", { id: "hoja-app-titulo" }, a.nombre),
+        el("p", {}, a.descripcion),
+        el("p", { class: "pildora", style: { marginTop: "4px" } }, a.estado === "pronto" ? "En construcción" : "Por instalar"),
+        el("p", { class: "pequeno" }, mensajes[a.estado]),
+        el("form", { method: "dialog", style: { width: "100%", marginTop: "8px" } },
+          el("button", { class: "boton", style: { width: "100%" } }, "Entendido")),
+      ));
+      hoja.showModal();
+    }
+
+    function lanzar(evento, a, nodoIcono) {
+      if (a.estado !== "lista") { evento.preventDefault(); return abrirHoja(a); }
+      if (reduceMovimiento || evento.metaKey || evento.ctrlKey || evento.shiftKey) return;
+      evento.preventDefault();
+      const r = nodoIcono.getBoundingClientRect();
+      const copia = el("div", { class: "lanzando", style: { left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px` } }, icono(a.id));
+      document.body.append(copia);
+      requestAnimationFrame(() => requestAnimationFrame(() => copia.classList.add("lanzando--abierto")));
+      setTimeout(() => (location.href = a.ruta), 300);
+    }
+
+    function botonApp(a) {
+      const caja = el("span", { class: "app__icono" }, icono(a.id),
+        a.estado === "pronto" ? el("span", { class: "app__insignia" }, "Pronto") : null,
+        a.estado === "por-instalar" ? el("span", { class: "app__insignia app__insignia--gris" }, "Instalar") : null);
+      const etiqueta = a.estado === "lista" ? a.nombre : `${a.nombre} (${a.estado === "pronto" ? "en construcción" : "por instalar"})`;
+      const nodo = el("a", { class: `app${a.estado === "pronto" ? " app--pronto" : ""}`, href: a.ruta, "aria-label": etiqueta, title: a.descripcion },
+        caja, el("span", { class: "app__nombre" }, a.nombre));
+      nodo.addEventListener("click", (e) => lanzar(e, a, caja));
+      return nodo;
+    }
+
+    // ---------- Escritorio ----------
+    async function vistaEscritorio(sesion) {
+      const nombre = nombreCorto(sesion);
+      const correo = sesion.user.email;
+      const menu = el("div", { class: "menu-cuenta oculto", role: "menu" },
+        el("p", {}, correo),
+        MODO_DEMO ? null : el("button", { type: "button", role: "menuitem", onclick: async () => { await sb.auth.signOut(); location.reload(); } }, "Cerrar sesión"),
+      );
+      const avatar = el("button", { class: "avatar-boton", type: "button", "aria-label": "Mi cuenta", "aria-haspopup": "menu", "aria-expanded": "false", onclick: () => {
+        const abierto = menu.classList.toggle("oculto") === false;
+        avatar.setAttribute("aria-expanded", String(abierto));
+      } }, (nombre[0] ?? "P").toUpperCase());
+
+      const pendientes = el("div", { class: "widget-hoy__pendientes" });
+      const listaActividad = el("ul", { class: "actividad" }, el("li", {}, el("p", { class: "actividad-vacia" }, "Cargando…")));
+      const hoyDia = new Date().toLocaleDateString("es-CO", { ...zona, weekday: "long" });
+      const hoyNum = new Date().toLocaleDateString("es-CO", { ...zona, day: "numeric" });
+
+      app.replaceChildren(el("div", { class: "escritorio" },
+        el("header", { class: "estado" },
+          el("div", { class: "estado__izq" },
+            relojVivo(el("span", { class: "estado__hora" }), hora),
+            el("img", { class: "estado__logo", src: "assets/pivot-logo.png", alt: "Pivot", width: "60", height: "15" }),
+            MODO_DEMO ? el("span", { class: "pildora pildora--aviso" }, "Demostración") : null),
+          el("div", { class: "estado__der" },
+            el("span", { class: "pequeno secundario estado__fecha" }, fechaLarga()),
+            avatar),
+        ),
+        menu,
+        el("main", { class: "inicio" },
+          el("h1", { class: "sr-only" }, "Pivot Hub"),
+          el("section", { class: "widgets", "aria-label": "Resumen" },
+            el("article", { class: "widget vidrio" },
+              el("p", { class: "widget__titulo" }, hoyDia),
+              el("p", { class: "widget-hoy__dia" }, hoyNum),
+              el("p", { class: "widget-hoy__saludo" }, nombre ? `Hola, ${nombre}` : "Hola", el("span", { class: "excl" }, "!")),
+              pendientes,
+            ),
+            el("article", { class: "widget vidrio" },
+              el("p", { class: "widget__titulo" }, "Actividad reciente"),
+              listaActividad,
             ),
           ),
+          el("nav", { class: "apps", "aria-label": "Apps" }, APPS.map(botonApp)),
         ),
-      );
+        el("div", { class: "indicador-pagina", "aria-hidden": "true" }, el("i"), el("i")),
+        el("nav", { class: "dock vidrio", "aria-label": "Apps favoritas" },
+          APPS.filter((a) => a.dock).map(botonApp)),
+      ));
+
+      document.addEventListener("click", (e) => {
+        if (!menu.contains(e.target) && e.target !== avatar) { menu.classList.add("oculto"); avatar.setAttribute("aria-expanded", "false"); }
+      });
+
+      try {
+        const d = await actividad();
+        pendientes.replaceChildren(...[
+          d.porAprobar ? el("a", { class: "pendiente", href: "cotizador/" }, el("b", {}, String(d.porAprobar)), d.porAprobar === 1 ? "precio por aprobar" : "precios por aprobar") : null,
+          d.enProceso ? el("a", { class: "pendiente", href: "auditoria/" }, el("b", {}, String(d.enProceso)), d.enProceso === 1 ? "auditoría en curso" : "auditorías en curso") : null,
+          !d.porAprobar && !d.enProceso ? el("span", { class: "pendiente" }, "Todo al día ✓") : null,
+        ].filter(Boolean));
+        listaActividad.replaceChildren(...(d.items.length
+          ? d.items.map((i) => el("li", {}, el("a", { href: i.href },
+              icono(i.app),
+              el("span", { class: "actividad__texto" }, el("strong", {}, i.titulo), el("span", {}, i.detalle)),
+              el("span", { class: "actividad__cuando" }, hace(i.cuando)))))
+          : [el("li", {}, el("p", { class: "actividad-vacia" }, "Aún no hay actividad. Abre una app para empezar."))]));
+      } catch (_e) {
+        listaActividad.replaceChildren(el("li", {}, el("p", { class: "actividad-vacia" }, "No pudimos cargar la actividad.")));
+      }
     }
 
+    // ---------- Inicio ----------
     async function iniciar() {
+      relojes.forEach(clearInterval);
+      relojes = [];
       const sesion = await sesionActual();
-      if (sesion) vistaHub(sesion.user.email);
-      else vistaLogin();
+      let demoDentro = false;
+      try { demoDentro = sessionStorage.getItem("demo-dentro") === "1"; } catch (_e) { /* sin almacenamiento */ }
+      if (MODO_DEMO && !new URLSearchParams(location.search).has("inicio") && !demoDentro) {
+        return vistaBloqueo({ alEntrarDemo: () => { try { sessionStorage.setItem("demo-dentro", "1"); } catch (_e) {} iniciar(); } });
+      }
+      if (sesion) vistaEscritorio(sesion);
+      else vistaBloqueo();
     }
 
     if (!MODO_DEMO) {

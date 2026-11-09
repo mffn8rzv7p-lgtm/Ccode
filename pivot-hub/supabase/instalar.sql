@@ -1,10 +1,11 @@
--- Pivot Hub · instalación completa (une las dos migraciones de supabase/migrations/).
+-- Pivot Hub · instalación completa (une las migraciones de supabase/migrations/).
 -- Pégalo entero en Supabase → SQL Editor y presiona Run una sola vez.
 
 -- Pivot Hub · Auditoría de Instagram
--- Solo las personas de la tabla `miembros` pueden ver o crear informes.
+-- Acceso: correos @pivotagencia.com (más las excepciones de la tabla `miembros`).
 
--- 1. Miembros del equipo (correo con el que inician sesión)
+-- 1. Acceso: cualquier correo verificado de @pivotagencia.com (igual que Bong).
+--    La tabla `miembros` sirve solo para excepciones (personas externas autorizadas).
 create table if not exists public.miembros (
   email text primary key,
   nombre text,
@@ -20,10 +21,12 @@ stable
 security definer
 set search_path = public
 as $$
-  select exists (
-    select 1 from public.miembros
-    where lower(email) = lower(coalesce(auth.jwt() ->> 'email', ''))
-  );
+  select
+    lower(coalesce(auth.jwt() ->> 'email', '')) like '%@pivotagencia.com'
+    or exists (
+      select 1 from public.miembros
+      where lower(email) = lower(coalesce(auth.jwt() ->> 'email', ''))
+    );
 $$;
 
 revoke all on function public.es_miembro() from public;
@@ -112,10 +115,8 @@ create policy "miembros borran capturas"
   to authenticated
   using (bucket_id = 'capturas' and public.es_miembro());
 
--- 4. Agrega aquí los correos del equipo (cámbialos por los reales):
--- insert into public.miembros (email, nombre) values
---   ('tu-correo@ejemplo.com', 'Tu nombre'),
---   ('correo-de-laura@ejemplo.com', 'Laura');
+-- 4. Excepciones: personas sin correo @pivotagencia.com que también pueden entrar.
+-- insert into public.miembros (email, nombre) values ('persona@otrodominio.com', 'Nombre');
 
 -- Pivot Hub · Cotizador
 -- Requiere la migración de auditoría (tabla `miembros` y función `es_miembro`).
@@ -232,3 +233,4 @@ create policy "miembros borran cotizaciones"
 --    (la próxima será este número + 1):
 -- insert into public.consecutivos (anio, ultimo) values (2026, 12)
 --   on conflict (anio) do update set ultimo = excluded.ultimo;
+
