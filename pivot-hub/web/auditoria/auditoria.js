@@ -27,7 +27,7 @@ async function cargarDemo() {
 
 async function listarInformes() {
   if (MODO_DEMO) return [await cargarDemo()];
-  const { data, error } = await sb.from("informes")
+  const { data, error } = await sb.from("hub_informes")
     .select("id, cuenta, competidores, estado, creado_en")
     .order("creado_en", { ascending: false })
     .limit(50);
@@ -37,13 +37,13 @@ async function listarInformes() {
 
 async function leerInforme(id) {
   if (MODO_DEMO) return cargarDemo();
-  const { data, error } = await sb.from("informes").select("*").eq("id", id).single();
+  const { data, error } = await sb.from("hub_informes").select("*").eq("id", id).single();
   if (error) throw error;
   return data;
 }
 
 async function ejecutarEtapa(id, etapa) {
-  const { error } = await sb.functions.invoke("informe", { body: { informe_id: id, etapa } });
+  const { error } = await sb.functions.invoke("hub-informe", { body: { informe_id: id, etapa } });
   if (error) {
     let mensaje = "No se pudo completar este paso.";
     try {
@@ -143,7 +143,7 @@ function vistaNuevo() {
   const publico = el("input", { id: "publico", placeholder: "Ej.: mujeres de 25 a 40 años en el Valle de Aburrá" });
   const capacidad = el("input", { id: "capacidad", placeholder: "Ej.: graban con celular, 3 horas a la semana, sin diseñador" });
   const notas = el("textarea", { id: "notas", placeholder: "Lo que dijo el cliente, qué le preocupa, presupuesto que mencionó…" });
-  const capturas = el("input", { id: "capturas", type: "file", accept: "image/png,image/jpeg,image/webp", multiple: true, "aria-describedby": "capturas-ayuda" });
+  const capturas = el("input", { id: "hub-capturas", type: "file", accept: "image/png,image/jpeg,image/webp", multiple: true, "aria-describedby": "capturas-ayuda" });
   const enviar = el("button", { class: "boton boton--rojo", type: "submit" }, "Generar informe");
 
   const form = el("form", { class: "rejilla", novalidate: true, onsubmit: async (e) => {
@@ -164,7 +164,7 @@ function vistaNuevo() {
     enviar.disabled = true;
     enviar.textContent = "Creando…";
     try {
-      const { data: fila, error: errCrear } = await sb.from("informes").insert({
+      const { data: fila, error: errCrear } = await sb.from("hub_informes").insert({
         cuenta: usuario,
         competidores: comps,
         contexto: {
@@ -182,10 +182,10 @@ function vistaNuevo() {
         enviar.textContent = `Subiendo captura ${i + 1} de ${archivos.length}…`;
         const blob = await prepararImagen(archivo);
         const ruta = `${fila.id}/${String(i + 1).padStart(2, "0")}.jpg`;
-        const { error: errSubir } = await sb.storage.from("capturas").upload(ruta, blob, { contentType: "image/jpeg" });
+        const { error: errSubir } = await sb.storage.from("hub-capturas").upload(ruta, blob, { contentType: "image/jpeg" });
         if (!errSubir) rutas.push(ruta);
       }
-      if (rutas.length) await sb.from("informes").update({ capturas: rutas }).eq("id", fila.id);
+      if (rutas.length) await sb.from("hub_informes").update({ capturas: rutas }).eq("id", fila.id);
       location.hash = `#/informe/${fila.id}`;
     } catch (_e) {
       error("No pudimos crear el informe. Revisa tu conexión e inténtalo de nuevo.");
@@ -204,7 +204,7 @@ function vistaNuevo() {
     ),
     campo("capacidad", "¿Qué puede producir? (opcional)", capacidad),
     campo("notas", "Notas de la reunión (opcional)", notas),
-    campo("capturas", "Capturas de pantalla (opcional, hasta 12)", capturas,
+    campo("hub-capturas", "Capturas de pantalla (opcional, hasta 12)", capturas,
       "Perfil, cuadrícula, pestaña de Reels y publicaciones destacadas. Ayudan con lo que la API no muestra."),
     el("div", {}, enviar),
     estado,
@@ -286,7 +286,7 @@ async function vistaInforme(id) {
 
   const regenerar = MODO_DEMO ? null : el("button", { class: "boton boton--borde", type: "button", onclick: async () => {
     if (!confirm("¿Generar de nuevo la propuesta estratégica? La actual se reemplaza.")) return;
-    await sb.from("informes").update({ estrategia: null, estado: "auditoria" }).eq("id", fila.id);
+    await sb.from("hub_informes").update({ estrategia: null, estado: "auditoria" }).eq("id", fila.id);
     router();
   } }, "Rehacer propuesta");
 

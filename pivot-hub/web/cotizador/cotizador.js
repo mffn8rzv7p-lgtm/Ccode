@@ -24,7 +24,7 @@ async function filasDemo() {
 
 async function listar() {
   if (MODO_DEMO) return filasDemo();
-  const { data, error } = await sb.from("cotizaciones")
+  const { data, error } = await sb.from("hub_cotizaciones")
     .select("id, numero, cliente, proyecto, estado, creado_en")
     .order("creado_en", { ascending: false }).limit(50);
   if (error) throw error;
@@ -33,19 +33,19 @@ async function listar() {
 
 async function leer(id) {
   if (MODO_DEMO) return (await filasDemo()).find((f) => f.id === id);
-  const { data, error } = await sb.from("cotizaciones").select("*").eq("id", id).single();
+  const { data, error } = await sb.from("hub_cotizaciones").select("*").eq("id", id).single();
   if (error) throw error;
   return data;
 }
 
 async function actualizar(id, cambios) {
   if (MODO_DEMO) throw new Error("Estás en modo demostración: conecta Supabase para guardar cambios.");
-  const { error } = await sb.from("cotizaciones").update(cambios).eq("id", id);
+  const { error } = await sb.from("hub_cotizaciones").update(cambios).eq("id", id);
   if (error) throw new Error("No se pudo guardar. Inténtalo de nuevo.");
 }
 
 async function ejecutar(id, etapa) {
-  const { error } = await sb.functions.invoke("cotizacion", { body: { cotizacion_id: id, etapa } });
+  const { error } = await sb.functions.invoke("hub-cotizacion", { body: { cotizacion_id: id, etapa } });
   if (error) {
     let mensaje = "No se pudo completar este paso.";
     try {
@@ -138,7 +138,7 @@ async function prellenarDesdeInforme(informeId) {
   let inf;
   if (MODO_DEMO) inf = await (await fetch("../auditoria/demo.json")).json();
   else {
-    const { data } = await sb.from("informes").select("id, cuenta, datos, estrategia").eq("id", informeId).single();
+    const { data } = await sb.from("hub_informes").select("id, cuenta, datos, estrategia").eq("id", informeId).single();
     inf = data;
   }
   if (!inf?.estrategia) return null;
@@ -195,7 +195,7 @@ async function vistaNueva(params) {
     if (MODO_DEMO) return error("Estás en modo demostración: conecta Supabase para crear cotizaciones.");
     enviar.disabled = true;
     try {
-      const { data, error: err } = await sb.from("cotizaciones").insert({
+      const { data, error: err } = await sb.from("hub_cotizaciones").insert({
         cliente: i.cliente.value.trim(),
         contacto: i.contacto.value.trim() || null,
         proyecto: i.proyecto.value.trim(),

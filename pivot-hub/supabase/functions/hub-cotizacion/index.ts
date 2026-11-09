@@ -1,4 +1,4 @@
-// Función "cotizacion": genera una cotización en dos etapas.
+// Función "hub-cotizacion": genera una cotización en dos etapas.
 //   POST { cotizacion_id, etapa: "precio" | "carta" }
 // "precio" propone el análisis; el equipo aprueba los precios en la página (campo `aprobado`);
 // "carta" escribe la carta usando solo los precios aprobados.
@@ -47,16 +47,16 @@ Deno.serve(async (req) => {
     return responder(req, { error: "Falta la cotización o la etapa." }, 400);
   }
 
-  const { data: fila, error } = await db.from("cotizaciones").select("*").eq("id", cotizacion_id).single<Fila>();
+  const { data: fila, error } = await db.from("hub_cotizaciones").select("*").eq("id", cotizacion_id).single<Fila>();
   if (error || !fila) return responder(req, { error: "No encontré esa cotización." }, 404);
 
-  const guardar = (cambios: Record<string, unknown>) => db.from("cotizaciones").update(cambios).eq("id", cotizacion_id);
+  const guardar = (cambios: Record<string, unknown>) => db.from("hub_cotizaciones").update(cambios).eq("id", cotizacion_id);
 
   try {
     // Resumen de la auditoría de Instagram, si la cotización viene de una.
     let contextoInforme: unknown = null;
     if (fila.informe_id) {
-      const { data: inf } = await db.from("informes").select("cuenta, auditoria, estrategia").eq("id", fila.informe_id).single();
+      const { data: inf } = await db.from("hub_informes").select("cuenta, auditoria, estrategia").eq("id", fila.informe_id).single();
       if (inf?.auditoria && inf?.estrategia) {
         contextoInforme = {
           cuenta: `@${inf.cuenta}`,

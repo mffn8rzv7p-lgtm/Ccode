@@ -61,7 +61,7 @@ export async function sesionActual() {
   const { data } = await sb.auth.getSession();
   const sesion = data.session;
   if (!sesion) return null;
-  const { data: permitido } = await sb.rpc("es_miembro");
+  const { data: permitido } = await sb.rpc("hub_es_miembro");
   if (permitido !== true) {
     accesoNegado = true;
     await sb.auth.signOut();

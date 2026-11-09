@@ -48,13 +48,13 @@ Necesitas: una cuenta de Supabase, una clave de la API de Claude y la cuenta pro
 
 ### 1. Supabase
 
-1. Crea un proyecto en [supabase.com](https://supabase.com) (región: São Paulo es la más cercana).
+1. Usa **el mismo proyecto de Supabase de Bong**: así el hub y Bong comparten las cuentas y el inicio de sesión. Todo lo del hub lleva el prefijo `hub_` (tablas, funciones, almacenamiento `hub-capturas` y funciones `hub-informe` / `hub-cotizacion`), así que no toca nada de Bong.
 2. En **SQL Editor**, pega y ejecuta:
    - `supabase/instalar.sql` (une todas las migraciones en un solo archivo)
    Si ya llevan cotizaciones este año, al final del segundo archivo está cómo fijar el último número usado.
 3. En **Authentication → Sign In / Providers**, activa **Google** con el Client ID y el Client Secret de un cliente OAuth de Google Cloud (tipo "Aplicación web", con la URL de callback que muestra Supabase). Si la cuenta de Google Workspace de Pivot es "interna", solo los correos @pivotagencia.com podrán elegirse.
 4. En **Authentication → URL Configuration**, pon la dirección del hub como Site URL y agrégala con `/**` en Redirect URLs.
-5. El acceso a los datos ya está limitado a @pivotagencia.com en la base de datos. Para una persona externa, agrégala a la tabla `miembros` (al final del primer archivo SQL está el ejemplo).
+5. El acceso a los datos ya está limitado a @pivotagencia.com en la base de datos. Para una persona externa, agrégala a la tabla `hub_miembros` (al final del primer archivo SQL está el ejemplo).
 
 ### 2. Clave de Claude
 
@@ -82,8 +82,8 @@ supabase secrets set ANTHROPIC_API_KEY=... \
   META_ACCESS_TOKEN=... \
   META_IG_USER_ID=... \
   ORIGENES_PERMITIDOS=https://apps.pivotagencia.com
-supabase functions deploy informe
-supabase functions deploy cotizacion
+supabase functions deploy hub-informe
+supabase functions deploy hub-cotizacion
 ```
 
 Opcional: `META_GRAPH_VERSION` (por defecto `v23.0`; usa la versión vigente de la Graph API).
@@ -118,6 +118,6 @@ Las claves quedan como secretos en Supabase: nunca van en el código ni en las p
 | `web/assets/` | Estilos, logo y utilidades compartidas |
 | `supabase/migrations/` | Tablas, reglas de acceso y almacenamiento de capturas |
 | `web/cotizador/` | Cotizador: brief, aprobación de precios, carta y PDF (`demo.json` es el ejemplo ficticio) |
-| `supabase/functions/informe/` | Auditoría: lectura de Meta, cálculo de métricas y generación con Claude |
-| `supabase/functions/cotizacion/` | Cotizador: piso y redondeo en código, propuesta de precio y carta con Claude |
+| `supabase/functions/hub-informe/` | Auditoría: lectura de Meta, cálculo de métricas y generación con Claude |
+| `supabase/functions/hub-cotizacion/` | Cotizador: piso y redondeo en código, propuesta de precio y carta con Claude |
 | `supabase/functions/_shared/` | Llamada a Claude y verificación de acceso, compartidas |

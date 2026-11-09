@@ -36,7 +36,7 @@ export async function clienteDelEquipo(req: Request): Promise<{ db: SupabaseClie
     global: { headers: { Authorization: auth } },
     auth: { persistSession: false },
   });
-  const { data: miembro } = await db.rpc("es_miembro");
+  const { data: miembro } = await db.rpc("hub_es_miembro");
   if (miembro !== true) return { respuesta: responder(req, { error: "Tu cuenta no tiene acceso a Pivot Hub." }, 403) };
   return { db };
 }

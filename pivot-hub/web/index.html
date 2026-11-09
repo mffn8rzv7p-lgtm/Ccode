@@ -120,8 +120,8 @@
         };
       }
       const [inf, cots] = await Promise.all([
-        sb.from("informes").select("id, cuenta, estado, actualizado_en").order("actualizado_en", { ascending: false }).limit(5),
-        sb.from("cotizaciones").select("id, numero, cliente, estado, actualizado_en").order("actualizado_en", { ascending: false }).limit(5),
+        sb.from("hub_informes").select("id, cuenta, estado, actualizado_en").order("actualizado_en", { ascending: false }).limit(5),
+        sb.from("hub_cotizaciones").select("id, numero, cliente, estado, actualizado_en").order("actualizado_en", { ascending: false }).limit(5),
       ]);
       const estadoInf = { listo: "Auditoría lista", error: "Auditoría con error" };
       const estadoCot = { listo: "Carta lista", precio: "Esperando aprobación de precio", error: "Cotización con error" };

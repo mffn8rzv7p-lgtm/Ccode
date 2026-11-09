@@ -1,4 +1,4 @@
-// Función "informe": genera un informe por etapas.
+// Función "hub-informe": genera un informe por etapas.
 //   POST { informe_id, etapa: "datos" | "auditoria" | "estrategia" }
 // Cada etapa guarda su resultado en la tabla `informes`; la página las llama en orden.
 import type { SupabaseClient } from "npm:@supabase/supabase-js@2.45.4";
@@ -25,7 +25,7 @@ const MAX_CAPTURAS = 12;
 async function leerCapturas(db: SupabaseClient, rutas: string[]): Promise<Imagen[]> {
   const imagenes: Imagen[] = [];
   for (const ruta of rutas.slice(0, MAX_CAPTURAS)) {
-    const { data, error } = await db.storage.from("capturas").download(ruta);
+    const { data, error } = await db.storage.from("hub-capturas").download(ruta);
     if (error || !data) continue;
     const tipo = data.type === "image/png" || data.type === "image/webp" ? data.type : "image/jpeg";
     imagenes.push({ media_type: tipo, data: encodeBase64(new Uint8Array(await data.arrayBuffer())) });
@@ -37,7 +37,7 @@ async function etapaDatos(fila: Fila) {
   const cuentas = [fila.cuenta, ...fila.competidores];
   if (!metaConfigurada()) {
     return {
-      fuente: "capturas",
+      fuente: "hub-capturas",
       obtenido_en: new Date().toISOString(),
       aviso: "La conexión con Meta no está configurada; el análisis se hace solo con las capturas.",
       cuenta: null,
@@ -90,10 +90,10 @@ Deno.serve(async (req) => {
     return responder(req, { error: "Falta el informe o la etapa." }, 400);
   }
 
-  const { data: fila, error: errLeer } = await db.from("informes").select("*").eq("id", informe_id).single<Fila>();
+  const { data: fila, error: errLeer } = await db.from("hub_informes").select("*").eq("id", informe_id).single<Fila>();
   if (errLeer || !fila) return responder(req, { error: "No encontré ese informe." }, 404);
 
-  const guardar = (cambios: Record<string, unknown>) => db.from("informes").update(cambios).eq("id", informe_id);
+  const guardar = (cambios: Record<string, unknown>) => db.from("hub_informes").update(cambios).eq("id", informe_id);
 
   try {
     if (etapa === "datos") {
