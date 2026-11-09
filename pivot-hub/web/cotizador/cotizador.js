@@ -134,6 +134,25 @@ async function vistaLista() {
 
 // ---------- Brief ----------
 
+async function prellenarDesdeBrief(briefId) {
+  let b;
+  if (MODO_DEMO) b = await (await fetch("../briefs/demo.json")).json();
+  else {
+    const { data } = await sb.from("hub_briefs").select("cliente, proyecto, documento").eq("id", briefId).single();
+    b = data;
+  }
+  const d = b?.documento;
+  if (!d) return null;
+  return {
+    origen: "brief",
+    cliente: b.cliente,
+    proyecto: b.proyecto,
+    necesidad: `${d.resumen}\n\nObjetivo: ${d.objetivos.negocio}`,
+    alcance: d.entregables.map((e) => `${e.cantidad} ${e.pieza} (${e.formato}, ${e.canal})`).join("\n"),
+    servicios: [],
+  };
+}
+
 async function prellenarDesdeInforme(informeId) {
   let inf;
   if (MODO_DEMO) inf = await (await fetch("../auditoria/demo.json")).json();
@@ -156,7 +175,8 @@ async function prellenarDesdeInforme(informeId) {
 }
 
 async function vistaNueva(params) {
-  const pre = params.get("informe") ? await prellenarDesdeInforme(params.get("informe")) : null;
+  const pre = params.get("informe") ? await prellenarDesdeInforme(params.get("informe"))
+    : params.get("brief") ? await prellenarDesdeBrief(params.get("brief")) : null;
   const estado = el("div", { role: "status", "aria-live": "polite" });
 
   const i = {
@@ -226,7 +246,9 @@ async function vistaNueva(params) {
       enviar.disabled = false;
     }
   } },
-    pre ? el("p", { class: "mensaje mensaje--info" }, `Datos tomados de la auditoría de @${pre.cuenta}. Revísalos y completa lo que falta.`) : null,
+    pre ? el("p", { class: "mensaje mensaje--info" }, pre.origen === "brief"
+      ? "Datos tomados del brief. Revísalos y completa lo que falta."
+      : `Datos tomados de la auditoría de @${pre.cuenta}. Revísalos y completa lo que falta.`) : null,
     el("div", { class: "rejilla rejilla--2" },
       campo("cliente", "Cliente", i.cliente),
       campo("contacto", "Nombre del contacto", i.contacto, "Para el saludo de la carta."),

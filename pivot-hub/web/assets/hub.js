@@ -120,3 +120,32 @@ export function barraSuperior({ raiz = "./", titulo = "", email = "" } = {}) {
     ),
   );
 }
+
+/** Llama una función del servidor de Bong v2 y devuelve su respuesta, o lanza un Error con un mensaje claro. */
+export async function invocar(funcion, cuerpo) {
+  if (MODO_DEMO) throw new Error("Estás en modo demostración: conecta Supabase para usar la IA.");
+  const { data, error } = await sb.functions.invoke(funcion, { body: cuerpo });
+  if (error) {
+    let mensaje = "No se pudo completar. Inténtalo de nuevo.";
+    try {
+      const c = await error.context?.json();
+      if (c?.error) mensaje = c.error;
+    } catch (_e) { /* sin cuerpo */ }
+    throw new Error(mensaje);
+  }
+  return data;
+}
+
+/** Página base de una app: barra superior + contenido. */
+export function paginaApp(app, titulo, email, ...contenido) {
+  app.replaceChildren(
+    barraSuperior({ raiz: "../", titulo, email }),
+    el("main", { class: "contenedor" }, ...contenido),
+  );
+  window.scrollTo(0, 0);
+}
+
+/** Lee un JSON de demostración de la carpeta de la app. */
+export async function demo(archivo = "demo.json") {
+  return (await fetch(archivo)).json();
+}

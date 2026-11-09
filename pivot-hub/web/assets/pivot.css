@@ -243,7 +243,7 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: 14.5px; }
 .casillas { display: flex; flex-wrap: wrap; gap: 4px 18px; }
 .whatsapp { background: #E7F5EC; border-radius: var(--radio-sm); padding: 16px; white-space: pre-line; font-size: 15px; }
 
-.carta { background: var(--crema); max-width: 794px; margin: 0 auto; padding: 32px clamp(16px, 4vw, 48px) 40px; border-radius: var(--radio); box-shadow: 0 1px 0 var(--crema-3), 0 20px 60px -30px rgba(18,16,16,.35); border-top: 4px solid var(--rojo); }
+.carta { background: var(--crema); width: 100%; max-width: 794px; margin: 0 auto; padding: 32px clamp(16px, 4vw, 48px) 40px; border-radius: var(--radio); box-shadow: 0 1px 0 var(--crema-3), 0 20px 60px -30px rgba(18,16,16,.35); border-top: 4px solid var(--rojo); }
 .carta__cabeza { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 44px; }
 .carta__cabeza img { height: 28px; width: auto; }
 .carta__meta { text-align: right; font: 400 11.5px/1.5 var(--mono); color: var(--piedra); text-transform: uppercase; }
