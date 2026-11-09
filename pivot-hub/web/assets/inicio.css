@@ -1,4 +1,6 @@
-/* Pivot Hub · pantalla de inicio estilo iPad */
+/* Bong · pantalla de inicio estilo iPad */
+.marca-bong--grande { font-size: 44px; }
+.marca-bong--estado { font-size: 19px; }
 
 .escritorio {
   min-height: 100vh;

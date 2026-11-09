@@ -1,6 +1,8 @@
-# Pivot Hub
+# Bong v2
 
-Hub de herramientas internas de Pivot Agencia, pensado para vivir en **apps.pivotagencia.com**.
+Plataforma de herramientas internas de Pivot Agencia. **Bong v2** es el inicio estilo iPad con todas las apps; el gestor de tareas que hoy se llama Bong pasa a ser la app **Gestor**. Se instala en el mismo proyecto de Supabase y el mismo despliegue que Bong, así que comparte cuentas, inicio de sesión y datos.
+
+(La carpeta del repositorio todavía se llama `pivot-hub/`; se renombra al unirla con el código de Bong.)
 Herramientas incluidas:
 
 - **Auditoría de Instagram:** escribes una cuenta (y hasta 3 competidores) y la app genera una auditoría con datos públicos y una propuesta estratégica de 90 días, lista para mostrar al cliente o descargar en PDF.
@@ -8,7 +10,7 @@ Herramientas incluidas:
 
 El inicio tiene forma de iPad: pantalla de bloqueo para entrar, widgets con la actividad reciente, íconos de cada app y un dock. Solo entran correos **@pivotagencia.com** (igual que Bong), con Google o con un enlace al correo.
 
-Apps: Bong (por instalar), Auditoría y Cotizador (listas); Briefs, Moodboards y Parrillas (en construcción). El registro de apps está en `web/assets/hub.js` y sus íconos en `web/assets/iconos.js`.
+Apps: Gestor (el Bong de siempre, por mover aquí), Auditoría y Cotizador (listas); Briefs, Moodboards y Parrillas (en construcción). El registro de apps está en `web/assets/hub.js` y sus íconos en `web/assets/iconos.js`.
 
 ## Cómo funciona
 

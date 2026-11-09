@@ -58,6 +58,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 .barra__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .barra__logo img { height: 24px; width: auto; }
+.marca-bong { font: 800 26px/1 var(--display); letter-spacing: -.03em; color: var(--tinta); }
 .barra__titulo { font: 700 15px/1 var(--texto); color: var(--piedra-oscura); }
 .barra__derecha { margin-left: auto; display: flex; align-items: center; gap: 12px; min-width: 0; }
 .barra__email { font-size: 14px; color: var(--piedra-oscura); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; }

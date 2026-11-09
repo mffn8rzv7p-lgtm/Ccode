@@ -11,8 +11,8 @@ const defs = `<defs>
 </defs>`;
 
 const ICONOS = {
-  // Bong: lista de tareas con la primera marcada en rojo
-  bong: fondo("#121010", `
+  // Gestor (el Bong de siempre): lista de tareas con la primera marcada en rojo
+  gestor: fondo("#121010", `
     <rect x="24" y="25" width="14" height="14" rx="4" fill="#E63915"/>
     <path d="M27.5 32l3 3 5-6" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
     <rect x="45" y="29.5" width="31" height="5" rx="2.5" fill="#F5F0E8" opacity=".45"/>

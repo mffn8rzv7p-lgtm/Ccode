@@ -14,7 +14,7 @@ export const DOMINIO = "pivotagencia.com";
 // Apps del hub. Para agregar una nueva: crea su carpeta, dibuja su ícono en iconos.js y súmala aquí.
 // estado: "lista" (abre), "pronto" (en construcción) o "por-instalar" (existe, falta conectarla).
 export const APPS = [
-  { id: "bong", nombre: "Bong", descripcion: "Gestor de tareas del equipo.", ruta: "bong/", estado: "por-instalar", dock: true },
+  { id: "gestor", nombre: "Gestor", descripcion: "Las tareas del equipo (el Bong de siempre).", ruta: "gestor/", estado: "por-instalar", dock: true },
   { id: "auditoria", nombre: "Auditoría", descripcion: "Auditoría de Instagram con datos públicos y propuesta estratégica.", ruta: "auditoria/", estado: "lista", dock: true },
   { id: "cotizador", nombre: "Cotizador", descripcion: "Del brief al precio ideal y a la carta en PDF para WhatsApp.", ruta: "cotizador/", estado: "lista", dock: true },
   { id: "briefs", nombre: "Briefs", descripcion: "Crea el brief de un proyecto a partir de una conversación con el cliente.", ruta: "briefs/", estado: "pronto" },
@@ -98,13 +98,15 @@ export async function enviarEnlace(email) {
   if (error) throw error;
 }
 
+/** Logotipo de texto: Bong + el "!" rojo de Pivot. */
+export function marcaBong(clase = "marca-bong") {
+  return el("span", { class: clase }, "Bong", el("span", { class: "excl" }, "!"));
+}
+
 /** Barra superior común. */
 export function barraSuperior({ raiz = "./", titulo = "", email = "" } = {}) {
   return el("header", { class: "barra no-print" },
-    el("a", { class: "barra__logo", href: raiz, "aria-label": "Inicio de Pivot Hub" },
-      el("img", { src: `${raiz}assets/pivot-logo.png`, alt: "Pivot", width: "96", height: "24" }),
-      el("span", { class: "etiqueta" }, "HUB"),
-    ),
+    el("a", { class: "barra__logo", href: raiz, "aria-label": "Inicio de Bong" }, marcaBong()),
     titulo ? el("span", { class: "barra__titulo" }, titulo) : null,
     el("div", { class: "barra__derecha" },
       MODO_DEMO ? el("span", { class: "pildora pildora--aviso" }, "Modo demostración") : null,

@@ -6,8 +6,8 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#F5F0E8">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Pivot Hub">
-  <title>Pivot Hub</title>
+  <meta name="apple-mobile-web-app-title" content="Bong">
+  <title>Bong</title>
   <link rel="icon" href="assets/pivot-logo.png">
   <link rel="apple-touch-icon" href="assets/pivot-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
   <script type="module">
     import {
       APPS, DOMINIO, MODO_DEMO, accesoNegado, el, entrarConGoogle, enviarEnlace,
-      esCorreoPivot, nombreCorto, sb, sesionActual,
+      esCorreoPivot, marcaBong, nombreCorto, sb, sesionActual,
     } from "./assets/hub.js";
     import { icono } from "./assets/iconos.js";
 
@@ -88,16 +88,14 @@
         relojVivo(el("div", { class: "bloqueo__reloj", "aria-hidden": "true" }), hora),
         relojVivo(el("p", { class: "bloqueo__fecha" }), fechaLarga),
         el("section", { class: "bloqueo__panel vidrio", "aria-labelledby": "titulo-entrar" },
-          el("div", { class: "bloqueo__marca" },
-            el("img", { src: "assets/pivot-logo.png", alt: "Pivot", width: "104", height: "26" }),
-            el("span", { class: "etiqueta" }, "Hub")),
-          el("h1", { id: "titulo-entrar", class: "sr-only" }, "Entrar a Pivot Hub"),
+          el("div", { class: "bloqueo__marca" }, marcaBong("marca-bong marca-bong--grande")),
+          el("h1", { id: "titulo-entrar", class: "sr-only" }, "Entrar a Bong"),
           google,
           el("div", { class: "separador-o" }, "o con un enlace al correo"),
           form,
           estado,
         ),
-        el("p", { class: "bloqueo__pie" }, `Solo para el equipo · @${DOMINIO}`),
+        el("p", { class: "bloqueo__pie" }, `Pivot Agencia · solo para el equipo · @${DOMINIO}`),
       ));
     }
 
@@ -140,7 +138,7 @@
     function abrirHoja(a) {
       const mensajes = {
         pronto: "Estamos construyendo esta herramienta. Muy pronto aparecerá aquí.",
-        "por-instalar": "Bong se conecta al hub durante la instalación: mismo inicio de sesión y mismas cuentas.",
+        "por-instalar": "El Gestor es el Bong de siempre, con todas sus tareas. Se mueve aquí en la instalación, con el mismo inicio de sesión.",
       };
       hoja.replaceChildren(el("div", { class: "hoja-app__cuerpo" },
         icono(a.id),
@@ -198,7 +196,7 @@
         el("header", { class: "estado" },
           el("div", { class: "estado__izq" },
             relojVivo(el("span", { class: "estado__hora" }), hora),
-            el("img", { class: "estado__logo", src: "assets/pivot-logo.png", alt: "Pivot", width: "60", height: "15" }),
+            marcaBong("marca-bong marca-bong--estado"),
             MODO_DEMO ? el("span", { class: "pildora pildora--aviso" }, "Demostración") : null),
           el("div", { class: "estado__der" },
             el("span", { class: "pequeno secundario estado__fecha" }, fechaLarga()),
@@ -206,7 +204,7 @@
         ),
         menu,
         el("main", { class: "inicio" },
-          el("h1", { class: "sr-only" }, "Pivot Hub"),
+          el("h1", { class: "sr-only" }, "Bong"),
           el("section", { class: "widgets", "aria-label": "Resumen" },
             el("article", { class: "widget vidrio" },
               el("p", { class: "widget__titulo" }, hoyDia),
