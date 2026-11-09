@@ -14,7 +14,7 @@ export const DOMINIO = "pivotagencia.com";
 // Apps del hub. Para agregar una nueva: crea su carpeta, dibuja su ícono en iconos.js y súmala aquí.
 // estado: "lista" (abre), "pronto" (en construcción) o "por-instalar" (existe, falta conectarla).
 export const APPS = [
-  { id: "gestor", nombre: "Gestor", descripcion: "Las tareas del equipo (el Bong de siempre).", ruta: "gestor/", estado: "por-instalar", dock: true },
+  { id: "gestor", nombre: "Gestor", descripcion: "Las tareas del equipo (el Bong de siempre).", ruta: "gestor/", estado: "lista", dock: true },
   { id: "auditoria", nombre: "Auditoría", descripcion: "Auditoría de Instagram con datos públicos y propuesta estratégica.", ruta: "auditoria/", estado: "lista", dock: true },
   { id: "cotizador", nombre: "Cotizador", descripcion: "Del brief al precio ideal y a la carta en PDF para WhatsApp.", ruta: "cotizador/", estado: "lista", dock: true },
   { id: "briefs", nombre: "Briefs", descripcion: "Crea el brief de un proyecto a partir de una conversación con el cliente.", ruta: "briefs/", estado: "pronto" },

@@ -8,6 +8,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Bong">
   <title>Bong</title>
+  <script>
+    // Enlaces y notificaciones del Bong de siempre (#/tarea/…, #/tablero…) ahora viven en el Gestor.
+    if (location.hash.startsWith("#/")) location.replace("gestor/" + location.hash);
+  </script>
   <link rel="icon" href="assets/pivot-logo.png">
   <link rel="apple-touch-icon" href="assets/pivot-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -266,6 +270,7 @@
       });
     }
     iniciar();
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
   </script>
 </body>
 </html>
