@@ -3,9 +3,11 @@
 //   POST { accion: "parrilla_generar", parrilla_id, frecuencia: { instagram: 3, ... }, reemplazar?: boolean }
 //   POST { accion: "moodboard_autofill", moodboard_id, descripcion? }
 //   POST { accion: "moodboard_imagen", moodboard_id, prompt }  → { ruta } (la página la agrega al moodboard)
+//   POST { accion: "fotos_buscar", consulta, pagina? }          → { fotos, hay_mas }   (Pexels)
+//   POST { accion: "fotos_agregar", moodboard_id, url }         → { ruta }             (copia la foto de Pexels)
 import { clienteDelEquipo, responder } from "../_shared/http.ts";
 import { ErrorGeneracion, generar } from "../_shared/claude.ts";
-import { generarImagen, imagenesConfiguradas } from "./imagenes.ts";
+import { buscarFotos, descargarFotoPexels, generarImagen, imagenesConfiguradas, pexelsConfigurado } from "./imagenes.ts";
 import {
   ESQUEMA_BRIEF,
   ESQUEMA_MOODBOARD,
@@ -25,6 +27,9 @@ type Cuerpo = {
   reemplazar?: boolean;
   descripcion?: string;
   prompt?: string;
+  consulta?: string;
+  pagina?: number;
+  url?: string;
 };
 
 const HEX = /^#[0-9a-fA-F]{6}$/;
@@ -128,6 +133,7 @@ Deno.serve(async (req) => {
         imagenes: actual.imagenes ?? [], // las imágenes subidas se conservan
         prompts_sugeridos: propuesta.imagenes,
         imagenes_ia_disponibles: imagenesConfiguradas(),
+        fotos_disponibles: pexelsConfigurado(),
       };
       const { error } = await db.from("hub_moodboards").update({ datos }).eq("id", m.id);
       if (error) throw error;
@@ -139,9 +145,23 @@ Deno.serve(async (req) => {
       if (!c.moodboard_id || !prompt) return responder(req, { error: "Falta el moodboard o la descripción." }, 400);
       const { data: m } = await db.from("hub_moodboards").select("id").eq("id", c.moodboard_id).single();
       if (!m) return responder(req, { error: "No encontré ese moodboard." }, 404);
-      const bytes = await generarImagen(prompt);
-      const ruta = `${m.id}/ia-${crypto.randomUUID()}.png`;
-      const { error } = await db.storage.from("hub-moodboards").upload(ruta, bytes, { contentType: "image/png" });
+      const img = await generarImagen(prompt);
+      const ruta = `${m.id}/ia-${crypto.randomUUID()}.${img.extension}`;
+      const { error } = await db.storage.from("hub-moodboards").upload(ruta, img.bytes, { contentType: img.tipo });
+      if (error) throw error;
+      return responder(req, { ok: true, ruta });
+    }
+
+    if (c.accion === "fotos_buscar") {
+      return responder(req, { ok: true, ...(await buscarFotos(String(c.consulta ?? ""), Number(c.pagina ?? 1))) });
+    }
+
+    if (c.accion === "fotos_agregar") {
+      const { data: m } = await db.from("hub_moodboards").select("id").eq("id", c.moodboard_id).single();
+      if (!m) return responder(req, { error: "No encontré ese moodboard." }, 404);
+      const img = await descargarFotoPexels(String(c.url ?? ""));
+      const ruta = `${m.id}/pexels-${crypto.randomUUID()}.${img.extension}`;
+      const { error } = await db.storage.from("hub-moodboards").upload(ruta, img.bytes, { contentType: img.tipo });
       if (error) throw error;
       return responder(req, { ok: true, ruta });
     }

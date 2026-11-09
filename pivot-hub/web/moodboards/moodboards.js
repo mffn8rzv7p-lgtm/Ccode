@@ -249,6 +249,69 @@ async function vistaMoodboard(id, params) {
     dibujarImagenes();
   }
 
+  // ----- Buscador de fotos (Pexels) -----
+  function abrirBuscador() {
+    const dlg = el("dialog", { class: "panel buscador", "aria-label": "Buscar fotos" });
+    const consulta = el("input", { type: "search", id: "b-consulta", placeholder: "Ej.: coffee farm hands, morning light", "aria-label": "Qué fotos buscar" });
+    consulta.value = d.palabras_clave.slice(0, 3).join(" ");
+    const resultados = el("div", { class: "resultados-fotos" });
+    const aviso = el("div", { role: "status", "aria-live": "polite" });
+    const mas = el("button", { type: "button", class: "boton boton--borde oculto" }, "Ver más");
+    let pagina = 1;
+    const agregadas = new Set();
+
+    async function buscar(nueva = true) {
+      if (MODO_DEMO) return poner(aviso, el("p", { class: "mensaje mensaje--info" }, "En la demostración la búsqueda está apagada. Conecta Supabase y la clave de Pexels."));
+      if (nueva) { pagina = 1; poner(resultados); }
+      poner(aviso, el("p", { class: "secundario" }, "Buscando…"));
+      try {
+        const r = await invocar("hub-ia", { accion: "fotos_buscar", consulta: consulta.value, pagina });
+        poner(aviso, r.fotos.length || !nueva ? null : el("p", { class: "secundario" }, "Sin resultados. Prueba otras palabras (en inglés suele haber más)."));
+        resultados.append(...r.fotos.map((f) => {
+          const boton = el("button", { type: "button", class: "foto-resultado", "aria-label": `Agregar foto de ${f.autor}${f.alt ? `: ${f.alt}` : ""}`, style: { background: f.color ?? "var(--crema-2)" } },
+            el("img", { src: f.miniatura, alt: "", loading: "lazy" }),
+            el("span", { class: "foto-resultado__autor" }, f.autor));
+          boton.addEventListener("click", async () => {
+            if (agregadas.has(f.id)) return;
+            agregadas.add(f.id);
+            boton.classList.add("foto-resultado--agregando");
+            try {
+              const { ruta } = await invocar("hub-ia", { accion: "fotos_agregar", moodboard_id: fila.id, url: f.grande });
+              d.imagenes.push({ ruta, origen: "pexels", autor: f.autor, enlace: f.enlace, alt: f.alt });
+              guardar();
+              dibujarImagenes();
+              boton.classList.replace("foto-resultado--agregando", "foto-resultado--agregada");
+            } catch (e) {
+              agregadas.delete(f.id);
+              boton.classList.remove("foto-resultado--agregando");
+              poner(aviso, el("p", { class: "mensaje mensaje--error" }, e.message));
+            }
+          });
+          return boton;
+        }));
+        mas.classList.toggle("oculto", !r.hay_mas);
+      } catch (e) {
+        poner(aviso, el("p", { class: "mensaje mensaje--error" }, e.message));
+      }
+    }
+    mas.addEventListener("click", () => { pagina += 1; buscar(false); });
+
+    dlg.append(el("div", { class: "panel__cuerpo" },
+      el("div", { class: "panel__cabeza" },
+        el("h2", { class: "titulo-m", style: { margin: 0 } }, "Buscar fotos"),
+        el("button", { type: "button", class: "boton boton--texto", onclick: () => dlg.close() }, "Listo")),
+      el("form", { class: "campo-precio", onsubmit: (e) => { e.preventDefault(); buscar(); } },
+        consulta, el("button", { class: "boton boton--rojo", type: "submit" }, "Buscar")),
+      el("p", { class: "secundario pequeno", style: { margin: 0 } }, "Toca una foto para agregarla al moodboard. Fotos gratuitas de ",
+        el("a", { href: "https://www.pexels.com", target: "_blank", rel: "noopener" }, "Pexels"), "."),
+      aviso, resultados, mas,
+    ));
+    document.body.append(dlg);
+    dlg.addEventListener("close", () => dlg.remove());
+    dlg.showModal();
+    if (consulta.value) buscar(); else consulta.focus();
+  }
+
   async function generarImagen(prompt) {
     const tmp = crypto.randomUUID();
     cargando.set(tmp, "✨ Generando imagen…"); dibujarImagenes();
@@ -279,6 +342,8 @@ async function vistaMoodboard(id, params) {
         urlImagen(img).then((u) => { if (u) foto.src = u; });
         return el("figure", { class: "imagen-mood", style: { margin: 0 } }, foto,
           img.origen === "ia" ? el("span", { class: "pildora pildora--aviso imagen-mood__ia" }, "IA") : null,
+          img.origen === "pexels" ? el("figcaption", { class: "imagen-mood__credito" },
+            "Foto: ", el("a", { href: img.enlace, target: "_blank", rel: "noopener" }, img.autor || "Pexels"), " · Pexels") : null,
           el("button", { type: "button", class: "imagen-mood__quitar no-print", "aria-label": "Quitar imagen", onclick: async () => {
             d.imagenes.splice(i, 1); guardar(); dibujarImagenes();
             if (img.ruta && !MODO_DEMO) await sb.storage.from("hub-moodboards").remove([img.ruta]);
@@ -293,7 +358,8 @@ async function vistaMoodboard(id, params) {
         el("span", { style: { flex: 1 } }, el("strong", {}, p.para), el("span", { class: "secundario pequeno", style: { display: "block" } }, p.prompt)),
         el("button", { type: "button", class: "boton boton--borde", onclick: () => generarImagen(p.prompt) }, "Generar"))))) : null;
 
-    poner(mod.imagenes, cabeza("m-imagenes", "Imágenes de referencia"), zona, input, grid, ideas);
+    poner(mod.imagenes, cabeza("m-imagenes", "Imágenes de referencia",
+      el("button", { type: "button", class: "boton boton--borde no-print", onclick: abrirBuscador }, "🔍 Buscar fotos")), zona, input, grid, ideas);
   }
 
   // ----- Botón mágico -----
@@ -313,7 +379,7 @@ async function vistaMoodboard(id, params) {
         await Promise.all([0, 1, 2].map(async () => { while (cola.length) await generarImagen(cola.shift().prompt); }));
         avisar("ok", "Listo: revisa, cambia lo que quieras y descarga el PDF.");
       } else {
-        avisar("ok", r.imagenes_ia_disponibles ? "Listo." : "Listo. Para generar imágenes con IA falta configurar la clave del proveedor; mientras tanto arrastra tus referencias.");
+        avisar("ok", r.imagenes_ia_disponibles ? "Listo." : "Listo. Para generar imágenes con IA falta configurar Cloudflare; mientras tanto busca fotos en Pexels o arrastra tus referencias.");
       }
     } catch (e) {
       avisar("error", e.message);

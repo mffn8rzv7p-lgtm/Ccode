@@ -11,7 +11,7 @@ Solo entran correos **@pivotagencia.com** (también se verifica en la base de da
 | **Cotizador** | Del brief al precio ideal (piso, mercado y valor, 3 paquetes) que el equipo aprueba, y a la carta PIV-AAAA-NNN en PDF con su mensaje de WhatsApp. |
 | **Briefs** | Notas o transcripción de la reunión + secciones → la IA lo pule en un brief profesional con preguntas pendientes y riesgos. Desde ahí se cotiza, se crea el moodboard o la parrilla. |
 | **Parrillas** | La parrilla del mes en un calendario: una card por publicación, se arrastra entre días, se edita en un panel, avanza de idea a publicada y se puede llenar con IA. Reemplaza el Excel. |
-| **Moodboards** | Tablero con módulos fijos (concepto, palabras clave, colores, tipografías, estilos gráficos, imágenes). Imágenes por arrastre o desde el computador, y un botón mágico que lo llena con IA (incluidas imágenes generadas). |
+| **Moodboards** | Tablero con módulos fijos (concepto, palabras clave, colores, tipografías, estilos gráficos, imágenes). Imágenes por arrastre, desde el computador o buscando fotos gratis en Pexels, y un botón mágico que lo llena con IA (incluidas imágenes generadas con Cloudflare). |
 
 El registro de apps está en `web/assets/hub.js` y sus íconos en `web/assets/iconos.js`.
 
@@ -44,14 +44,17 @@ supabase link --project-ref EL-PROJECT-REF-DE-BONG
 supabase secrets set ANTHROPIC_API_KEY=... ORIGENES_PERMITIDOS=https://LA-DIRECCION-DE-BONG
 # Opcionales:
 supabase secrets set META_ACCESS_TOKEN=... META_IG_USER_ID=...   # auditoría automática (si no, con capturas)
-supabase secrets set OPENAI_API_KEY=...                          # imágenes con IA en el moodboard
+supabase secrets set CLOUDFLARE_ACCOUNT_ID=... CLOUDFLARE_API_TOKEN=...   # imágenes con IA (cupo diario gratis)
+supabase secrets set PEXELS_API_KEY=...                         # buscar fotos gratis en el moodboard
 supabase functions deploy hub-informe
 supabase functions deploy hub-cotizacion
 supabase functions deploy hub-ia
 ```
 
 - **Claude** (textos de todas las apps): clave en platform.claude.com → API Keys. Modelo: Claude Opus 5.5.
-- **Imágenes del moodboard:** por defecto usa OpenAI (`gpt-image-1`). Sin esa clave, el botón mágico llena colores, tipografías, estilos y deja las ideas de imágenes listas para generar cuando se configure.
+- **Imágenes con IA (Cloudflare Workers AI, gratis):** crea una cuenta en cloudflare.com, copia el **Account ID** (aparece en el panel) y crea un **API Token** con el permiso "Workers AI" (My Profile → API Tokens → Create Token → plantilla *Workers AI*). Modelo: FLUX.1 schnell. El plan gratuito da 10.000 "neuronas" al día; cuando se acaban, la generación falla ese día sin cobrar nada y se renueva a las 7 p. m. hora Colombia (medianoche UTC). Alternativa de pago: `IMAGENES_PROVEEDOR=openai` + `OPENAI_API_KEY`.
+- **Fotos de Pexels (gratis):** pide la clave en pexels.com/api (botón *Your API Key*, con una cuenta gratis). Uso comercial permitido; la app muestra el crédito del fotógrafo en cada foto. Límite por defecto: 200 búsquedas por hora y 20.000 al mes.
+- Sin estas claves, el botón mágico igual llena concepto, colores, tipografías y estilos, y deja las ideas de imágenes listas para generar.
 - **Instagram (Business Discovery):** cuenta de Instagram de Pivot profesional y conectada a su página de Facebook, una app en developers.facebook.com y una clave de larga duración (permisos según la documentación vigente: normalmente `instagram_basic`, `pages_show_list`, `pages_read_engagement`). Opcional: `META_GRAPH_VERSION` (por defecto `v23.0`).
 
 ### 3. Inicio de sesión
@@ -78,7 +81,7 @@ El código del Gestor es la versión compilada 1.4.1 de Bong (`web/gestor/`), co
 
 - **Supabase:** el plan actual de Bong. Si alguna generación con IA se corta por tiempo (1 a 3 minutos por etapa), el plan Pro amplía el tiempo de las funciones.
 - **Claude:** unos centavos de dólar por brief, parrilla o moodboard, y menos de un dólar por auditoría o cotización. Revisa el consumo real en la consola después de los primeros usos.
-- **Imágenes con IA:** se cobran por imagen en el proveedor (6 por botón mágico).
+- **Imágenes con IA y fotos:** gratis con Cloudflare (cupo diario) y Pexels. Solo si cambian a OpenAI se cobra por imagen.
 - **Meta:** gratis, con límites de consultas por hora.
 
 ## Archivos
