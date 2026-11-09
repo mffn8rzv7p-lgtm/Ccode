@@ -3,11 +3,11 @@
 //   POST { accion: "parrilla_generar", parrilla_id, frecuencia: { instagram: 3, ... }, reemplazar?: boolean }
 //   POST { accion: "moodboard_autofill", moodboard_id, descripcion? }
 //   POST { accion: "moodboard_imagen", moodboard_id, prompt }  → { ruta } (la página la agrega al moodboard)
-//   POST { accion: "fotos_buscar", consulta, pagina? }          → { fotos, hay_mas }   (Pexels)
-//   POST { accion: "fotos_agregar", moodboard_id, url }         → { ruta }             (copia la foto de Pexels)
+//   POST { accion: "fotos_buscar", consulta, pagina? }          → { fotos, hay_mas }   (Pixabay o Pexels)
+//   POST { accion: "fotos_agregar", moodboard_id, url }         → { ruta }             (copia la foto del banco)
 import { clienteDelEquipo, responder } from "../_shared/http.ts";
 import { ErrorGeneracion, generar } from "../_shared/claude.ts";
-import { buscarFotos, descargarFotoPexels, generarImagen, imagenesConfiguradas, pexelsConfigurado } from "./imagenes.ts";
+import { buscarFotos, descargarFoto, fotosConfiguradas, generarImagen, imagenesConfiguradas } from "./imagenes.ts";
 import {
   ESQUEMA_BRIEF,
   ESQUEMA_MOODBOARD,
@@ -133,7 +133,7 @@ Deno.serve(async (req) => {
         imagenes: actual.imagenes ?? [], // las imágenes subidas se conservan
         prompts_sugeridos: propuesta.imagenes,
         imagenes_ia_disponibles: imagenesConfiguradas(),
-        fotos_disponibles: pexelsConfigurado(),
+        fotos_disponibles: fotosConfiguradas(),
       };
       const { error } = await db.from("hub_moodboards").update({ datos }).eq("id", m.id);
       if (error) throw error;
@@ -159,8 +159,8 @@ Deno.serve(async (req) => {
     if (c.accion === "fotos_agregar") {
       const { data: m } = await db.from("hub_moodboards").select("id").eq("id", c.moodboard_id).single();
       if (!m) return responder(req, { error: "No encontré ese moodboard." }, 404);
-      const img = await descargarFotoPexels(String(c.url ?? ""));
-      const ruta = `${m.id}/pexels-${crypto.randomUUID()}.${img.extension}`;
+      const img = await descargarFoto(String(c.url ?? ""));
+      const ruta = `${m.id}/foto-${crypto.randomUUID()}.${img.extension}`;
       const { error } = await db.storage.from("hub-moodboards").upload(ruta, img.bytes, { contentType: img.tipo });
       if (error) throw error;
       return responder(req, { ok: true, ruta });

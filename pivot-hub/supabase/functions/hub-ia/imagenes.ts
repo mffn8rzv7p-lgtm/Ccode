@@ -1,6 +1,6 @@
 // Imágenes del moodboard: generación con IA y búsqueda de fotos de stock.
 //  - IA: Cloudflare Workers AI (FLUX.1 schnell, cupo diario gratuito). Alternativa: OpenAI con IMAGENES_PROVEEDOR=openai.
-//  - Fotos reales: Pexels (gratis, uso comercial permitido).
+//  - Fotos reales: Pixabay o Pexels (gratis, uso comercial permitido; las fotos se guardan en nuestro almacenamiento).
 import { decodeBase64 } from "jsr:@std/encoding@1.0.5/base64";
 import { ErrorGeneracion } from "../_shared/claude.ts";
 
@@ -55,57 +55,72 @@ async function conOpenAI(prompt: string): Promise<Imagen> {
   return { bytes: decodeBase64(b64), tipo: "image/png", extension: "png" };
 }
 
-// ---------- Pexels ----------
+// ---------- Bancos de fotos gratuitos: Pexels o Pixabay (el que tenga clave) ----------
 
-export const pexelsConfigurado = () => Boolean(Deno.env.get("PEXELS_API_KEY"));
+const fuenteFotos = (): "pexels" | "pixabay" | null =>
+  Deno.env.get("PEXELS_API_KEY") ? "pexels" : Deno.env.get("PIXABAY_API_KEY") ? "pixabay" : null;
 
-export interface FotoPexels {
+export const fotosConfiguradas = () => fuenteFotos() !== null;
+
+export interface Foto {
   id: number;
   miniatura: string;
   grande: string;
   autor: string;
-  autor_url: string;
   enlace: string;
   alt: string;
   color: string | null;
+  fuente: "Pexels" | "Pixabay";
 }
 
-export async function buscarFotos(consulta: string, pagina = 1): Promise<{ fotos: FotoPexels[]; hay_mas: boolean }> {
-  if (!pexelsConfigurado()) throw new ErrorGeneracion("La búsqueda de fotos no está configurada (falta la clave de Pexels).");
+export async function buscarFotos(consulta: string, pagina = 1): Promise<{ fotos: Foto[]; hay_mas: boolean }> {
+  const fuente = fuenteFotos();
+  if (!fuente) throw new ErrorGeneracion("La búsqueda de fotos no está configurada (falta la clave de Pixabay o Pexels).");
   const q = consulta.trim().slice(0, 100);
   if (!q) throw new ErrorGeneracion("Escribe qué fotos buscar.");
-  const url = new URL("https://api.pexels.com/v1/search");
-  url.searchParams.set("query", q);
-  url.searchParams.set("per_page", "18");
-  url.searchParams.set("page", String(Math.max(1, Math.min(50, Math.round(pagina)))));
-  url.searchParams.set("locale", "es-ES");
-  const resp = await fetch(url, { headers: { Authorization: Deno.env.get("PEXELS_API_KEY")! } });
-  if (resp.status === 429) throw new ErrorGeneracion("Pexels limitó las búsquedas por esta hora. Inténtalo más tarde.");
+  const p = String(Math.max(1, Math.min(50, Math.round(pagina))));
+
+  let resp: Response;
+  if (fuente === "pexels") {
+    const url = new URL("https://api.pexels.com/v1/search");
+    url.search = new URLSearchParams({ query: q, per_page: "18", page: p, locale: "es-ES" }).toString();
+    resp = await fetch(url, { headers: { Authorization: Deno.env.get("PEXELS_API_KEY")! } });
+  } else {
+    const url = new URL("https://pixabay.com/api/");
+    url.search = new URLSearchParams({ key: Deno.env.get("PIXABAY_API_KEY")!, q, per_page: "18", page: p, lang: "es", image_type: "photo", safesearch: "true" }).toString();
+    resp = await fetch(url);
+  }
+  if (resp.status === 429) throw new ErrorGeneracion("El banco de fotos limitó las búsquedas por un momento. Inténtalo en un minuto.");
   const cuerpo = await resp.json().catch(() => ({}));
   if (!resp.ok) {
-    console.error("pexels", resp.status);
-    throw new ErrorGeneracion("No se pudo buscar en Pexels. Inténtalo de nuevo.");
+    console.error(fuente, resp.status);
+    throw new ErrorGeneracion("No se pudo buscar fotos. Inténtalo de nuevo.");
+  }
+
+  if (fuente === "pexels") {
+    // deno-lint-ignore no-explicit-any
+    const fotos = (cuerpo.photos ?? []).map((f: any) => ({
+      id: f.id, miniatura: f.src?.medium, grande: f.src?.large2x ?? f.src?.large,
+      autor: f.photographer, enlace: f.url, alt: f.alt ?? "", color: f.avg_color ?? null, fuente: "Pexels" as const,
+    }));
+    return { fotos, hay_mas: Boolean(cuerpo.next_page) };
   }
   // deno-lint-ignore no-explicit-any
-  const fotos = (cuerpo.photos ?? []).map((f: any) => ({
-    id: f.id,
-    miniatura: f.src?.medium,
-    grande: f.src?.large2x ?? f.src?.large,
-    autor: f.photographer,
-    autor_url: f.photographer_url,
-    enlace: f.url,
-    alt: f.alt ?? "",
-    color: f.avg_color ?? null,
+  const fotos = (cuerpo.hits ?? []).map((f: any) => ({
+    id: f.id, miniatura: f.webformatURL, grande: f.largeImageURL ?? f.webformatURL,
+    autor: f.user, enlace: f.pageURL, alt: f.tags ?? "", color: null, fuente: "Pixabay" as const,
   }));
-  return { fotos, hay_mas: Boolean(cuerpo.next_page) };
+  return { fotos, hay_mas: Number(cuerpo.totalHits ?? 0) > Number(p) * 18 };
 }
 
-/** Descarga una foto de Pexels (solo de su servidor de imágenes) para guardarla en el moodboard. */
-export async function descargarFotoPexels(url: string): Promise<Imagen> {
+const HOSTS_FOTOS = ["images.pexels.com", "pixabay.com", "cdn.pixabay.com"];
+
+/** Descarga una foto del banco (solo de sus servidores) para guardarla en el moodboard. */
+export async function descargarFoto(url: string): Promise<Imagen> {
   let destino: URL;
   try { destino = new URL(url); } catch (_e) { throw new ErrorGeneracion("Dirección de foto inválida."); }
-  if (destino.protocol !== "https:" || destino.hostname !== "images.pexels.com") {
-    throw new ErrorGeneracion("Solo se pueden agregar fotos de Pexels.");
+  if (destino.protocol !== "https:" || !HOSTS_FOTOS.includes(destino.hostname)) {
+    throw new ErrorGeneracion("Solo se pueden agregar fotos de Pexels o Pixabay.");
   }
   const resp = await fetch(destino);
   const tipo = resp.headers.get("content-type")?.split(";")[0] ?? "";

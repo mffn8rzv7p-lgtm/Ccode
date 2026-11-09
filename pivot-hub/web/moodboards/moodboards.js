@@ -261,7 +261,7 @@ async function vistaMoodboard(id, params) {
     const agregadas = new Set();
 
     async function buscar(nueva = true) {
-      if (MODO_DEMO) return poner(aviso, el("p", { class: "mensaje mensaje--info" }, "En la demostración la búsqueda está apagada. Conecta Supabase y la clave de Pexels."));
+      if (MODO_DEMO) return poner(aviso, el("p", { class: "mensaje mensaje--info" }, "En la demostración la búsqueda está apagada. Conecta Supabase y la clave de Pixabay."));
       if (nueva) { pagina = 1; poner(resultados); }
       poner(aviso, el("p", { class: "secundario" }, "Buscando…"));
       try {
@@ -277,7 +277,7 @@ async function vistaMoodboard(id, params) {
             boton.classList.add("foto-resultado--agregando");
             try {
               const { ruta } = await invocar("hub-ia", { accion: "fotos_agregar", moodboard_id: fila.id, url: f.grande });
-              d.imagenes.push({ ruta, origen: "pexels", autor: f.autor, enlace: f.enlace, alt: f.alt });
+              d.imagenes.push({ ruta, origen: "foto", fuente: f.fuente, autor: f.autor, enlace: f.enlace, alt: f.alt });
               guardar();
               dibujarImagenes();
               boton.classList.replace("foto-resultado--agregando", "foto-resultado--agregada");
@@ -303,6 +303,7 @@ async function vistaMoodboard(id, params) {
       el("form", { class: "campo-precio", onsubmit: (e) => { e.preventDefault(); buscar(); } },
         consulta, el("button", { class: "boton boton--rojo", type: "submit" }, "Buscar")),
       el("p", { class: "secundario pequeno", style: { margin: 0 } }, "Toca una foto para agregarla al moodboard. Fotos gratuitas de ",
+        el("a", { href: "https://pixabay.com", target: "_blank", rel: "noopener" }, "Pixabay"), " y ",
         el("a", { href: "https://www.pexels.com", target: "_blank", rel: "noopener" }, "Pexels"), "."),
       aviso, resultados, mas,
     ));
@@ -342,8 +343,8 @@ async function vistaMoodboard(id, params) {
         urlImagen(img).then((u) => { if (u) foto.src = u; });
         return el("figure", { class: "imagen-mood", style: { margin: 0 } }, foto,
           img.origen === "ia" ? el("span", { class: "pildora pildora--aviso imagen-mood__ia" }, "IA") : null,
-          img.origen === "pexels" ? el("figcaption", { class: "imagen-mood__credito" },
-            "Foto: ", el("a", { href: img.enlace, target: "_blank", rel: "noopener" }, img.autor || "Pexels"), " · Pexels") : null,
+          img.origen === "pexels" || img.origen === "foto" ? el("figcaption", { class: "imagen-mood__credito" },
+            "Foto: ", el("a", { href: img.enlace, target: "_blank", rel: "noopener" }, img.autor || img.fuente || "Pexels"), ` · ${img.fuente ?? "Pexels"}`) : null,
           el("button", { type: "button", class: "imagen-mood__quitar no-print", "aria-label": "Quitar imagen", onclick: async () => {
             d.imagenes.splice(i, 1); guardar(); dibujarImagenes();
             if (img.ruta && !MODO_DEMO) await sb.storage.from("hub-moodboards").remove([img.ruta]);
@@ -379,7 +380,7 @@ async function vistaMoodboard(id, params) {
         await Promise.all([0, 1, 2].map(async () => { while (cola.length) await generarImagen(cola.shift().prompt); }));
         avisar("ok", "Listo: revisa, cambia lo que quieras y descarga el PDF.");
       } else {
-        avisar("ok", r.imagenes_ia_disponibles ? "Listo." : "Listo. Para generar imágenes con IA falta configurar Cloudflare; mientras tanto busca fotos en Pexels o arrastra tus referencias.");
+        avisar("ok", r.imagenes_ia_disponibles ? "Listo." : "Listo. Para generar imágenes con IA falta configurar Cloudflare; mientras tanto busca fotos o arrastra tus referencias.");
       }
     } catch (e) {
       avisar("error", e.message);
